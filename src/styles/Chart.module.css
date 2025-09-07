@@ -1,0 +1,39 @@
+.chartCard {
+  background-color: var(--background-dark);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.chartCard h3 {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+.chartContainer {
+  flex-grow: 1;
+  width: 100%;
+  height: 150px;
+}
+
+.topCrewsCard {
+  flex-grow: 1;
+  min-height: 250px;
+}
+
+.trendChartCard {
+  height: 250px;
+}
+
+.noData {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  color: var(--text-secondary);
+}
