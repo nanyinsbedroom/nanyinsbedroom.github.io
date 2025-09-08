@@ -17,7 +17,7 @@
 
 .chartContainer {
   width: 100%;
-  height: 220px; /* A consistent, good-looking height for all charts */
+  height: 220px;
 }
 
 .noData {

@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server';
 import { DashboardData, Account, RegionData, IndexData } from "@/lib/types";
 
-// This function fetches the latest data from the source.
+// This function fetches fresh data from the source repository.
 async function getDashboardData(): Promise<DashboardData> {
   const regionMap: Record<string, string> = {
     'asia_pacific': 'asia_pacific',
@@ -16,7 +16,7 @@ async function getDashboardData(): Promise<DashboardData> {
   const baseRepoUrl = 'https://raw.githubusercontent.com/Nan-Yin-s-Bedroom/tofgm-database/main';
 
   try {
-    // Adding { cache: 'no-store' } ensures you get the latest data every time.
+    // Using { cache: 'no-store' } tells Next.js to always get the latest version.
     const [indexRes, ...regionResponses] = await Promise.all([
       fetch(`${baseRepoUrl}/index.json`, { cache: 'no-store' }),
       ...regionKeys.map(key => fetch(`${baseRepoUrl}/accounts/${regionMap[key]}/accounts.json`, { cache: 'no-store' }))
@@ -57,7 +57,7 @@ async function getDashboardData(): Promise<DashboardData> {
   }
 }
 
-// This is the actual API route handler.
+// The handler for the GET request to this API endpoint.
 export async function GET() {
   const data = await getDashboardData();
   return NextResponse.json(data);

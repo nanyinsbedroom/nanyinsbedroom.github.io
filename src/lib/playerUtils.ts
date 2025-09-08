@@ -12,6 +12,7 @@ export interface RegionActivityData {
   total: number;
 }
 
+// Determines a player's activity status based on when they were last seen.
 export const getActivityStatus = (lastSeen: number): ActivityStatus => {
   const now = Date.now();
   const lastSeenMs = lastSeen * 1000;
@@ -28,25 +29,8 @@ export const getActivityStatus = (lastSeen: number): ActivityStatus => {
   }
 };
 
+// Calculates the total number of members in a given crew.
 export const getCrewMemberCount = (accounts: any[], crewName: string): number => {
   if (!crewName || crewName === 'N/A') return 0;
   return accounts.filter(acc => acc.crew_name === crewName).length;
-};
-
-export const getRegionalActivitySummary = (accounts: any[]): Record<string, RegionActivityData> => {
-  const summary = accounts.reduce((acc, player) => {
-    const region = player.server_region;
-    const activity = getActivityStatus(player.last_seen);
-    
-    if (!acc[region]) {
-      acc[region] = { online: 0, recent: 0, inactive: 0, dormant: 0, total: 0 };
-    }
-    
-    acc[region][activity.status]++;
-    acc[region].total++;
-    
-    return acc;
-  }, {} as Record<string, RegionActivityData>);
-  
-  return summary;
 };

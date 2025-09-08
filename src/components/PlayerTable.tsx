@@ -3,16 +3,15 @@
 import { useState, useEffect } from 'react';
 import { Account } from '@/lib/types';
 import { formatRelativeDate, formatRegionName } from '@/lib/formatters';
-// The 'getActivityStatus' import is no longer needed in the main component body
-import { getCrewMemberCount, getActivityStatus } from '@/lib/playerUtils'; 
+import { getCrewMemberCount } from '@/lib/playerUtils';
 import YearFilter from './YearFilter';
 import styles from '@/styles/PlayerTable.module.css';
 
 const PAGE_SIZE = 50;
 
-type SortConfig = { 
-  key: keyof Account | 'activity_status'; 
-  direction: 'asc' | 'desc' 
+type SortConfig = {
+  key: keyof Account | 'activity_status';
+  direction: 'asc' | 'desc'
 };
 
 interface PlayerTableProps {
@@ -40,12 +39,13 @@ export default function PlayerTable({
 }: PlayerTableProps) {
   const [visibleCount, setVisibleCount] = useState(PAGE_SIZE);
 
+  // Reset the visible count whenever the filters change.
   useEffect(() => {
     setVisibleCount(PAGE_SIZE);
   }, [accounts]);
 
   const handleSort = (key: keyof Account | 'activity_status') => {
-    const direction = 
+    const direction =
       sortConfig.key === key && sortConfig.direction === 'desc' ? 'asc' : 'desc';
     onSort({ key, direction });
   };
@@ -62,9 +62,9 @@ export default function PlayerTable({
           onChange={(e) => onSearch(e.target.value)}
           className={styles.searchInput}
         />
-        
+
         <div className={styles.filterToolbar}>
-          <YearFilter 
+          <YearFilter
             years={availableYears}
             selectedYear={selectedYear}
             onSelectYear={onSelectYear}
@@ -94,17 +94,14 @@ export default function PlayerTable({
               <th>Name</th>
               <th>Crew</th>
               <th>Region</th>
-              {/* --- "Status" Header REMOVED --- */}
               <th>Registered</th>
               <th>Last Seen</th>
             </tr>
           </thead>
           <tbody>
             {visibleAccounts.map((player) => {
-              // This calculation is no longer needed here
-              // const activityStatus = getActivityStatus(player.last_seen);
               const crewMemberCount = getCrewMemberCount(allAccounts, player.crew_name);
-              
+
               return (
                 <tr key={player.role_id}>
                   <td>
@@ -126,9 +123,6 @@ export default function PlayerTable({
                     </div>
                   </td>
                   <td>{formatRegionName(player.server_region)}</td>
-                  
-                  {/* --- "Status" TD Column REMOVED --- */}
-                  
                   <td>{formatRelativeDate(player.registered)}</td>
                   <td>{formatRelativeDate(player.last_seen * 1000)}</td>
                 </tr>

@@ -1,13 +1,9 @@
-/* styles/Dashboard.module.css */
-
 .dashboard {
   display: flex;
-  flex-direction: column; /* Mobile-first: sidebar is not visible */
+  flex-direction: column;
   width: 100%;
   max-width: 1800px;
   margin: 0 auto;
-  /* REMOVED: height: 100vh; */
-  /* REMOVED: overflow: hidden; */
 }
 
 .mainContent {
@@ -16,12 +12,8 @@
   flex-direction: column;
   gap: 1rem;
   width: 100%;
-  /* REMOVED: flex: 1; */
-  /* REMOVED: overflow-y: auto; */
-  /* REMOVED: min-height: 0; */
 }
 
-/* --- Mobile Header: Unchanged --- */
 .mobileHeader {
   display: flex;
   justify-content: space-between;
@@ -54,26 +46,13 @@
   color: var(--text-primary);
 }
 
-/* --- Desktop Header: Unchanged --- */
 .desktopHeader { display: none; }
 
-
-/* --- All height constraints and flex-grow properties are REMOVED --- */
-/* Let content determine its own height */
 .chartsGrid {
   display: grid;
   grid-template-columns: 1fr;
   gap: 1rem;
 }
-
-/* These wrappers no longer need sizing rules */
-.regionalActivityWrapper {
-  /* No special rules needed */
-}
-.playerTableWrapper {
-  /* No special rules needed */
-}
-
 
 @media (min-width: 768px) {
   .chartsGrid {
@@ -84,16 +63,14 @@
 @media (min-width: 1024px) {
   .dashboard {
     flex-direction: row;
-    /* Add alignment for sticky sidebar */
     align-items: flex-start;
     gap: 2rem;
     padding: 2rem;
   }
 
   .mainContent {
-    padding: 0; /* Padding is now on the .dashboard parent */
-    flex-grow: 1; /* Takes up remaining width */
-    /* REMOVED height and overflow rules */
+    padding: 0;
+    flex-grow: 1;
   }
 
   .mobileHeader {
@@ -108,7 +85,7 @@
   }
   .desktopHeader h1 { font-size: 2rem; }
   .desktopHeader p { color: var(--text-secondary); }
-  
+
   .chartsGrid {
     grid-template-columns: repeat(3, 1fr);
   }

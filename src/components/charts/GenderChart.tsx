@@ -7,7 +7,6 @@ import ClientOnly from '@/components/ClientOnly';
 
 const COLORS = ['var(--accent-cyan)', 'var(--accent-pink)'];
 
-// ... (rest of the component is the same, but provided for completeness)
 const renderCustomizedLabel = ({ cx, cy, midAngle, innerRadius, outerRadius, percent }: any) => {
     const radius = innerRadius + (outerRadius - innerRadius) * 0.5;
     const x = cx + radius * Math.cos(-midAngle * (Math.PI / 180));
@@ -19,7 +18,7 @@ const renderCustomizedLabel = ({ cx, cy, midAngle, innerRadius, outerRadius, per
       </text>
     );
   };
-  
+
   export default function GenderChart({ accounts }: { accounts: Account[] }) {
     const data = useMemo(() => {
       const maleCount = accounts.filter(acc => acc.gender === 0).length;
@@ -29,7 +28,7 @@ const renderCustomizedLabel = ({ cx, cy, midAngle, innerRadius, outerRadius, per
         { name: 'Female', value: femaleCount },
       ];
     }, [accounts]);
-  
+
     return (
       <div className={styles.chartCard}>
         <h3>Gender Distribution</h3>

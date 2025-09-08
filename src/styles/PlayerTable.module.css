@@ -8,20 +8,16 @@
   gap: 1rem;
 }
 
-/* --- UPDATED STYLES FOR THE TOOLBAR --- */
-
-/* The main toolbar container */
 .controlsContainer {
   display: flex;
-  flex-direction: column; /* Stacks on mobile */
+  flex-direction: column;
   gap: 1rem;
   flex-shrink: 0;
 }
 
-/* New wrapper for all button groups */
 .filterToolbar {
   display: flex;
-  flex-direction: column; /* Stacks on mobile */
+  flex-direction: column;
   gap: 1rem;
 }
 
@@ -36,34 +32,29 @@
   flex-shrink: 0;
 }
 
-.searchInput:focus { 
-  outline: none; 
-  border-color: var(--accent-blue); 
+.searchInput:focus {
+  outline: none;
+  border-color: var(--accent-blue);
 }
 
-/* Base style for a button group container */
-.sortControls { 
+.sortControls {
   display: flex;
 }
 
-/* New "Segmented Control" button style */
 .sortButton {
   padding: 0.75rem 1rem;
   border: 1px solid var(--border-color);
   background-color: transparent;
   color: var(--text-secondary);
-  border-radius: 0; /* Remove individual radius */
+  border-radius: 0;
   cursor: pointer;
   transition: all 0.2s ease;
   font-size: 0.9rem;
   font-weight: 500;
   white-space: nowrap;
-  
-  /* Collapse borders together */
-  margin-left: -1px; 
+  margin-left: -1px;
 }
 
-/* Style the first and last buttons in a group to give the group a radius */
 .sortControls .sortButton:first-child {
   margin-left: 0;
   border-top-left-radius: 6px;
@@ -74,10 +65,10 @@
   border-bottom-right-radius: 6px;
 }
 
-.sortButton:hover { 
-  color: var(--text-primary); 
+.sortButton:hover {
+  color: var(--text-primary);
   border-color: var(--accent-blue);
-  z-index: 1; /* Bring button to the front on hover */
+  z-index: 1;
   position: relative;
 }
 
@@ -86,22 +77,19 @@
   color: var(--background-dark);
   border-color: var(--accent-blue);
   font-weight: 600;
-  z-index: 2; /* Active button is always on top */
+  z-index: 2;
   position: relative;
 }
 
-/* --- END OF UPDATED STYLES --- */
-
-
-.tableContainer { 
+.tableContainer {
   border: 1px solid var(--border-color);
   border-radius: 6px;
-  overflow-x: auto; /* Allow horizontal scroll on small screens for the table */
+  overflow-x: auto;
 }
 
-.table { 
-  width: 100%; 
-  border-collapse: collapse; 
+.table {
+  width: 100%;
+  border-collapse: collapse;
 }
 
 .table th, .table td {
@@ -121,17 +109,17 @@
   z-index: 1;
 }
 
-.footer { 
-  text-align: center; 
+.footer {
+  text-align: center;
   flex-shrink: 0;
   padding-top: 1rem;
   border-top: 1px solid var(--border-color);
 }
 
-.note { 
-  font-size: 0.9rem; 
-  color: var(--text-secondary); 
-  margin-bottom: 1rem; 
+.note {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  margin-bottom: 1rem;
 }
 
 .loadMoreButton {
@@ -143,8 +131,8 @@
   cursor: pointer;
 }
 
-.loadMoreButton:hover { 
-  background-color: var(--border-color); 
+.loadMoreButton:hover {
+  background-color: var(--border-color);
 }
 
 .playerName { display: flex; flex-direction: column; gap: 0.25rem; }
@@ -154,23 +142,20 @@
 .memberCount { font-size: 0.75rem; color: var(--text-secondary); font-style: italic; }
 .statusBadge { font-size: 0.8rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; }
 
-
-/* Media query for tablet and desktop layouts */
 @media (min-width: 768px) {
-  /* Arrange the toolbar horizontally */
   .controlsContainer {
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
   }
-  
+
   .filterToolbar {
     flex-direction: row;
     align-items: center;
   }
-  
+
   .searchInput {
-    width: 300px; /* Give search a fixed width on larger screens */
+    width: 300px;
   }
 }
 
@@ -179,7 +164,7 @@
     padding: 0.5rem;
     font-size: 0.85rem;
   }
-  
+
   .sortButton {
     padding: 0.5rem 0.75rem;
     font-size: 0.8rem;

@@ -4,9 +4,9 @@ import { formatRegionName } from '@/lib/formatters';
 import styles from '@/styles/Sidebar.module.css';
 
 const socialLinks = [
-  { href: "https://github.com/nanyinsbedroom", icon: FaGithub, label: "Follow on GitHub" },
-  { href: "https://discord.gg/Bs5cPKumFX", icon: FaDiscord, label: "Join our Discord" },
-  { href: "mailto:soevielofficial@gmail.com", icon: FaEnvelope, label: "Contact Us" },
+  { href: "https://github.com/nanyinsbedroom", icon: FaGithub, label: "GitHub" },
+  { href: "https://discord.gg/Bs5cPKumFX", icon: FaDiscord, label: "Discord" },
+  { href: "mailto:soevielofficial@gmail.com", icon: FaEnvelope, label: "Contact" },
 ];
 
 interface SidebarProps {

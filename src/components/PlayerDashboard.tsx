@@ -6,16 +6,15 @@ import { useMediaQuery } from '@/lib/useMediaQuery';
 import { getActivityStatus } from '@/lib/playerUtils';
 import Sidebar from './Sidebar';
 import PlayerTable from './PlayerTable';
-// import RegionalActivitySummary from './RegionalActivitySummary'; // No longer needed
 import GenderChart from './charts/GenderChart';
 import RegistrationChart from './charts/RegistrationChart';
 import MonthlyActiveChart from './charts/MonthlyActiveChart';
 import { FaBars, FaSync } from 'react-icons/fa';
 import styles from '@/styles/Dashboard.module.css';
 
-type SortConfig = { 
-  key: keyof Account | 'activity_status'; 
-  direction: 'asc' | 'desc' 
+type SortConfig = {
+  key: keyof Account | 'activity_status';
+  direction: 'asc' | 'desc'
 };
 
 const REGIONS = ['All Regions', 'asia_pacific', 'europe', 'north_america', 'south_america', 'southeast_asia', 'korea'];
@@ -29,6 +28,7 @@ export default function PlayerDashboard({ initialData }: { initialData: Dashboar
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const isMobile = useMediaQuery(1023);
 
+  // Periodically fetches fresh data to keep the dashboard up to date.
   useEffect(() => {
     const refreshData = async () => {
       try {
@@ -41,10 +41,12 @@ export default function PlayerDashboard({ initialData }: { initialData: Dashboar
         console.error("Error during auto-refresh:", error);
       }
     };
-    const intervalId = setInterval(refreshData, 300000);
+    // The data source only updates once per day, so a 1-hour interval is plenty.
+    const intervalId = setInterval(refreshData, 3600000); // 1 hour
     return () => clearInterval(intervalId);
   }, []);
 
+  // Calculates the number of players in each region.
   const regionCounts = useMemo(() => {
     const counts: Record<string, number> = { 'All Regions': dashboardData.index.total_accounts };
     REGIONS.slice(1).forEach(region => {
@@ -53,11 +55,13 @@ export default function PlayerDashboard({ initialData }: { initialData: Dashboar
     return counts;
   }, [dashboardData.accounts, dashboardData.index.total_accounts]);
 
+  // Gets a unique, sorted list of years players have registered.
   const availableYears = useMemo(() => {
     const years = new Set(dashboardData.accounts.map(acc => new Date(acc.registered).getFullYear().toString()));
     return Array.from(years).sort((a, b) => parseInt(b) - parseInt(a));
   }, [dashboardData.accounts]);
 
+  // Filters the accounts based on the user's selections.
   const filteredAccounts = useMemo(() => {
     let accountsToFilter = dashboardData.accounts;
 
@@ -78,6 +82,7 @@ export default function PlayerDashboard({ initialData }: { initialData: Dashboar
     return accountsToFilter;
   }, [dashboardData.accounts, selectedRegion, selectedYear, searchQuery]);
 
+  // Sorts the already filtered accounts.
   const sortedAccounts = useMemo(() => {
     return [...filteredAccounts].sort((a, b) => {
       let aValue: any;
@@ -87,12 +92,9 @@ export default function PlayerDashboard({ initialData }: { initialData: Dashboar
         const statusOrder = { online: 0, recent: 1, inactive: 2, dormant: 3 };
         aValue = statusOrder[getActivityStatus(a.last_seen).status as keyof typeof statusOrder];
         bValue = statusOrder[getActivityStatus(b.last_seen).status as keyof typeof statusOrder];
-      } else if (sortConfig.key === 'registered') {
-        aValue = new Date(a.registered).getTime();
-        bValue = new Date(b.registered).getTime();
-      } else if (sortConfig.key === 'last_seen') {
-        aValue = a.last_seen;
-        bValue = b.last_seen;
+      } else if (sortConfig.key === 'registered' || sortConfig.key === 'last_seen') {
+        aValue = new Date(a[sortConfig.key] as string).getTime();
+        bValue = new Date(b[sortConfig.key] as string).getTime();
       } else {
         aValue = a[sortConfig.key];
         bValue = b[sortConfig.key];
@@ -101,12 +103,13 @@ export default function PlayerDashboard({ initialData }: { initialData: Dashboar
       if (typeof aValue === 'string') aValue = aValue.toLowerCase();
       if (typeof bValue === 'string') bValue = bValue.toLowerCase();
 
-      return sortConfig.direction === 'asc' 
+      return sortConfig.direction === 'asc'
         ? (aValue < bValue ? -1 : aValue > bValue ? 1 : 0)
         : (aValue > bValue ? -1 : aValue < bValue ? 1 : 0);
     });
   }, [filteredAccounts, sortConfig]);
 
+  // Calculates the top crews based on the currently filtered players.
   const topCrewsData = useMemo(() => {
     const crewCounts: { [key: string]: number } = {};
     filteredAccounts.forEach(acc => {
@@ -120,6 +123,7 @@ export default function PlayerDashboard({ initialData }: { initialData: Dashboar
       .slice(0, 5);
   }, [filteredAccounts]);
 
+  // Prepares data for the monthly active players chart.
   const monthlyActiveData = useMemo(() => {
     const activity = new Map<string, Set<number>>();
     dashboardData.accounts.forEach(acc => {
@@ -148,7 +152,7 @@ export default function PlayerDashboard({ initialData }: { initialData: Dashboar
         <div className={styles.mobileHeader}>
           <h1>Player Dashboard</h1>
           <div className={styles.headerActions}>
-            <button onClick={handleRefresh} className={styles.refreshButton}><FaSync /> Refresh Data</button>
+            <button onClick={handleRefresh} className={styles.refreshButton}><FaSync /> Refresh</button>
             <button onClick={() => setSidebarOpen(true)} className={styles.mobileMenuButton}><FaBars /> Menu</button>
           </div>
         </div>
@@ -172,11 +176,9 @@ export default function PlayerDashboard({ initialData }: { initialData: Dashboar
               <h1>Player Dashboard</h1>
               <p>Last Updated: {new Date(dashboardData.index.last_update * 1000).toLocaleString()}</p>
             </div>
-            <button onClick={handleRefresh} className={styles.refreshButton}><FaSync /> Refresh Data</button>
+            <button onClick={handleRefresh} className={styles.refreshButton}><FaSync /> Refresh</button>
           </div>
         )}
-        
-        {/* --- Regional Activity Component has been REMOVED from here --- */}
 
         <div className={styles.chartsGrid}>
           <GenderChart accounts={filteredAccounts} />
@@ -184,19 +186,17 @@ export default function PlayerDashboard({ initialData }: { initialData: Dashboar
           <MonthlyActiveChart data={monthlyActiveData} />
         </div>
 
-        <div className={styles.playerTableWrapper}>
-          <PlayerTable
-            accounts={sortedAccounts}
-            allAccounts={dashboardData.accounts}
-            sortConfig={sortConfig}
-            onSort={setSortConfig}
-            searchQuery={searchQuery}
-            onSearch={setSearchQuery}
-            availableYears={availableYears}
-            selectedYear={selectedYear}
-            onSelectYear={setSelectedYear}
-          />
-        </div>
+        <PlayerTable
+          accounts={sortedAccounts}
+          allAccounts={dashboardData.accounts}
+          sortConfig={sortConfig}
+          onSort={setSortConfig}
+          searchQuery={searchQuery}
+          onSearch={setSearchQuery}
+          availableYears={availableYears}
+          selectedYear={selectedYear}
+          onSelectYear={setSelectedYear}
+        />
       </div>
     </div>
   );

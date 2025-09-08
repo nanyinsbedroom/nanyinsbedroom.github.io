@@ -1,7 +1,7 @@
 import PlayerDashboard from '@/components/PlayerDashboard';
 import { DashboardData, Account, RegionData, IndexData } from "@/lib/types";
 
-// --- This function runs on the server to fetch data before the page loads ---
+// Fetches all player data from the GitHub repository when the page is first built.
 async function getDashboardData(): Promise<DashboardData> {
   const regionMap: Record<string, string> = {
     'asia_pacific': 'asia_pacific',
@@ -36,7 +36,7 @@ async function getDashboardData(): Promise<DashboardData> {
 
     const allAccounts: Account[] = allAccountsArrays.flat();
 
-    // Use a Map to ensure all players are unique by their role_id
+    // Use a Map to filter out any duplicate players based on their role_id.
     const uniqueAccountsMap = new Map<number, Account>();
     allAccounts.forEach(account => {
       uniqueAccountsMap.set(account.role_id, account);
@@ -44,28 +44,26 @@ async function getDashboardData(): Promise<DashboardData> {
 
     const processedAccounts = Array.from(uniqueAccountsMap.values());
 
-    // Use the actual processed count instead of the GitHub index count
+    // We use the count of our processed list to ensure it's accurate.
     return {
       index: {
         ...indexData,
-        total_accounts: processedAccounts.length // This will show 1,141 instead of 1,122
+        total_accounts: processedAccounts.length
       },
       accounts: processedAccounts
     };
 
   } catch (error) {
     console.error("Failed to fetch dashboard data:", error);
-    // Return empty data on failure to prevent the site from crashing
+    // Return empty data if the fetch fails so the site doesn't crash.
     return { index: { total_accounts: 0, last_update: 0 }, accounts: [] };
   }
 }
 
-// --- The Page Component ---
+// This is the main page of the application.
 export default async function Home() {
   const data = await getDashboardData();
 
-  // The layout.tsx already provides the <html> and <body> tags.
-  // We just return the dashboard component with the server-fetched data.
   return (
     <PlayerDashboard initialData={data} />
   );
