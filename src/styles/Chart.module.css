@@ -1,5 +1,5 @@
 .chartCard {
-  background-color: var(--background-dark);
+  background-color: var(--background-light);
   border: 1px solid var(--border-color);
   border-radius: 8px;
   padding: 1rem;
@@ -16,18 +16,8 @@
 }
 
 .chartContainer {
-  flex-grow: 1;
   width: 100%;
-  height: 150px;
-}
-
-.topCrewsCard {
-  flex-grow: 1;
-  min-height: 250px;
-}
-
-.trendChartCard {
-  height: 250px;
+  height: 220px; /* A consistent, good-looking height for all charts */
 }
 
 .noData {
@@ -36,4 +26,5 @@
   justify-content: center;
   height: 100%;
   color: var(--text-secondary);
+  font-style: italic;
 }

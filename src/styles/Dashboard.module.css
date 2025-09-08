@@ -1,114 +1,115 @@
+/* styles/Dashboard.module.css */
+
 .dashboard {
+  display: flex;
+  flex-direction: column; /* Mobile-first: sidebar is not visible */
   width: 100%;
   max-width: 1800px;
-  min-height: 95vh;
-  background-color: var(--background-light);
-  border: 1px solid var(--border-color);
-  border-radius: 12px;
-  padding: 1.25rem;
-  display: flex;
-  flex-direction: column;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  margin: 0 auto;
+  /* REMOVED: height: 100vh; */
+  /* REMOVED: overflow: hidden; */
 }
 
-.header {
-  margin-bottom: 1.25rem;
+.mainContent {
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  width: 100%;
+  /* REMOVED: flex: 1; */
+  /* REMOVED: overflow-y: auto; */
+  /* REMOVED: min-height: 0; */
+}
+
+/* --- Mobile Header: Unchanged --- */
+.mobileHeader {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  padding: 1rem;
+  background-color: var(--background-light);
+  border-bottom: 1px solid var(--border-color);
+  position: sticky;
+  top: 0;
+  z-index: 10;
   flex-shrink: 0;
 }
-
-.header h1 { font-size: 1.75rem; font-weight: 700; }
-.header p { color: var(--text-secondary); }
-
-.grid {
-  display: grid;
-  grid-template-columns: 280px 1fr;
-  gap: 1.25rem;
-  flex-grow: 1;
-  overflow: hidden;
-}
-
-.sidebar {
-  height: calc(100vh - 5rem);
+.mobileHeader h1 { font-size: 1.5rem; font-weight: 600; }
+.headerActions { display: flex; align-items: center; gap: 0.75rem; }
+.refreshButton, .mobileMenuButton {
   display: flex;
-  flex-direction: column;
-  gap: 1.25rem;
-}
-
-.sidebarSection { flex-shrink: 0; }
-.sidebarScrollable {
-    flex-grow: 1;
-    overflow-y: auto;
-    display: flex;
-    flex-direction: column;
-    gap: 1.25rem;
-    padding-right: 10px;
-}
-.sidebarFooter { margin-top: auto; }
-
-.card {
-  background-color: var(--background-dark);
-  border: 1px solid var(--border-color);
-  border-radius: 8px;
-  padding: 1rem;
-}
-
-.card h3 { font-size: 0.9rem; font-weight: 600; color: var(--text-secondary); margin-bottom: 0.5rem; }
-.metric { font-size: 2.25rem; font-weight: 700; color: var(--accent-blue); }
-
-.regionNav ul { list-style: none; }
-.regionNav button {
-  width: 100%;
-  padding: 0.75rem 1rem;
-  border-radius: 6px;
-  border: none;
-  background-color: transparent;
-  color: var(--text-primary);
-  text-align: left;
-  cursor: pointer;
-  transition: background-color 0.2s;
-  font-size: 1rem;
-  display: flex;
-  justify-content: space-between;
   align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  background: var(--background-dark);
+  border: 1px solid var(--border-color);
+  color: var(--text-secondary);
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s ease;
 }
-.regionNav button:hover { background-color: rgba(255, 255, 255, 0.05); }
-.regionNav button.active { background-color: var(--accent-blue); color: var(--background-dark); font-weight: 600; }
-.regionCount { font-size: 0.8rem; font-weight: 400; opacity: 0.7; }
-.regionNav button.active .regionCount { opacity: 1; }
+.refreshButton:hover, .mobileMenuButton:hover {
+  border-color: var(--text-primary);
+  color: var(--text-primary);
+}
 
-.socialCard {
-    padding-top: 1.25rem;
-    border-top: 1px solid var(--border-color);
+/* --- Desktop Header: Unchanged --- */
+.desktopHeader { display: none; }
+
+
+/* --- All height constraints and flex-grow properties are REMOVED --- */
+/* Let content determine its own height */
+.chartsGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+}
+
+/* These wrappers no longer need sizing rules */
+.regionalActivityWrapper {
+  /* No special rules needed */
+}
+.playerTableWrapper {
+  /* No special rules needed */
+}
+
+
+@media (min-width: 768px) {
+  .chartsGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .dashboard {
+    flex-direction: row;
+    /* Add alignment for sticky sidebar */
+    align-items: flex-start;
+    gap: 2rem;
+    padding: 2rem;
+  }
+
+  .mainContent {
+    padding: 0; /* Padding is now on the .dashboard parent */
+    flex-grow: 1; /* Takes up remaining width */
+    /* REMOVED height and overflow rules */
+  }
+
+  .mobileHeader {
+    display: none;
+  }
+
+  .desktopHeader {
     display: flex;
-    flex-direction: column;
-    gap: 0.75rem;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+  }
+  .desktopHeader h1 { font-size: 2rem; }
+  .desktopHeader p { color: var(--text-secondary); }
+  
+  .chartsGrid {
+    grid-template-columns: repeat(3, 1fr);
+  }
 }
-.socialButton { display: flex; align-items: center; gap: 0.75rem; padding: 0.75rem 1rem; border-radius: 6px; background-color: var(--background-dark); border: 1px solid var(--border-color); color: var(--text-secondary); transition: all 0.2s ease; }
-.socialButton:hover { border-color: var(--accent-blue); color: var(--text-primary); background-color: var(--background-light); }
-
-.mainContent { display: grid; grid-template-rows: auto auto 1fr; gap: 1.25rem; }
-.chartsGrid { display: grid; grid-template-columns: 1fr 2fr; gap: 1.25rem; }
-.tableCard { display: flex; flex-direction: column; background-color: var(--background-dark); border: 1px solid var(--border-color); border-radius: 8px; padding: 1rem; }
-.controlsContainer { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; }
-.searchInput { flex-grow: 1; background-color: var(--background-light); border: 1px solid var(--border-color); border-radius: 6px; padding: 0.75rem 1rem; color: var(--text-primary); font-size: 1rem; }
-.searchInput:focus { outline: none; border-color: var(--accent-blue); }
-
-.sortControls { display: flex; gap: 0.5rem; margin-left: 1rem; }
-.sortButton { padding: 0.75rem 1rem; border: 1px solid var(--border-color); background-color: var(--background-light); color: var(--text-secondary); border-radius: 6px; cursor: pointer; transition: all 0.2s; }
-.sortButton:hover { border-color: var(--text-secondary); color: var(--text-primary); }
-.sortButton.active { background-color: var(--accent-blue); color: var(--background-dark); border-color: var(--accent-blue); font-weight: 600; }
-
-.tableContainer { flex-grow: 1; overflow-y: auto; }
-.tableContainer table { width: 100%; border-collapse: collapse; }
-.tableContainer th, .tableContainer td { padding: 0.75rem 1rem; text-align: left; border-bottom: 1px solid var(--border-color); white-space: nowrap; }
-.tableContainer th { font-size: 0.8rem; color: var(--text-secondary); text-transform: uppercase; font-weight: 600; }
-.tableContainer tbody tr:last-child td { border-bottom: none; }
-.tableContainer tbody tr:hover { background-color: rgba(255,255,255, 0.03); }
-
-.tableNote { padding: 0.5rem 1rem 0; font-size: 0.9rem; color: var(--text-secondary); }
-.loadMoreContainer { padding-top: 1rem; display: flex; justify-content: center; }
-.loadMoreButton { padding: 0.75rem 1.5rem; border-radius: 6px; border: 1px solid var(--border-color); background-color: var(--background-light); color: var(--text-primary); cursor: pointer; transition: background-color 0.2s; }
-.loadMoreButton:hover { background-color: var(--border-color); }

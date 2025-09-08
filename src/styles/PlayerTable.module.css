@@ -1,0 +1,187 @@
+.card {
+  background-color: var(--background-light);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+/* --- UPDATED STYLES FOR THE TOOLBAR --- */
+
+/* The main toolbar container */
+.controlsContainer {
+  display: flex;
+  flex-direction: column; /* Stacks on mobile */
+  gap: 1rem;
+  flex-shrink: 0;
+}
+
+/* New wrapper for all button groups */
+.filterToolbar {
+  display: flex;
+  flex-direction: column; /* Stacks on mobile */
+  gap: 1rem;
+}
+
+.searchInput {
+  width: 100%;
+  background-color: var(--background-dark);
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  padding: 0.75rem 1rem;
+  color: var(--text-primary);
+  font-size: 1rem;
+  flex-shrink: 0;
+}
+
+.searchInput:focus { 
+  outline: none; 
+  border-color: var(--accent-blue); 
+}
+
+/* Base style for a button group container */
+.sortControls { 
+  display: flex;
+}
+
+/* New "Segmented Control" button style */
+.sortButton {
+  padding: 0.75rem 1rem;
+  border: 1px solid var(--border-color);
+  background-color: transparent;
+  color: var(--text-secondary);
+  border-radius: 0; /* Remove individual radius */
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-size: 0.9rem;
+  font-weight: 500;
+  white-space: nowrap;
+  
+  /* Collapse borders together */
+  margin-left: -1px; 
+}
+
+/* Style the first and last buttons in a group to give the group a radius */
+.sortControls .sortButton:first-child {
+  margin-left: 0;
+  border-top-left-radius: 6px;
+  border-bottom-left-radius: 6px;
+}
+.sortControls .sortButton:last-child {
+  border-top-right-radius: 6px;
+  border-bottom-right-radius: 6px;
+}
+
+.sortButton:hover { 
+  color: var(--text-primary); 
+  border-color: var(--accent-blue);
+  z-index: 1; /* Bring button to the front on hover */
+  position: relative;
+}
+
+.sortButton.active {
+  background-color: var(--accent-blue);
+  color: var(--background-dark);
+  border-color: var(--accent-blue);
+  font-weight: 600;
+  z-index: 2; /* Active button is always on top */
+  position: relative;
+}
+
+/* --- END OF UPDATED STYLES --- */
+
+
+.tableContainer { 
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  overflow-x: auto; /* Allow horizontal scroll on small screens for the table */
+}
+
+.table { 
+  width: 100%; 
+  border-collapse: collapse; 
+}
+
+.table th, .table td {
+  padding: 0.75rem 1rem;
+  text-align: left;
+  border-bottom: 1px solid var(--border-color);
+  white-space: nowrap;
+}
+
+.table th {
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  position: sticky;
+  top: 0;
+  background-color: var(--background-light);
+  z-index: 1;
+}
+
+.footer { 
+  text-align: center; 
+  flex-shrink: 0;
+  padding-top: 1rem;
+  border-top: 1px solid var(--border-color);
+}
+
+.note { 
+  font-size: 0.9rem; 
+  color: var(--text-secondary); 
+  margin-bottom: 1rem; 
+}
+
+.loadMoreButton {
+  padding: 0.75rem 1.5rem;
+  border-radius: 6px;
+  border: 1px solid var(--border-color);
+  background-color: var(--background-dark);
+  color: var(--text-primary);
+  cursor: pointer;
+}
+
+.loadMoreButton:hover { 
+  background-color: var(--border-color); 
+}
+
+.playerName { display: flex; flex-direction: column; gap: 0.25rem; }
+.roleId { font-size: 0.7rem; color: var(--text-secondary); font-family: monospace; }
+.crewInfo { display: flex; flex-direction: column; gap: 0.25rem; }
+.crewName { color: var(--text-primary); }
+.memberCount { font-size: 0.75rem; color: var(--text-secondary); font-style: italic; }
+.statusBadge { font-size: 0.8rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; }
+
+
+/* Media query for tablet and desktop layouts */
+@media (min-width: 768px) {
+  /* Arrange the toolbar horizontally */
+  .controlsContainer {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+  }
+  
+  .filterToolbar {
+    flex-direction: row;
+    align-items: center;
+  }
+  
+  .searchInput {
+    width: 300px; /* Give search a fixed width on larger screens */
+  }
+}
+
+@media (max-width: 768px) {
+  .table th, .table td {
+    padding: 0.5rem;
+    font-size: 0.85rem;
+  }
+  
+  .sortButton {
+    padding: 0.5rem 0.75rem;
+    font-size: 0.8rem;
+  }
+}

@@ -1,7 +1,7 @@
-import PlayerDashboard from '@/components/PlayerDashboard';
+import { NextResponse } from 'next/server';
 import { DashboardData, Account, RegionData, IndexData } from "@/lib/types";
 
-// --- This function runs on the server to fetch data before the page loads ---
+// This function fetches the latest data from the source.
 async function getDashboardData(): Promise<DashboardData> {
   const regionMap: Record<string, string> = {
     'asia_pacific': 'asia_pacific',
@@ -16,9 +16,10 @@ async function getDashboardData(): Promise<DashboardData> {
   const baseRepoUrl = 'https://raw.githubusercontent.com/Nan-Yin-s-Bedroom/tofgm-database/main';
 
   try {
+    // Adding { cache: 'no-store' } ensures you get the latest data every time.
     const [indexRes, ...regionResponses] = await Promise.all([
-      fetch(`${baseRepoUrl}/index.json`),
-      ...regionKeys.map(key => fetch(`${baseRepoUrl}/accounts/${regionMap[key]}/accounts.json`))
+      fetch(`${baseRepoUrl}/index.json`, { cache: 'no-store' }),
+      ...regionKeys.map(key => fetch(`${baseRepoUrl}/accounts/${regionMap[key]}/accounts.json`, { cache: 'no-store' }))
     ]);
 
     const indexData: IndexData = await indexRes.json();
@@ -35,8 +36,6 @@ async function getDashboardData(): Promise<DashboardData> {
     );
 
     const allAccounts: Account[] = allAccountsArrays.flat();
-
-    // Use a Map to ensure all players are unique by their role_id
     const uniqueAccountsMap = new Map<number, Account>();
     allAccounts.forEach(account => {
       uniqueAccountsMap.set(account.role_id, account);
@@ -44,29 +43,22 @@ async function getDashboardData(): Promise<DashboardData> {
 
     const processedAccounts = Array.from(uniqueAccountsMap.values());
 
-    // Use the actual processed count instead of the GitHub index count
     return {
       index: {
         ...indexData,
-        total_accounts: processedAccounts.length // This will show 1,141 instead of 1,122
+        total_accounts: processedAccounts.length
       },
       accounts: processedAccounts
     };
 
   } catch (error) {
-    console.error("Failed to fetch dashboard data:", error);
-    // Return empty data on failure to prevent the site from crashing
+    console.error("Failed to fetch dashboard data in API route:", error);
     return { index: { total_accounts: 0, last_update: 0 }, accounts: [] };
   }
 }
 
-// --- The Page Component ---
-export default async function Home() {
+// This is the actual API route handler.
+export async function GET() {
   const data = await getDashboardData();
-
-  // The layout.tsx already provides the <html> and <body> tags.
-  // We just return the dashboard component with the server-fetched data.
-  return (
-    <PlayerDashboard initialData={data} />
-  );
+  return NextResponse.json(data);
 }

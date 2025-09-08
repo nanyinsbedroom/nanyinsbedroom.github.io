@@ -1,0 +1,108 @@
+/* styles/Sidebar.module.css */
+
+/* --- Mobile styles are unchanged, they use 'position: fixed' which is correct --- */
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  background-color: var(--background-light);
+  padding: 1rem;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 300px;
+  height: 100%;
+  z-index: 100;
+  transform: translateX(-100%);
+  transition: transform 0.3s ease-in-out;
+  border-right: 1px solid var(--border-color);
+  box-shadow: 0 0 20px rgba(0,0,0,0.3);
+}
+.sidebarOpen { transform: translateX(0); }
+.sidebarHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.sidebarHeader h2 { font-size: 1.25rem; }
+.closeButton { background: none; border: none; color: var(--text-secondary); cursor: pointer; padding: 0.5rem; }
+.scrollableContent {
+  flex-grow: 1;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+.card {
+  background-color: var(--background-dark);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  padding: 1rem;
+}
+.card h3 {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  margin-bottom: 0.5rem;
+}
+.metric {
+  font-size: 2.25rem;
+  font-weight: 700;
+  color: var(--accent-blue);
+}
+.regionNav ul { list-style: none; }
+.regionNav button {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border-radius: 6px;
+  border: none;
+  background-color: transparent;
+  color: var(--text-primary);
+  text-align: left;
+  cursor: pointer;
+  font-size: 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.regionNav button:hover { background-color: rgba(255, 255, 255, 0.05); }
+.regionNav button.active {
+  background-color: var(--accent-blue);
+  color: var(--background-dark);
+  font-weight: 600;
+}
+.regionCount { font-size: 0.8rem; opacity: 0.7; }
+.socialCard {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--border-color);
+}
+.socialButton {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem 1rem;
+  border-radius: 6px;
+  background-color: var(--background-dark);
+  border: 1px solid var(--border-color);
+  color: var(--text-secondary);
+  transition: all 0.2s ease;
+}
+.socialButton:hover { border-color: var(--accent-blue); color: var(--text-primary); }
+
+
+/* --- UPDATED: Desktop styles for scrolling layout --- */
+@media (min-width: 1024px) {
+  .sidebar {
+    position: sticky; /* CHANGED: Makes the sidebar stick to the viewport on scroll */
+    top: 2rem;       /* ADDED: Aligns with the parent padding */
+    transform: translateX(0);
+    /* Set height relative to viewport to enable internal scrolling if needed */
+    height: calc(100vh - 4rem); 
+    flex-shrink: 0;
+    box-shadow: none;
+  }
+  .sidebarHeader { display: none; }
+}
