@@ -2,14 +2,9 @@
 name: Deploy Next.js to GitHub Pages
 
 on:
-  # Runs on pushes targeting the default branch
+  # The workflow runs every time you push a code change to the main branch.
   push:
     branches: ["main"]
-
-  # This schedule is now set to a 10-minute delay.
-  schedule:
-    # The tofgm-database updates at 16:00 UTC. We will run this 10 minutes later.
-    - cron: '10 16 * * *'
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
