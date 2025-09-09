@@ -1,92 +1,71 @@
-.dashboard {
+.pageContainer {
   display: flex;
-  flex-direction: column;
   width: 100%;
-  max-width: 1800px;
-  margin: 0 auto;
 }
-
 .mainContent {
-  padding: 1rem;
+  flex-grow: 1;
+  padding: 1.25rem;
   display: flex;
   flex-direction: column;
-  gap: 1rem;
-  width: 100%;
+  gap: 1.25rem;
+  min-width: 0;
 }
-
-.mobileHeader {
+.topBar {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 1rem;
-  background-color: var(--background-light);
+  padding-bottom: 1.25rem;
   border-bottom: 1px solid var(--border-color);
-  position: sticky;
-  top: 0;
-  z-index: 10;
-  flex-shrink: 0;
 }
-.mobileHeader h1 { font-size: 1.5rem; font-weight: 600; }
-.headerActions { display: flex; align-items: center; gap: 0.75rem; }
-.refreshButton, .mobileMenuButton {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.5rem;
-  background: var(--background-dark);
-  border: 1px solid var(--border-color);
-  color: var(--text-secondary);
-  padding: 0.5rem 1rem;
-  border-radius: 6px;
-  cursor: pointer;
-  transition: all 0.2s ease;
-}
-.refreshButton:hover, .mobileMenuButton:hover {
-  border-color: var(--text-primary);
+.topBar h1 {
+  font-size: 1.25rem;
+  font-weight: 700;
   color: var(--text-primary);
 }
-
-.desktopHeader { display: none; }
-
+.topBar p {
+  color: var(--text-secondary);
+  font-size: 0.85rem;
+}
+.headerActions {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+.refreshButton {
+  display: flex; align-items: center; gap: 0.5rem;
+  background: var(--surface-primary); border: 1px solid var(--border-color);
+  color: var(--text-secondary); padding: 0.5rem 1rem;
+  border-radius: 6px; cursor: pointer; font-weight: 500;
+  transition: all 0.2s ease;
+}
+.refreshButton:hover {
+  border-color: var(--brand-glow);
+  color: var(--text-primary);
+}
 .chartsGrid {
   display: grid;
   grid-template-columns: 1fr;
-  gap: 1rem;
+  gap: 1.25rem;
 }
-
+.mobileWingButton {
+  display: none;
+}
+@media (min-width: 1200px) {
+  .mainContent { padding: 2rem; }
+  .topBar h1 { font-size: 1.75rem; }
+}
 @media (min-width: 768px) {
-  .chartsGrid {
-    grid-template-columns: repeat(2, 1fr);
-  }
+  .chartsGrid { grid-template-columns: repeat(2, 1fr); }
 }
-
-@media (min-width: 1024px) {
-  .dashboard {
-    flex-direction: row;
-    align-items: flex-start;
-    gap: 2rem;
-    padding: 2rem;
+@media (max-width: 1199px) {
+  .mobileWingButton {
+    display: flex; align-items: center; gap: 0.5rem;
+    background: var(--surface-primary); border: 1px solid var(--border-color);
+    color: var(--text-secondary); padding: 0.6rem 1.2rem;
+    border-radius: 6px; cursor: pointer; font-weight: 500;
   }
-
-  .mainContent {
-    padding: 0;
-    flex-grow: 1;
-  }
-
-  .mobileHeader {
-    display: none;
-  }
-
-  .desktopHeader {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 1.5rem;
-  }
-  .desktopHeader h1 { font-size: 2rem; }
-  .desktopHeader p { color: var(--text-secondary); }
-
-  .chartsGrid {
-    grid-template-columns: repeat(3, 1fr);
+  .mobileWingButton:hover {
+    border-color: var(--brand-glow);
+    color: var(--text-primary);
   }
 }

@@ -1,0 +1,46 @@
+.skeleton {
+  background-color: var(--surface-primary);
+  border-radius: 8px;
+  position: relative;
+  overflow: hidden;
+}
+.skeleton::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -150%;
+  width: 150%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.08), transparent);
+  animation: shimmer 1.5s infinite;
+}
+@keyframes shimmer {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(100%); }
+}
+.sidebarSkeleton {
+  display: none;
+  flex-direction: column;
+  gap: 1.5rem;
+  width: 300px;
+  padding: 1.5rem;
+  box-sizing: border-box;
+}
+@media (min-width: 1200px) {
+  .sidebarSkeleton {
+    display: flex;
+    position: sticky;
+    top: 1.5rem;
+    height: calc(100vh - 3rem);
+  }
+}
+.card {
+  padding: 1rem;
+  border-radius: 8px;
+  background-color: var(--surface-secondary);
+}
+.metric { height: 36px; width: 60%; margin-top: 4px; }
+.title { height: 14px; width: 40%; margin-bottom: 0.5rem; }
+.listItem { height: 40px; border-radius: 6px; margin-top: 8px; }
+.chartCard { height: 282px; }
+.tableCard { height: 600px; }

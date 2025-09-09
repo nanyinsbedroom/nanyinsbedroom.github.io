@@ -1,46 +1,39 @@
 .card {
-  background-color: var(--background-light);
+  background-color: var(--surface-primary);
   border: 1px solid var(--border-color);
   border-radius: 8px;
   padding: 1.5rem;
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  gap: 1.5rem;
 }
-
 .controlsContainer {
   display: flex;
   flex-direction: column;
   gap: 1rem;
-  flex-shrink: 0;
 }
-
 .filterToolbar {
   display: flex;
-  flex-direction: column;
   gap: 1rem;
+  flex-wrap: wrap;
 }
-
 .searchInput {
-  width: 100%;
-  background-color: var(--background-dark);
+  flex-grow: 1;
+  background-color: var(--surface-secondary);
   border: 1px solid var(--border-color);
   border-radius: 6px;
   padding: 0.75rem 1rem;
   color: var(--text-primary);
   font-size: 1rem;
-  flex-shrink: 0;
+  transition: border-color 0.2s ease;
 }
-
 .searchInput:focus {
   outline: none;
-  border-color: var(--accent-blue);
+  border-color: var(--brand-glow);
 }
-
 .sortControls {
   display: flex;
 }
-
 .sortButton {
   padding: 0.75rem 1rem;
   border: 1px solid var(--border-color);
@@ -54,7 +47,6 @@
   white-space: nowrap;
   margin-left: -1px;
 }
-
 .sortControls .sortButton:first-child {
   margin-left: 0;
   border-top-left-radius: 6px;
@@ -64,109 +56,122 @@
   border-top-right-radius: 6px;
   border-bottom-right-radius: 6px;
 }
-
 .sortButton:hover {
   color: var(--text-primary);
-  border-color: var(--accent-blue);
+  border-color: var(--brand-muted);
   z-index: 1;
   position: relative;
 }
-
 .sortButton.active {
-  background-color: var(--accent-blue);
-  color: var(--background-dark);
-  border-color: var(--accent-blue);
+  background-color: var(--brand-muted);
+  color: var(--text-primary);
+  border-color: var(--brand-muted);
   font-weight: 600;
   z-index: 2;
-  position: relative;
 }
-
 .tableContainer {
-  border: 1px solid var(--border-color);
-  border-radius: 6px;
   overflow-x: auto;
 }
-
 .table {
   width: 100%;
   border-collapse: collapse;
 }
-
 .table th, .table td {
   padding: 0.75rem 1rem;
   text-align: left;
   border-bottom: 1px solid var(--border-color);
   white-space: nowrap;
 }
-
 .table th {
   font-size: 0.8rem;
-  color: var(--text-secondary);
+  color: var(--text-tertiary);
   text-transform: uppercase;
-  position: sticky;
-  top: 0;
-  background-color: var(--background-light);
-  z-index: 1;
 }
-
 .footer {
   text-align: center;
-  flex-shrink: 0;
   padding-top: 1rem;
   border-top: 1px solid var(--border-color);
 }
-
 .note {
   font-size: 0.9rem;
-  color: var(--text-secondary);
+  color: var(--text-tertiary);
   margin-bottom: 1rem;
 }
-
-.loadMoreButton {
-  padding: 0.75rem 1.5rem;
+.playerName { display: flex; flex-direction: column; gap: 0.1rem; }
+.playerLink { text-decoration: none; color: var(--text-primary); transition: color 0.2s ease; }
+.playerLink:hover { color: var(--brand-glow); }
+.roleId { font-size: 0.8rem; color: var(--text-tertiary); font-family: monospace; }
+.crewInfo { display: flex; flex-direction: column; gap: 0.1rem; }
+.crewLink { text-decoration: none; color: var(--text-primary); transition: color 0.2s ease; }
+.crewLink:hover { color: var(--brand-glow); }
+.crewName { font-weight: 600; }
+.memberCount { font-size: 0.8rem; color: var(--text-tertiary); }
+.paginationContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+}
+.paginationButton {
+  padding: 0.5rem 1rem;
   border-radius: 6px;
   border: 1px solid var(--border-color);
-  background-color: var(--background-dark);
-  color: var(--text-primary);
+  background-color: var(--surface-secondary);
+  color: var(--text-secondary);
   cursor: pointer;
+  transition: all 0.2s ease;
 }
-
-.loadMoreButton:hover {
-  background-color: var(--border-color);
+.paginationButton:hover:not(:disabled) {
+  border-color: var(--brand-muted);
+  color: var(--text-primary);
 }
-
-.playerName { display: flex; flex-direction: column; gap: 0.25rem; }
-.roleId { font-size: 0.7rem; color: var(--text-secondary); font-family: monospace; }
-.crewInfo { display: flex; flex-direction: column; gap: 0.25rem; }
-.crewName { color: var(--text-primary); }
-.memberCount { font-size: 0.75rem; color: var(--text-secondary); font-style: italic; }
-.statusBadge { font-size: 0.8rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; }
-
+.paginationButton.active {
+  background-color: var(--brand-muted);
+  color: var(--text-primary);
+  border-color: var(--brand-muted);
+  font-weight: 600;
+}
+.paginationButton:disabled { opacity: 0.5; cursor: not-allowed; }
+.paginationEllipsis { padding: 0.5rem 0.25rem; color: var(--text-tertiary); }
 @media (min-width: 768px) {
   .controlsContainer {
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
   }
-
-  .filterToolbar {
-    flex-direction: row;
-    align-items: center;
-  }
-
-  .searchInput {
-    width: 300px;
-  }
 }
-
 @media (max-width: 768px) {
-  .table th, .table td {
-    padding: 0.5rem;
-    font-size: 0.85rem;
+  .tableContainer { overflow-x: hidden; }
+  .table thead { display: none; }
+  .table, .table tbody, .table tr, .table td { display: block; width: 100%; }
+  .table tr { border-bottom: none; }
+  .table tbody tr {
+    margin-bottom: 1rem;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 1rem;
+    background-color: var(--surface-secondary);
   }
-
-  .sortButton {
-    padding: 0.5rem 0.75rem;
-    font-size: 0.8rem;
+  .table td {
+    border: none; padding: 0.6rem 0;
+    display: flex; justify-content: space-between;
+    align-items: center; text-align: right;
+    white-space: normal;
   }
+  .table td::before {
+    content: attr(data-label);
+    font-weight: 600; color: var(--text-secondary);
+    text-align: left; margin-right: 1rem;
+  }
+  .table td:first-child {
+    justify-content: flex-start;
+    padding-bottom: 0.75rem; margin-bottom: 0.75rem;
+    border-bottom: 1px solid var(--border-color);
+  }
+  .table td:first-child::before { display: none; }
+  .playerName {
+    font-size: 1.1rem; font-weight: 600; color: var(--text-primary);
+    flex-direction: row; align-items: baseline; gap: 0.5rem;
+  }
+  .crewName, .playerLink, .crewLink { font-size: 0.95rem; }
 }

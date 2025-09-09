@@ -1,92 +1,38 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import Link from 'next/link';
 import { Account } from '@/lib/types';
 import { formatRelativeDate, formatRegionName } from '@/lib/formatters';
 import { getCrewMemberCount } from '@/lib/playerUtils';
-import YearFilter from './YearFilter';
+import Pagination from './Pagination';
 import styles from '@/styles/PlayerTable.module.css';
 
 const PAGE_SIZE = 50;
 
-type SortConfig = {
-  key: keyof Account | 'activity_status';
-  direction: 'asc' | 'desc'
-};
-
 interface PlayerTableProps {
   accounts: Account[];
-  sortConfig: SortConfig;
-  onSort: (config: SortConfig) => void;
-  searchQuery: string;
-  onSearch: (query: string) => void;
-  availableYears: string[];
-  selectedYear: string | null;
-  onSelectYear: (year: string | null) => void;
   allAccounts: Account[];
+  currentPage: number;
+  onPageChange: (page: number) => void;
 }
 
 export default function PlayerTable({
   accounts,
-  sortConfig,
-  onSort,
-  searchQuery,
-  onSearch,
-  availableYears,
-  selectedYear,
-  onSelectYear,
   allAccounts,
+  currentPage,
+  onPageChange,
 }: PlayerTableProps) {
-  const [visibleCount, setVisibleCount] = useState(PAGE_SIZE);
-
-  // Reset the visible count whenever the filters change.
-  useEffect(() => {
-    setVisibleCount(PAGE_SIZE);
-  }, [accounts]);
-
-  const handleSort = (key: keyof Account | 'activity_status') => {
-    const direction =
-      sortConfig.key === key && sortConfig.direction === 'desc' ? 'asc' : 'desc';
-    onSort({ key, direction });
-  };
-
-  const visibleAccounts = accounts.slice(0, visibleCount);
+  
+  const totalPages = Math.ceil(accounts.length / PAGE_SIZE);
+  const paginatedAccounts = accounts.slice(
+    (currentPage - 1) * PAGE_SIZE,
+    currentPage * PAGE_SIZE
+  );
+  const startRange = (currentPage - 1) * PAGE_SIZE + 1;
+  const endRange = Math.min(currentPage * PAGE_SIZE, accounts.length);
 
   return (
     <div className={styles.card}>
-      <div className={styles.controlsContainer}>
-        <input
-          type="text"
-          placeholder="Search players or crews..."
-          value={searchQuery}
-          onChange={(e) => onSearch(e.target.value)}
-          className={styles.searchInput}
-        />
-
-        <div className={styles.filterToolbar}>
-          <YearFilter
-            years={availableYears}
-            selectedYear={selectedYear}
-            onSelectYear={onSelectYear}
-          />
-
-          <div className={styles.sortControls}>
-            <button
-              onClick={() => handleSort('registered')}
-              className={`${styles.sortButton} ${sortConfig.key === 'registered' ? styles.active : ''}`}
-            >
-              Newest {sortConfig.key === 'registered' && (sortConfig.direction === 'asc' ? '↑' : '↓')}
-            </button>
-            <button
-              onClick={() => handleSort('last_seen')}
-              className={`${styles.sortButton} ${sortConfig.key === 'last_seen' ? styles.active : ''}`}
-            >
-              Last Seen {sortConfig.key === 'last_seen' && (sortConfig.direction === 'asc' ? '↑' : '↓')}
-            </button>
-          </div>
-        </div>
-      </div>
-
       <div className={styles.tableContainer}>
         <table className={styles.table}>
           <thead>
@@ -99,32 +45,34 @@ export default function PlayerTable({
             </tr>
           </thead>
           <tbody>
-            {visibleAccounts.map((player) => {
+            {paginatedAccounts.map((player) => {
               const crewMemberCount = getCrewMemberCount(allAccounts, player.crew_name);
-
               return (
                 <tr key={player.role_id}>
-                  <td>
-                    <div className={styles.playerName}>
-                      {player.name}
-                      <span className={styles.roleId}>#{player.role_id}</span>
-                    </div>
+
+                  <td data-label="Name">
+                    <Link href={`/player/${player.role_id}`} className={styles.playerLink}>
+                      <div className={styles.playerName}>
+                        {player.name}
+                        <span className={styles.roleId}>#{player.role_id}</span>
+                      </div>
+                    </Link>
                   </td>
-                  <td>
+                  <td data-label="Crew">
                     <div className={styles.crewInfo}>
                       {player.crew_name && player.crew_name !== 'N/A' ? (
                         <>
-                          <span className={styles.crewName}>{player.crew_name}</span>
+                          <Link href={`/crew/${encodeURIComponent(player.crew_name)}`} className={styles.crewLink}>
+                            <span className={styles.crewName}>{player.crew_name}</span>
+                          </Link>
                           <span className={styles.memberCount}>({crewMemberCount} members)</span>
                         </>
-                      ) : (
-                        'N/A'
-                      )}
+                      ) : ('N/A')}
                     </div>
                   </td>
-                  <td>{formatRegionName(player.server_region)}</td>
-                  <td>{formatRelativeDate(player.registered)}</td>
-                  <td>{formatRelativeDate(player.last_seen * 1000)}</td>
+                  <td data-label="Region">{formatRegionName(player.server_region)}</td>
+                  <td data-label="Registered">{formatRelativeDate(player.registered)}</td>
+                  <td data-label="Last Seen">{formatRelativeDate(player.last_seen * 1000)}</td>
                 </tr>
               );
             })}
@@ -134,16 +82,13 @@ export default function PlayerTable({
 
       <div className={styles.footer}>
         <p className={styles.note}>
-          Showing {Math.min(visibleCount, accounts.length)} of {accounts.length.toLocaleString()} players
+          Showing players {startRange} - {endRange} of {accounts.length.toLocaleString()}
         </p>
-        {visibleCount < accounts.length && (
-          <button
-            onClick={() => setVisibleCount(prev => prev + PAGE_SIZE)}
-            className={styles.loadMoreButton}
-          >
-            Load More
-          </button>
-        )}
+        <Pagination
+          currentPage={currentPage}
+          totalPages={totalPages}
+          onPageChange={onPageChange}
+        />
       </div>
     </div>
   );

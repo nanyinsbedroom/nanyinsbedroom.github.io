@@ -1,40 +1,31 @@
 .sidebar {
   display: flex;
   flex-direction: column;
-  gap: 1.5rem;
-  background-color: var(--background-light);
-  padding: 1rem;
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 300px;
+  gap: 1.25rem; 
+  background-color: var(--surface-primary);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  padding: 1.5rem;
   height: 100%;
-  z-index: 100;
-  transform: translateX(-100%);
-  transition: transform 0.3s ease-in-out;
-  border-right: 1px solid var(--border-color);
-  box-shadow: 0 0 20px rgba(0,0,0,0.3);
+  box-sizing: border-box;
 }
-.sidebarOpen { transform: translateX(0); }
-.sidebarHeader {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+.isMobile {
+  background-color: transparent;
+  border: none;
+  padding: 0;
+  height: auto;
 }
-.sidebarHeader h2 { font-size: 1.25rem; }
-.closeButton { background: none; border: none; color: var(--text-secondary); cursor: pointer; padding: 0.5rem; }
 .scrollableContent {
-  flex-grow: 1;
-  overflow-y: auto;
   display: flex;
   flex-direction: column;
-  gap: 1.5rem;
+  gap: 1.25rem;
+  flex-grow: 1; 
 }
 .card {
-  background-color: var(--background-dark);
+  background-color: var(--surface-secondary);
   border: 1px solid var(--border-color);
   border-radius: 8px;
-  padding: 1rem;
+  padding: 0.75rem 1rem; 
 }
 .card h3 {
   font-size: 0.9rem;
@@ -45,35 +36,43 @@
 .metric {
   font-size: 2.25rem;
   font-weight: 700;
-  color: var(--accent-blue);
+  color: var(--brand-glow);
 }
-.regionNav ul { list-style: none; }
+.regionNav ul { 
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
 .regionNav button {
   width: 100%;
-  padding: 0.75rem 1rem;
+  padding: 0.6rem 0.75rem; 
+  font-size: 0.95rem;
   border-radius: 6px;
   border: none;
   background-color: transparent;
-  color: var(--text-primary);
+  color: var(--text-secondary);
   text-align: left;
   cursor: pointer;
-  font-size: 1rem;
+  font-weight: 500;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  transition: all 0.2s ease;
 }
-.regionNav button:hover { background-color: rgba(255, 255, 255, 0.05); }
+.regionNav button:hover { background-color: rgba(255, 255, 255, 0.05); color: var(--text-primary); }
 .regionNav button.active {
-  background-color: var(--accent-blue);
-  color: var(--background-dark);
+  background-color: var(--brand-muted);
+  color: var(--text-primary);
   font-weight: 600;
 }
-.regionCount { font-size: 0.8rem; opacity: 0.7; }
+.regionCount { font-size: 0.8rem; color: var(--text-tertiary); }
+.regionNav button.active .regionCount { color: var(--text-primary); }
 .socialCard {
   display: flex;
   flex-direction: column;
   gap: 0.75rem;
-  padding-top: 1.5rem;
+  padding-top: 1.25rem;
   border-top: 1px solid var(--border-color);
 }
 .socialButton {
@@ -82,21 +81,9 @@
   gap: 0.75rem;
   padding: 0.75rem 1rem;
   border-radius: 6px;
-  background-color: var(--background-dark);
+  background-color: var(--surface-secondary);
   border: 1px solid var(--border-color);
   color: var(--text-secondary);
   transition: all 0.2s ease;
 }
-.socialButton:hover { border-color: var(--accent-blue); color: var(--text-primary); }
-
-@media (min-width: 1024px) {
-  .sidebar {
-    position: sticky;
-    top: 2rem;
-    transform: translateX(0);
-    height: calc(100vh - 4rem);
-    flex-shrink: 0;
-    box-shadow: none;
-  }
-  .sidebarHeader { display: none; }
-}
+.socialButton:hover { border-color: var(--brand-glow); color: var(--text-primary); }

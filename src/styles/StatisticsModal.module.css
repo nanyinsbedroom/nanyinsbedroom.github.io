@@ -1,0 +1,102 @@
+.backdrop {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(3, 7, 18, 0.7);
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);  z-index: 50;  z-index: 50;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  animation: fadeIn 0.3s ease;
+}
+.modalContent {
+  background-color: var(--surface-primary);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  max-width: 1200px;
+  width: 100%;
+  max-height: 90vh;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+  animation: scaleIn 0.3s ease;
+}
+.modalHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 1.5rem;
+  border-bottom: 1px solid var(--border-color);
+  flex-shrink: 0;
+}
+.modalHeader h3 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+.closeButton {
+  background: none; border: none;
+  color: var(--text-secondary);
+  cursor: pointer; padding: 0.5rem;
+  transition: color 0.2s ease, transform 0.2s ease;
+}
+.closeButton:hover {
+  color: var(--text-primary);
+  transform: rotate(90deg);
+}
+.modalBody {
+  padding: 1.5rem;
+  overflow-y: auto;
+}
+.modalDescription {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  max-width: 80ch;
+  margin-bottom: 2rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid var(--border-color);
+}
+.detailGrid {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr 3fr;
+  gap: 1rem;
+  align-items: center;
+}
+.gridHeader {
+  grid-column: 1 / -1;
+  display: contents;
+}
+.gridHeader > div {
+  text-align: left; font-size: 0.8rem;
+  color: var(--text-tertiary); padding-bottom: 0.75rem;
+  border-bottom: 1px solid var(--border-color);
+}
+.gridHeader > div:not(:first-child) {
+  text-align: center;
+}
+.cohortRow {
+  grid-column: 1 / -1;
+  display: contents;
+}
+.cohortRow > div {
+  padding: 1rem 0;
+  border-bottom: 1px solid var(--border-color);
+}
+.cohortRow:last-child > div {
+  border-bottom: none;
+}
+.cohortInfo { font-weight: 600; color: var(--text-primary); }
+.cohortTotal { font-size: 0.8rem; color: var(--text-tertiary); display: block; }
+.milestone {
+  text-align: center;
+  display: flex; flex-direction: column;
+  align-items: center; gap: 0.25rem;
+}
+.milestoneEmoji { font-size: 1.25rem; }
+.milestoneValue { font-weight: 600; font-size: 1rem; }
+.sparklineCell {
+  height: 50px;
+}
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+@keyframes scaleIn { from { transform: scale(0.95); opacity: 0; } to { transform: scale(1); opacity: 1; } }

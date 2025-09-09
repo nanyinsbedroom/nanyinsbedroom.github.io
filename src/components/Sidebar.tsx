@@ -1,7 +1,8 @@
-import { FaGithub, FaDiscord, FaEnvelope, FaTimes } from 'react-icons/fa';
-import TopCrewsChart from './charts/TopCrewsChart';
+import TopCrewsByActivityChart from './charts/TopCrewsByActivityChart';
+import { CrewActivity } from '@/lib/playerUtils';
 import { formatRegionName } from '@/lib/formatters';
 import styles from '@/styles/Sidebar.module.css';
+import { FaGithub, FaDiscord, FaEnvelope } from 'react-icons/fa';
 
 const socialLinks = [
   { href: "https://github.com/nanyinsbedroom", icon: FaGithub, label: "GitHub" },
@@ -10,35 +11,30 @@ const socialLinks = [
 ];
 
 interface SidebarProps {
-  isOpen: boolean;
-  onClose: () => void;
+  // --- ADD isMobile PROP ---
+  isMobile: boolean;
   totalPlayers: number;
   regions: string[];
   regionCounts: Record<string, number>;
   selectedRegion: string;
   onRegionChange: (region: string) => void;
-  topCrewsData: { name: string; players: number }[];
+  crewActivityData: CrewActivity[];
 }
 
 export default function Sidebar({
-  isOpen,
-  onClose,
+  isMobile,
   totalPlayers,
   regions,
   regionCounts,
   selectedRegion,
   onRegionChange,
-  topCrewsData,
+  crewActivityData,
 }: SidebarProps) {
-  return (
-    <aside className={`${styles.sidebar} ${isOpen ? styles.sidebarOpen : ''}`}>
-      <div className={styles.sidebarHeader}>
-        <h2>Menu</h2>
-        <button onClick={onClose} className={styles.closeButton} aria-label="Close menu">
-          <FaTimes size={20} />
-        </button>
-      </div>
 
+  const sidebarClasses = `${styles.sidebar} ${isMobile ? styles.isMobile : ''}`;
+
+  return (
+    <aside className={sidebarClasses}>
       <div className={styles.scrollableContent}>
         <div className={styles.card}>
           <h3>Total Players</h3>
@@ -60,7 +56,7 @@ export default function Sidebar({
             ))}
           </ul>
         </div>
-        <TopCrewsChart data={topCrewsData} />
+        <TopCrewsByActivityChart data={crewActivityData} />
       </div>
 
       <div className={styles.socialCard}>

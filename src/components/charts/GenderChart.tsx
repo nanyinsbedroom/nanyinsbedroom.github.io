@@ -1,11 +1,23 @@
 'use client';
 import { useMemo } from 'react';
-import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip } from 'recharts';
+import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip, TooltipProps } from 'recharts';
 import { Account } from '@/lib/types';
 import styles from '@/styles/Chart.module.css';
 import ClientOnly from '@/components/ClientOnly';
 
-const COLORS = ['var(--accent-cyan)', 'var(--accent-pink)'];
+const COLORS = ['var(--brand-glow)', 'var(--accent-pink)'];
+
+const CustomTooltip = ({ active, payload }: TooltipProps<number, string>) => {
+  if (active && payload && payload.length) {
+    const data = payload[0];
+    return (
+      <div className={styles.tooltip}>
+        <p className={styles.tooltipLabel}>{data.name}: {data.value?.toLocaleString()}</p>
+      </div>
+    );
+  }
+  return null;
+};
 
 const renderCustomizedLabel = ({ cx, cy, midAngle, innerRadius, outerRadius, percent }: any) => {
     const radius = innerRadius + (outerRadius - innerRadius) * 0.5;
@@ -17,35 +29,35 @@ const renderCustomizedLabel = ({ cx, cy, midAngle, innerRadius, outerRadius, per
         {`${(percent * 100).toFixed(0)}%`}
       </text>
     );
-  };
+};
 
-  export default function GenderChart({ accounts }: { accounts: Account[] }) {
-    const data = useMemo(() => {
-      const maleCount = accounts.filter(acc => acc.gender === 0).length;
-      const femaleCount = accounts.length - maleCount;
-      return [
-        { name: 'Male', value: maleCount },
-        { name: 'Female', value: femaleCount },
-      ];
-    }, [accounts]);
+export default function GenderChart({ accounts }: { accounts: Account[] }) {
+  const data = useMemo(() => {
+    const maleCount = accounts.filter(acc => acc.gender === 0).length;
+    const femaleCount = accounts.length - maleCount;
+    return [
+      { name: 'Male', value: maleCount },
+      { name: 'Female', value: femaleCount },
+    ];
+  }, [accounts]);
 
-    return (
-      <div className={styles.chartCard}>
-        <h3>Gender Distribution</h3>
-        <div className={styles.chartContainer}>
-          <ClientOnly>
-            <ResponsiveContainer width="100%" height="100%">
-              <PieChart>
-                <Tooltip contentStyle={{ backgroundColor: 'var(--background-light)', borderColor: 'var(--border-color)' }} />
-                <Pie data={data} dataKey="value" cx="50%" cy="50%" labelLine={false} label={renderCustomizedLabel} outerRadius={80} paddingAngle={5}>
-                  {data.map((entry, index) => (
-                    <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
-                  ))}
-                </Pie>
-              </PieChart>
-            </ResponsiveContainer>
-          </ClientOnly>
-        </div>
+  return (
+    <div className={styles.chartCard}>
+      <h3>Gender Distribution</h3>
+      <div className={styles.chartContainer}>
+        <ClientOnly>
+          <ResponsiveContainer width="100%" height="100%">
+            <PieChart>
+              <Tooltip content={<CustomTooltip />} />
+              <Pie data={data} dataKey="value" cx="50%" cy="50%" labelLine={false} label={renderCustomizedLabel} outerRadius={80} paddingAngle={5}>
+                {data.map((_entry, index) => (
+                  <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+                ))}
+              </Pie>
+            </PieChart>
+          </ResponsiveContainer>
+        </ClientOnly>
       </div>
-    );
-  }
+    </div>
+  );
+}

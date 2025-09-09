@@ -1,18 +1,17 @@
+import { Account } from "./types";
+
 export interface ActivityStatus {
   status: 'online' | 'recent' | 'inactive' | 'dormant';
   label: string;
   color: string;
 }
 
-export interface RegionActivityData {
-  online: number;
-  recent: number;
-  inactive: number;
-  dormant: number;
-  total: number;
+export interface CrewActivity {
+  name: string;
+  memberCount: number;
+  activityScore: number;
 }
 
-// Determines a player's activity status based on when they were last seen.
 export const getActivityStatus = (lastSeen: number): ActivityStatus => {
   const now = Date.now();
   const lastSeenMs = lastSeen * 1000;
@@ -21,16 +20,39 @@ export const getActivityStatus = (lastSeen: number): ActivityStatus => {
   if (daysSince <= 1) {
     return { status: 'online', label: 'Online', color: 'var(--accent-green)' };
   } else if (daysSince <= 7) {
-    return { status: 'recent', label: 'Recent', color: 'var(--accent-blue)' };
+    return { status: 'recent', label: 'Recent', color: '#39c5cf' }; // Cyan
   } else if (daysSince <= 30) {
     return { status: 'inactive', label: 'Inactive', color: 'var(--accent-orange)' };
   } else {
-    return { status: 'dormant', label: 'Dormant', color: 'var(--text-secondary)' };
+    return { status: 'dormant', label: 'Dormant', color: 'var(--text-tertiary)' };
   }
 };
 
-// Calculates the total number of members in a given crew.
-export const getCrewMemberCount = (accounts: any[], crewName: string): number => {
+export const getCrewMemberCount = (accounts: Account[], crewName: string): number => {
   if (!crewName || crewName === 'N/A') return 0;
   return accounts.filter(acc => acc.crew_name === crewName).length;
+};
+
+export const getCrewActivityScores = (accounts: Account[]): CrewActivity[] => {
+  const crews: Record<string, { totalDays: number; members: number }> = {};
+  const now = Date.now();
+
+  accounts.forEach(acc => {
+    if (acc.crew_name && acc.crew_name !== 'N/A') {
+      if (!crews[acc.crew_name]) {
+        crews[acc.crew_name] = { totalDays: 0, members: 0 };
+      }
+      const daysSince = (now - (acc.last_seen * 1000)) / (1000 * 60 * 60 * 24);
+      crews[acc.crew_name].totalDays += daysSince;
+      crews[acc.crew_name].members++;
+    }
+  });
+
+  const crewScores: CrewActivity[] = Object.entries(crews).map(([name, data]) => ({
+    name,
+    memberCount: data.members,
+    activityScore: data.totalDays / data.members,
+  }));
+
+  return crewScores.sort((a, b) => a.activityScore - b.activityScore);
 };

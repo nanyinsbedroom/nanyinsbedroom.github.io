@@ -1,30 +1,46 @@
 .chartCard {
-  background-color: var(--background-light);
+  background-color: var(--surface-primary);
   border: 1px solid var(--border-color);
   border-radius: 8px;
-  padding: 1rem;
+  padding: 1.25rem; 
   display: flex;
   flex-direction: column;
+  position: relative;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
-
+.chartCard:hover {
+  border-color: var(--brand-muted);
+  box-shadow: 0 0 15px rgba(124, 58, 237, 0.3);
+}
 .chartCard h3 {
-  font-size: 0.9rem;
+  font-size: 0.85rem; 
   font-weight: 600;
   color: var(--text-secondary);
-  margin-bottom: 1rem;
+  margin-bottom: 1rem; 
   text-align: center;
 }
-
 .chartContainer {
   width: 100%;
-  height: 220px;
+  height: 200px; 
 }
-
 .noData {
   display: flex;
   align-items: center;
   justify-content: center;
   height: 100%;
-  color: var(--text-secondary);
+  color: var(--text-tertiary);
   font-style: italic;
+}
+.tooltip {
+  background-color: var(--surface-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  padding: 0.75rem;
+  font-size: 0.9rem;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+}
+.tooltipLabel {
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  color: var(--text-primary);
 }

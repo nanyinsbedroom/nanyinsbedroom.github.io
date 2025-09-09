@@ -1,203 +1,242 @@
 'use client';
 
 import { useState, useMemo, useEffect } from 'react';
-import { DashboardData, Account } from '@/lib/types';
+import { DashboardData, Account, RegionData } from '@/lib/types';
 import { useMediaQuery } from '@/lib/useMediaQuery';
-import { getActivityStatus } from '@/lib/playerUtils';
-import Sidebar from './Sidebar';
+import { getActivityStatus, getCrewActivityScores } from '@/lib/playerUtils';
+import { getNewPlayersInLast, getMostActiveRegionToday, getFastestGrowingCrew, getAccountAgeExtremes } from '@/lib/insightsUtils';
+import { calculateRetentionCohorts, calculateAverageRetention } from '@/lib/cohortUtils';
+
+import WelcomeNote from './WelcomeNote';
+import LeftWing from './layout/LeftWing';
+import RightWing from './layout/RightWing';
+import ControlPanel from './layout/ControlPanel';
 import PlayerTable from './PlayerTable';
-import GenderChart from './charts/GenderChart';
-import RegistrationChart from './charts/RegistrationChart';
-import MonthlyActiveChart from './charts/MonthlyActiveChart';
-import { FaBars, FaSync } from 'react-icons/fa';
+import DashboardInsights from './DashboardInsights';
+import RetentionCohortChart from './charts/RetentionCohortChart';
+import PlayerTableSkeleton from './skeletons/PlayerTableSkeleton';
+import StatisticsModal from './StatisticsModal';
+
+import { FaSync, FaBars, FaChartBar } from 'react-icons/fa';
 import styles from '@/styles/Dashboard.module.css';
+import layoutStyles from '@/styles/Layout.module.css';
 
-type SortConfig = {
-  key: keyof Account | 'activity_status';
-  direction: 'asc' | 'desc'
-};
-
+type SortConfig = { key: keyof Account | 'activity_status'; direction: 'asc' | 'desc'; };
 const REGIONS = ['All Regions', 'asia_pacific', 'europe', 'north_america', 'south_america', 'southeast_asia', 'korea'];
 
 export default function PlayerDashboard({ initialData }: { initialData: DashboardData }) {
   const [dashboardData, setDashboardData] = useState<DashboardData>(initialData);
+  const [isLoading, setIsLoading] = useState(true);
+  const [showWelcomeNote, setShowWelcomeNote] = useState(false);
+  const [isCohortModalOpen, setIsCohortModalOpen] = useState(false);
+  const [isLeftWingOpen, setIsLeftWingOpen] = useState(false);
+  const [isRightWingOpen, setIsRightWingOpen] = useState(false);
+  const isMobile = useMediaQuery(1199);
+  
   const [selectedRegion, setSelectedRegion] = useState('All Regions');
   const [selectedYear, setSelectedYear] = useState<string | null>(null);
   const [searchQuery, setSearchQuery] = useState('');
   const [sortConfig, setSortConfig] = useState<SortConfig>({ key: 'registered', direction: 'desc' });
-  const [sidebarOpen, setSidebarOpen] = useState(false);
-  const isMobile = useMediaQuery(1023);
+  const [activityFilter, setActivityFilter] = useState('all');
+  const [genderFilter, setGenderFilter] = useState('all');
+  const [crewFilter, setCrewFilter] = useState('all');
+  const [currentPage, setCurrentPage] = useState(1);
 
-  // Periodically fetches fresh data to keep the dashboard up to date.
   useEffect(() => {
-    const refreshData = async () => {
+    const hasDismissed = localStorage.getItem('hasDismissedWelcomeNote');
+    if (!hasDismissed) {
+      setShowWelcomeNote(true);
+    }
+  }, []);
+  
+  useEffect(() => {
+    const fetchAndMergeKoreanData = async () => {
       try {
-        const response = await fetch('/api/get-dashboard-data');
-        if (response.ok) {
-          const latestData: DashboardData = await response.json();
-          setDashboardData(latestData);
-        }
+        const koreaUrl = 'https://raw.githubusercontent.com/nanyinsbedroom/tofgm-database/main/accounts/%C3%AC%E2%80%94%C2%90%C3%AC%C5%A0%C2%A4%C3%AD%C5%BD%CB%9C%C3%AB%C2%A6%C2%AC%C3%AC%E2%80%A2%E2%80%9E/accounts.json';
+        const response = await fetch(koreaUrl);
+        if (!response.ok) { return; }
+        
+        const koreaData: RegionData = await response.json();
+        const koreanAccounts: Account[] = Object.values(koreaData.accounts).map(acc => ({ ...acc, server_region: 'korea' }));
+
+        setDashboardData(currentData => {
+          const combinedAccounts = [...currentData.accounts, ...koreanAccounts];
+          const uniqueAccountsMap = new Map<number, Account>();
+          combinedAccounts.forEach(account => uniqueAccountsMap.set(account.role_id, account));
+          
+          return {
+            ...currentData,
+            accounts: Array.from(uniqueAccountsMap.values()),
+            index: { ...currentData.index, total_accounts: uniqueAccountsMap.size }
+          };
+        });
       } catch (error) {
-        console.error("Error during auto-refresh:", error);
+        console.error("Error fetching Korean data on client:", error);
+      } finally {
+        setIsLoading(false);
       }
     };
-    // The data source only updates once per day, so a 1-hour interval is plenty.
-    const intervalId = setInterval(refreshData, 3600000); // 1 hour
-    return () => clearInterval(intervalId);
+    fetchAndMergeKoreanData();
   }, []);
 
-  // Calculates the number of players in each region.
+  const handleDismissWelcome = () => {
+    localStorage.setItem('hasDismissedWelcomeNote', 'true');
+    setShowWelcomeNote(false);
+  };
+  
+  const insights = useMemo(() => ({
+    newPlayers: getNewPlayersInLast(dashboardData.accounts, 7),
+    activeRegion: getMostActiveRegionToday(dashboardData.accounts),
+    topCrew: getFastestGrowingCrew(dashboardData.accounts),
+    ageExtremes: getAccountAgeExtremes(dashboardData.accounts),
+  }), [dashboardData.accounts]);
+  
   const regionCounts = useMemo(() => {
-    const counts: Record<string, number> = { 'All Regions': dashboardData.index.total_accounts };
+    const counts: Record<string, number> = { 'All Regions': dashboardData.index.total_accounts || 0 };
     REGIONS.slice(1).forEach(region => {
       counts[region] = dashboardData.accounts.filter(acc => acc.server_region === region).length;
     });
     return counts;
   }, [dashboardData.accounts, dashboardData.index.total_accounts]);
 
-  // Gets a unique, sorted list of years players have registered.
   const availableYears = useMemo(() => {
     const years = new Set(dashboardData.accounts.map(acc => new Date(acc.registered).getFullYear().toString()));
     return Array.from(years).sort((a, b) => parseInt(b) - parseInt(a));
   }, [dashboardData.accounts]);
 
-  // Filters the accounts based on the user's selections.
   const filteredAccounts = useMemo(() => {
     let accountsToFilter = dashboardData.accounts;
-
-    if (selectedRegion !== 'All Regions') {
-      accountsToFilter = accountsToFilter.filter(acc => acc.server_region === selectedRegion);
-    }
-    if (selectedYear) {
-      accountsToFilter = accountsToFilter.filter(acc => new Date(acc.registered).getFullYear().toString() === selectedYear);
-    }
-    if (searchQuery.trim()) {
-      const lowerQuery = searchQuery.toLowerCase();
-      accountsToFilter = accountsToFilter.filter(acc =>
-        acc.name.toLowerCase().includes(lowerQuery) ||
-        (acc.crew_name && acc.crew_name.toLowerCase().includes(lowerQuery)) ||
-        acc.role_id.toString().includes(searchQuery.trim())
-      );
-    }
+    if (selectedRegion !== 'All Regions') { accountsToFilter = accountsToFilter.filter(acc => acc.server_region === selectedRegion); }
+    if (selectedYear) { accountsToFilter = accountsToFilter.filter(acc => new Date(acc.registered).getFullYear().toString() === selectedYear); }
+    if (activityFilter !== 'all') { accountsToFilter = accountsToFilter.filter(acc => getActivityStatus(acc.last_seen).status === activityFilter); }
+    if (genderFilter !== 'all') { const genderValue = genderFilter === 'male' ? 0 : 1; accountsToFilter = accountsToFilter.filter(acc => acc.gender === genderValue); }
+    if (crewFilter === 'in_crew') { accountsToFilter = accountsToFilter.filter(acc => acc.crew_name && acc.crew_name !== 'N/A'); }
+    else if (crewFilter === 'no_crew') { accountsToFilter = accountsToFilter.filter(acc => !acc.crew_name || acc.crew_name === 'N/A'); }
+    if (searchQuery.trim()) { const lowerQuery = searchQuery.toLowerCase(); accountsToFilter = accountsToFilter.filter(acc => acc.name.toLowerCase().includes(lowerQuery) || (acc.crew_name && acc.crew_name.toLowerCase().includes(lowerQuery)) || acc.role_id.toString().includes(searchQuery.trim())); }
     return accountsToFilter;
-  }, [dashboardData.accounts, selectedRegion, selectedYear, searchQuery]);
+  }, [dashboardData.accounts, selectedRegion, selectedYear, searchQuery, activityFilter, genderFilter, crewFilter]);
 
-  // Sorts the already filtered accounts.
+  useEffect(() => { setCurrentPage(1); }, [filteredAccounts]);
+
   const sortedAccounts = useMemo(() => {
     return [...filteredAccounts].sort((a, b) => {
-      let aValue: any;
-      let bValue: any;
-
-      if (sortConfig.key === 'activity_status') {
-        const statusOrder = { online: 0, recent: 1, inactive: 2, dormant: 3 };
-        aValue = statusOrder[getActivityStatus(a.last_seen).status as keyof typeof statusOrder];
-        bValue = statusOrder[getActivityStatus(b.last_seen).status as keyof typeof statusOrder];
-      } else if (sortConfig.key === 'registered' || sortConfig.key === 'last_seen') {
-        aValue = new Date(a[sortConfig.key] as string).getTime();
-        bValue = new Date(b[sortConfig.key] as string).getTime();
-      } else {
-        aValue = a[sortConfig.key];
-        bValue = b[sortConfig.key];
-      }
-
-      if (typeof aValue === 'string') aValue = aValue.toLowerCase();
-      if (typeof bValue === 'string') bValue = bValue.toLowerCase();
-
-      return sortConfig.direction === 'asc'
-        ? (aValue < bValue ? -1 : aValue > bValue ? 1 : 0)
-        : (aValue > bValue ? -1 : aValue < bValue ? 1 : 0);
+      let aValue: any, bValue: any;
+      if (sortConfig.key === 'activity_status') { const statusOrder = { online: 0, recent: 1, inactive: 2, dormant: 3 }; aValue = statusOrder[getActivityStatus(a.last_seen).status as keyof typeof statusOrder]; bValue = statusOrder[getActivityStatus(b.last_seen).status as keyof typeof statusOrder]; }
+      else if (sortConfig.key === 'registered' || sortConfig.key === 'last_seen') { aValue = new Date(a[sortConfig.key] as string).getTime(); bValue = new Date(b[sortConfig.key] as string).getTime(); }
+      else { aValue = a[sortConfig.key]; bValue = b[sortConfig.key]; }
+      if (typeof aValue === 'string') aValue = aValue.toLowerCase(); if (typeof bValue === 'string') bValue = bValue.toLowerCase();
+      return sortConfig.direction === 'asc' ? (aValue < bValue ? -1 : aValue > bValue ? 1 : 0) : (aValue > bValue ? -1 : aValue < bValue ? 1 : 0);
     });
   }, [filteredAccounts, sortConfig]);
 
-  // Calculates the top crews based on the currently filtered players.
-  const topCrewsData = useMemo(() => {
-    const crewCounts: { [key: string]: number } = {};
-    filteredAccounts.forEach(acc => {
-      if (acc.crew_name && acc.crew_name !== "N/A") {
-        crewCounts[acc.crew_name] = (crewCounts[acc.crew_name] || 0) + 1;
-      }
-    });
-    return Object.entries(crewCounts)
-      .map(([name, players]) => ({ name, players }))
-      .sort((a, b) => b.players - a.players)
-      .slice(0, 5);
-  }, [filteredAccounts]);
-
-  // Prepares data for the monthly active players chart.
+  const crewActivityData = useMemo(() => getCrewActivityScores(filteredAccounts), [filteredAccounts]);
+  
   const monthlyActiveData = useMemo(() => {
     const activity = new Map<string, Set<number>>();
-    dashboardData.accounts.forEach(acc => {
-      const date = new Date(acc.last_seen * 1000);
-      const key = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}`;
-      if (!activity.has(key)) activity.set(key, new Set());
-      activity.get(key)!.add(acc.role_id);
-    });
-    return Array.from(activity.entries())
-      .map(([date, players]) => ({ date, "Active Players": players.size }))
-      .sort((a,b) => a.date.localeCompare(b.date));
+    dashboardData.accounts.forEach(acc => { const date = new Date(acc.last_seen * 1000); const key = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}`; if (!activity.has(key)) activity.set(key, new Set()); activity.get(key)!.add(acc.role_id); });
+    return Array.from(activity.entries()).map(([date, players]) => ({ date, "Active Players": players.size })).sort((a,b) => a.date.localeCompare(b.date));
   }, [dashboardData.accounts]);
 
+  const cohortData = useMemo(() => calculateRetentionCohorts(dashboardData.accounts), [dashboardData.accounts]);
+  const averageRetention = useMemo(() => calculateAverageRetention(cohortData), [cohortData]);
+  
   const handleRegionChange = (region: string) => {
     setSelectedRegion(region);
     setSearchQuery('');
     setSelectedYear(null);
-    if (isMobile) setSidebarOpen(false);
+    if (isMobile) setIsLeftWingOpen(false);
   };
-
   const handleRefresh = () => window.location.reload();
 
   return (
-    <div className={styles.dashboard}>
-      {isMobile && (
-        <div className={styles.mobileHeader}>
-          <h1>Player Dashboard</h1>
-          <div className={styles.headerActions}>
-            <button onClick={handleRefresh} className={styles.refreshButton}><FaSync /> Refresh</button>
-            <button onClick={() => setSidebarOpen(true)} className={styles.mobileMenuButton}><FaBars /> Menu</button>
-          </div>
-        </div>
-      )}
-
-      <Sidebar
-        isOpen={sidebarOpen}
-        onClose={() => setSidebarOpen(false)}
-        totalPlayers={dashboardData.index.total_accounts}
-        regions={REGIONS}
-        regionCounts={regionCounts}
-        selectedRegion={selectedRegion}
-        onRegionChange={handleRegionChange}
-        topCrewsData={topCrewsData}
-      />
-
-      <div className={styles.mainContent}>
-        {!isMobile && (
-          <div className={styles.desktopHeader}>
+    <>
+      <div className={styles.pageContainer}>
+        <div 
+          className={`${layoutStyles.overlay} ${(isLeftWingOpen || isRightWingOpen) && isMobile ? layoutStyles.visible : ''}`}
+          onClick={() => { setIsLeftWingOpen(false); setIsRightWingOpen(false); }}
+        />
+        
+        <LeftWing
+          isMobile={isMobile}
+          isOpen={isLeftWingOpen}
+          onClose={() => setIsLeftWingOpen(false)}
+          totalPlayers={dashboardData.index.total_accounts}
+          regions={REGIONS}
+          regionCounts={regionCounts}
+          selectedRegion={selectedRegion}
+          onRegionChange={handleRegionChange}
+          crewActivityData={crewActivityData}
+        />
+        
+        <main className={styles.mainContent}>
+          <div className={styles.topBar}>
             <div>
               <h1>Player Dashboard</h1>
               <p>Last Updated: {new Date(dashboardData.index.last_update * 1000).toLocaleString()}</p>
             </div>
-            <button onClick={handleRefresh} className={styles.refreshButton}><FaSync /> Refresh</button>
+            <div className={styles.headerActions}>
+              {isMobile && (
+                <>
+                  <button onClick={() => setIsLeftWingOpen(true)} className={styles.mobileWingButton}><FaBars /> Menu</button>
+                  <button onClick={() => setIsRightWingOpen(true)} className={styles.mobileWingButton}><FaChartBar /> Charts</button>
+                </>
+              )}
+              <button onClick={handleRefresh} className={styles.refreshButton}><FaSync /> Refresh</button>
+            </div>
           </div>
-        )}
 
-        <div className={styles.chartsGrid}>
-          <GenderChart accounts={filteredAccounts} />
-          <RegistrationChart accounts={filteredAccounts} />
-          <MonthlyActiveChart data={monthlyActiveData} />
-        </div>
+          {isLoading ? (
+            <PlayerTableSkeleton />
+          ) : (
+            <>
+              {showWelcomeNote && <WelcomeNote onDismiss={handleDismissWelcome} />}
+              <DashboardInsights
+                newPlayers={insights.newPlayers}
+                activeRegion={insights.activeRegion}
+                topCrew={insights.topCrew}
+                ageExtremes={insights.ageExtremes}
+              />
+              <RetentionCohortChart onOpenModal={() => setIsCohortModalOpen(true)} />
+              <ControlPanel
+                searchQuery={searchQuery}
+                onSearch={setSearchQuery}
+                sortConfig={sortConfig}
+                onSort={setSortConfig}
+                activityFilter={activityFilter}
+                onActivityChange={setActivityFilter}
+                genderFilter={genderFilter}
+                onGenderChange={setGenderFilter}
+                crewFilter={crewFilter}
+                onCrewChange={setCrewFilter}
+                availableYears={availableYears}
+                selectedYear={selectedYear}
+                onSelectYear={setSelectedYear}
+              />
+              <PlayerTable
+                accounts={sortedAccounts}
+                allAccounts={dashboardData.accounts}
+                currentPage={currentPage}
+                onPageChange={setCurrentPage}
+              />
+            </>
+          )}
+        </main>
 
-        <PlayerTable
-          accounts={sortedAccounts}
-          allAccounts={dashboardData.accounts}
-          sortConfig={sortConfig}
-          onSort={setSortConfig}
-          searchQuery={searchQuery}
-          onSearch={setSearchQuery}
-          availableYears={availableYears}
-          selectedYear={selectedYear}
-          onSelectYear={setSelectedYear}
+        <RightWing
+          isMobile={isMobile}
+          isOpen={isRightWingOpen}
+          onClose={() => setIsRightWingOpen(false)}
+          filteredAccounts={filteredAccounts}
+          monthlyActiveData={monthlyActiveData}
         />
       </div>
-    </div>
+      
+      <StatisticsModal 
+        isOpen={isCohortModalOpen}
+        onClose={() => setIsCohortModalOpen(false)}
+        data={cohortData}
+        averageRetention={averageRetention}
+      />
+    </>
   );
 }

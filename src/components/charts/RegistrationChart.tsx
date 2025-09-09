@@ -1,10 +1,23 @@
 'use client';
 
 import { useMemo } from 'react';
-import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer } from 'recharts';
+import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, TooltipProps } from 'recharts';
 import { Account } from '@/lib/types';
 import styles from '@/styles/Chart.module.css';
 import ClientOnly from '@/components/ClientOnly';
+
+const CustomTooltip = ({ active, payload }: TooltipProps<number, string>) => {
+  if (active && payload && payload.length) {
+    const data = payload[0];
+    return (
+      <div className={styles.tooltip}>
+        <p className={styles.tooltipLabel}>Year {data.payload.year}</p>
+        <p>{data.value?.toLocaleString()} New Players</p>
+      </div>
+    );
+  }
+  return null;
+};
 
 export default function RegistrationChart({ accounts }: { accounts: Account[] }) {
   const data = useMemo(() => {
@@ -25,11 +38,11 @@ export default function RegistrationChart({ accounts }: { accounts: Account[] })
         <ClientOnly>
           <ResponsiveContainer width="100%" height="100%">
             <BarChart data={data} margin={{ top: 5, right: 20, left: -10, bottom: 5 }}>
-              <XAxis dataKey="year" stroke="var(--text-secondary)" fontSize={12} />
-              <YAxis stroke="var(--text-secondary)" fontSize={12} />
+              <XAxis dataKey="year" stroke="var(--text-tertiary)" fontSize={12} tickLine={false} axisLine={false} />
+              <YAxis stroke="var(--text-tertiary)" fontSize={12} tickLine={false} axisLine={false} />
               <Tooltip
-                cursor={{ fill: 'rgba(255, 255, 255, 0.1)' }}
-                contentStyle={{ backgroundColor: 'var(--background-light)', borderColor: 'var(--border-color)' }}
+                cursor={{ fill: 'rgba(35, 134, 54, 0.1)' }}
+                content={<CustomTooltip />}
               />
               <Bar dataKey="New Players" fill="var(--accent-green)" radius={[4, 4, 0, 0]} />
             </BarChart>
