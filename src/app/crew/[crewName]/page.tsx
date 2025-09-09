@@ -1,10 +1,20 @@
 import { notFound } from 'next/navigation';
 import { getDashboardData } from '@/lib/data-fetching';
 import CrewProfile from '@/components/CrewProfile';
+import { Account } from '@/lib/types';
 
-/**
- * Dynamically generates metadata for a specific crew page.
- */
+
+
+export async function generateStaticParams() {
+  const data = await getDashboardData();
+  
+  const crewNames = new Set(data.accounts.map((acc: Account) => acc.crew_name).filter(name => name && name !== 'N/A'));
+  
+  return Array.from(crewNames).map(name => ({
+    crewName: encodeURIComponent(name),
+  }));
+}
+
 export async function generateMetadata({ params }: { params: { crewName: string } }) {
   const crewName = decodeURIComponent(params.crewName);
   return {
@@ -13,14 +23,10 @@ export async function generateMetadata({ params }: { params: { crewName: string 
   };
 }
 
-/**
- * Server component for the dynamic crew profile page.
- * Fetches all data, filters for a specific crew, and renders the profile.
- */
 export default async function CrewProfilePage({ params }: { params: { crewName: string } }) {
   const data = await getDashboardData();
   const crewName = decodeURIComponent(params.crewName);
-  const crewMembers = data.accounts.filter(p => p.crew_name === crewName);
+  const crewMembers = data.accounts.filter((p: Account) => p.crew_name === crewName);
 
   if (crewMembers.length === 0) {
     notFound();
