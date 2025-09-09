@@ -1,4 +1,4 @@
-import styles from '@/styles/Skeleton.module.css';
+import styles from '@/styles/skeleton-temp.module.css';
 
 export default function SidebarSkeleton() {
   return (

@@ -1,4 +1,4 @@
-import styles from '@/styles/Skeleton.module.css';
+import styles from '@/styles/skeleton-temp.module.css';
 import gridStyles from '@/styles/Dashboard.module.css';
 
 export default function ChartsSkeleton() {
