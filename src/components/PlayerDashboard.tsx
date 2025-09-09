@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useMemo, useEffect } from 'react';
-import { DashboardData, Account, RegionData } from '@/lib/types';
+import { DashboardData, Account, RegionData, IndexData } from '@/lib/types';
 import { useMediaQuery } from '@/lib/useMediaQuery';
 import { getActivityStatus, getCrewActivityScores } from '@/lib/playerUtils';
 import { getNewPlayersInLast, getMostActiveRegionToday, getFastestGrowingCrew, getAccountAgeExtremes } from '@/lib/insightsUtils';
@@ -24,8 +24,11 @@ import layoutStyles from '@/styles/Layout.module.css';
 type SortConfig = { key: keyof Account | 'activity_status'; direction: 'asc' | 'desc'; };
 const REGIONS = ['All Regions', 'asia_pacific', 'europe', 'north_america', 'south_america', 'southeast_asia', 'korea'];
 
-export default function PlayerDashboard({ initialData }: { initialData: DashboardData }) {
-  const [dashboardData, setDashboardData] = useState<DashboardData>(initialData);
+export default function PlayerDashboard() {
+  const [dashboardData, setDashboardData] = useState<DashboardData>({ 
+    index: { total_accounts: 0, last_update: 0, regions: {} }, 
+    accounts: [] 
+  });
   const [isLoading, setIsLoading] = useState(true);
   const [showWelcomeNote, setShowWelcomeNote] = useState(false);
   const [isCohortModalOpen, setIsCohortModalOpen] = useState(false);
@@ -43,47 +46,64 @@ export default function PlayerDashboard({ initialData }: { initialData: Dashboar
   const [currentPage, setCurrentPage] = useState(1);
 
   useEffect(() => {
-    const hasDismissed = localStorage.getItem('hasDismissedWelcomeNote');
-    if (!hasDismissed) {
-      setShowWelcomeNote(true);
-    }
-  }, []);
-  
-  useEffect(() => {
-    const fetchAndMergeKoreanData = async () => {
+    const fetchAllData = async () => {
       try {
-        const koreaUrl = 'https://raw.githubusercontent.com/nanyinsbedroom/tofgm-database/main/accounts/%C3%AC%E2%80%94%C2%90%C3%AC%C5%A0%C2%A4%C3%AD%C5%BD%CB%9C%C3%AB%C2%A6%C2%AC%C3%AC%E2%80%A2%E2%80%9E/accounts.json';
-        const response = await fetch(koreaUrl);
-        if (!response.ok) { return; }
-        
-        const koreaData: RegionData = await response.json();
-        const koreanAccounts: Account[] = Object.values(koreaData.accounts).map(acc => ({ ...acc, server_region: 'korea' }));
+        const baseRepoUrl = 'https://raw.githubusercontent.com/nanyinsbedroom/tofgm-database/main';
+        const regionEndpoints = [
+          { key: 'asia_pacific',   url: `${baseRepoUrl}/accounts/asia_pacific/accounts.json` },
+          { key: 'europe',         url: `${baseRepoUrl}/accounts/europe/accounts.json` },
+          { key: 'north_america',  url: `${baseRepoUrl}/accounts/north_america/accounts.json` },
+          { key: 'south_america',  url: `${baseRepoUrl}/accounts/south_america/accounts.json` },
+          { key: 'southeast_asia', url: `${baseRepoUrl}/accounts/southeast_asia/accounts.json` },
+          { key: 'korea',          url: 'https://raw.githubusercontent.com/nanyinsbedroom/tofgm-database/refs/heads/main/accounts/%C3%AC%E2%80%94%C2%90%C3%AC%C5%A0%C2%A4%C3%AD%C5%BD%CB%9C%C3%AB%C2%A6%C2%AC%C3%AC%E2%80%A2%E2%80%9E/accounts.json' }
+        ];
 
-        setDashboardData(currentData => {
-          const combinedAccounts = [...currentData.accounts, ...koreanAccounts];
-          const uniqueAccountsMap = new Map<number, Account>();
-          combinedAccounts.forEach(account => uniqueAccountsMap.set(account.role_id, account));
-          
-          return {
-            ...currentData,
-            accounts: Array.from(uniqueAccountsMap.values()),
-            index: { ...currentData.index, total_accounts: uniqueAccountsMap.size }
-          };
+        const [indexRes, ...regionResponses] = await Promise.all([
+          fetch(`${baseRepoUrl}/index.json`),
+          ...regionEndpoints.map(endpoint => fetch(endpoint.url))
+        ]);
+
+        const indexData: IndexData = await indexRes.json();
+        const allAccountsArrays = await Promise.all(
+          regionResponses.map(async (res, i) => {
+            const endpoint = regionEndpoints[i];
+            if (res.ok) {
+              const data: RegionData = await res.json();
+              return Object.values(data.accounts).map(acc => ({ ...acc, server_region: endpoint.key }));
+            }
+            return [];
+          })
+        );
+        
+        const allAccounts = allAccountsArrays.flat();
+        const uniqueAccountsMap = new Map<number, Account>();
+        allAccounts.forEach(acc => uniqueAccountsMap.set(acc.role_id, acc));
+        const processedAccounts = Array.from(uniqueAccountsMap.values());
+
+        setDashboardData({
+          index: { ...indexData, total_accounts: processedAccounts.length },
+          accounts: processedAccounts
         });
       } catch (error) {
-        console.error("Error fetching Korean data on client:", error);
+        console.error("Failed to fetch dashboard data on client:", error);
       } finally {
         setIsLoading(false);
       }
     };
-    fetchAndMergeKoreanData();
+
+    fetchAllData();
+    
+    const hasDismissed = localStorage.getItem('hasDismissedWelcomeNote');
+    if (!hasDismissed) {
+      setShowWelcomeNote(true);
+    }
   }, []);
 
   const handleDismissWelcome = () => {
     localStorage.setItem('hasDismissedWelcomeNote', 'true');
     setShowWelcomeNote(false);
   };
-  
+
   const insights = useMemo(() => ({
     newPlayers: getNewPlayersInLast(dashboardData.accounts, 7),
     activeRegion: getMostActiveRegionToday(dashboardData.accounts),
