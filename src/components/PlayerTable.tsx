@@ -6,7 +6,6 @@ import { formatRelativeDate, formatRegionName } from '@/lib/formatters';
 import { getCrewMemberCount } from '@/lib/playerUtils';
 import Pagination from './Pagination';
 import styles from '@/styles/PlayerTable.module.css';
-import { useTranslations } from '@/context/LanguageContext';
 
 const PAGE_SIZE = 50;
 
@@ -23,7 +22,7 @@ export default function PlayerTable({
   currentPage,
   onPageChange,
 }: PlayerTableProps) {
-  const t = useTranslations('Table');
+  
   const totalPages = Math.ceil(accounts.length / PAGE_SIZE);
   const paginatedAccounts = accounts.slice(
     (currentPage - 1) * PAGE_SIZE,
@@ -38,11 +37,11 @@ export default function PlayerTable({
         <table className={styles.table}>
           <thead>
             <tr>
-              <th>{t('headerName')}</th>
-              <th>{t('headerCrew')}</th>
-              <th>{t('headerRegion')}</th>
-              <th>{t('headerRegistered')}</th>
-              <th>{t('headerLastSeen')}</th>
+              <th>Name</th>
+              <th>Crew</th>
+              <th>Region</th>
+              <th>Registered</th>
+              <th>Last Seen</th>
             </tr>
           </thead>
           <tbody>
@@ -51,15 +50,13 @@ export default function PlayerTable({
               return (
                 <tr key={player.role_id}>
 
-                  <td data-label={t('headerName')}>
-                    <Link href={`/player/${player.role_id}`} className={styles.playerLink}>
-                      <div className={styles.playerName}>
-                        {player.name}
-                        <span className={styles.roleId}>#{player.role_id}</span>
-                      </div>
-                    </Link>
+                  <td data-label="Name">
+                    <div className={styles.playerName}>
+                      {player.name}
+                      <span className={styles.roleId}>#{player.role_id}</span>
+                    </div>
                   </td>
-                  <td data-label={t('headerCrew')}>
+                  <td data-label="Crew">
                     <div className={styles.crewInfo}>
                       {player.crew_name && player.crew_name !== 'N/A' ? (
                         <>
@@ -71,9 +68,9 @@ export default function PlayerTable({
                       ) : ('N/A')}
                     </div>
                   </td>
-                  <td data-label={t('headerRegion')}>{formatRegionName(player.server_region)}</td>
-                  <td data-label={t('headerRegistered')}>{formatRelativeDate(player.registered)}</td>
-                  <td data-label={t('headerLastSeen')}>{formatRelativeDate(player.last_seen * 1000)}</td>
+                  <td data-label="Region">{formatRegionName(player.server_region)}</td>
+                  <td data-label="Registered">{formatRelativeDate(player.registered)}</td>
+                  <td data-label="Last Seen">{formatRelativeDate(player.last_seen * 1000)}</td>
                 </tr>
               );
             })}

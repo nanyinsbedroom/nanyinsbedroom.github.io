@@ -35,18 +35,18 @@ export default function DashboardInsights({ newPlayers, activeRegion, topCrew, a
                 {ageExtremes.oldest.ageInDays.toLocaleString()} days
               </span>
               <span className={styles.stackedLabel}>Oldest Account</span>
-              <Link href={`/player/${ageExtremes.oldest.account.role_id}`} className={styles.playerNameLink}>
+              <span className={styles.playerNameLink}>
                 {ageExtremes.oldest.account.name}
-              </Link>
+              </span>
             </div>
             <div className={styles.stackedItem}>
               <span className={`${styles.stackedValue} ${styles.newest}`}>
                 {ageExtremes.newest.ageInDays.toLocaleString()} days
               </span>
               <span className={styles.stackedLabel}>Newest Account</span>
-              <Link href={`/player/${ageExtremes.newest.account.role_id}`} className={styles.playerNameLink}>
+              <span className={styles.playerNameLink}>
                 {ageExtremes.newest.account.name}
-              </Link>
+              </span>
             </div>
           </>
         )}

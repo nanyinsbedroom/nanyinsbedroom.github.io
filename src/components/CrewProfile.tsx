@@ -101,9 +101,7 @@ export default function CrewProfile({ crewName, crewMembers }: CrewProfileProps)
               return (
                 <tr key={member.role_id}>
                   <td>
-                    <Link href={`/player/${member.role_id}`} className={styles.playerLink}>
-                      {member.name}
-                    </Link>
+                    {member.name}
                   </td>
                   <td style={{ color: status.color }}>{status.label}</td>
                   <td>{formatRelativeDate(member.last_seen * 1000)}</td>
