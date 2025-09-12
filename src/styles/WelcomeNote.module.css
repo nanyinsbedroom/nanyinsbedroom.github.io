@@ -13,31 +13,30 @@
 }
 .title {
   font-size: 1.25rem;
-  font-weight: 600;
+  font-weight: 700;
   color: var(--text-primary);
-}
-.closeButton {
-  background: none; border: none;
-  color: var(--text-tertiary);
-  cursor: pointer; padding: 0.25rem;
-  transition: all 0.2s ease;
-}
-.closeButton:hover {
-  color: var(--text-primary);
-  transform: rotate(90deg);
 }
 .content {
   display: flex;
   flex-direction: column;
   gap: 1rem;
-  font-size: 0.9rem;
+  font-size: 0.95rem;
+  font-weight: 500;
   color: var(--text-secondary);
   line-height: 1.6;
 }
 .content h4 {
-  font-weight: 600;
+  font-weight: 700;
   color: var(--text-primary);
   font-size: 1rem;
+}
+.importantText {
+  color: #ff4d4d;
+  font-weight: 700;
+}
+.companyName {
+  font-weight: 700;
+  color: var(--text-primary);
 }
 @keyframes fadeIn {
   from { opacity: 0; transform: translateY(-10px); }

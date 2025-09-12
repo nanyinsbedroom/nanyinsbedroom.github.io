@@ -27,20 +27,51 @@
   margin-bottom: 1rem;
 }
 .mobileWing {
-  position: fixed; top: 0; height: 100%; z-index: 100;
+  position: fixed; 
+  top: 0; 
+  height: 100%; 
+  z-index: 100;
   background-color: rgba(3, 7, 18, 0.8);
   -webkit-backdrop-filter: blur(12px);
   backdrop-filter: blur(12px);
   box-shadow: 0 0 30px rgba(0,0,0,0.5);
   transition: transform 0.3s ease-in-out;
+  display: flex;
+  flex-direction: column;
 }
 .mobileWing.left { left: 0; width: 320px; border-right: 1px solid var(--border-color); transform: translateX(-100%); }
 .mobileWing.right { right: 0; width: 380px; border-left: 1px solid var(--border-color); transform: translateX(100%); }
 .mobileWing.open { transform: translateX(0); }
-.wingHeader { display: flex; justify-content: space-between; align-items: center; padding: 1rem; border-bottom: 1px solid var(--border-color); }
-.closeButton { background: none; border: none; color: var(--text-secondary); cursor: pointer; padding: 0.5rem; }
+.wingHeader { 
+  display: flex; 
+  justify-content: space-between; 
+  align-items: center; 
+  padding: 1rem; 
+  border-bottom: 1px solid var(--border-color); 
+  flex-shrink: 0;
+  position: sticky;
+  top: 0;
+  background-color: var(--surface-primary);
+  z-index: 101;
+}
+.closeButton { 
+  background: none; 
+  border: none; 
+  color: var(--text-secondary); 
+  cursor: pointer; 
+  padding: 0.5rem; 
+  z-index: 102;
+}
 .overlay { position: fixed; inset: 0; background-color: rgba(0,0,0,0.5); z-index: 99; opacity: 0; transition: opacity 0.3s ease-in-out; pointer-events: none; }
 .overlay.visible { opacity: 1; pointer-events: auto; }
+
+.mobileWingScrollContent {
+  flex-grow: 1;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  padding: 1rem;
+}
+
 @media (min-width: 1200px) {
   .wing { display: block; }
   .mobileWing { display: none; }

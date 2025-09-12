@@ -5,6 +5,7 @@ import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, TooltipProps
 import { Account } from '@/lib/types';
 import styles from '@/styles/Chart.module.css';
 import ClientOnly from '@/components/ClientOnly';
+import { useTranslations } from '@/context/LanguageContext';
 
 const CustomTooltip = ({ active, payload }: TooltipProps<number, string>) => {
   if (active && payload && payload.length) {
@@ -20,6 +21,7 @@ const CustomTooltip = ({ active, payload }: TooltipProps<number, string>) => {
 };
 
 export default function RegistrationChart({ accounts }: { accounts: Account[] }) {
+  const t = useTranslations('Charts');
   const data = useMemo(() => {
     const counts: { [key: string]: number } = {};
     accounts.forEach(acc => {
@@ -33,7 +35,7 @@ export default function RegistrationChart({ accounts }: { accounts: Account[] })
 
   return (
     <div className={styles.chartCard}>
-      <h3>New Players by Year</h3>
+      <h3>{t('newPlayersByYear')}</h3>
       <div className={styles.chartContainer}>
         <ClientOnly>
           <ResponsiveContainer width="100%" height="100%">

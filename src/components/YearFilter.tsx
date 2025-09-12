@@ -1,4 +1,7 @@
+'use client';
+
 import styles from '@/styles/PlayerTable.module.css';
+import { useTranslations } from '@/context/LanguageContext';
 
 interface YearFilterProps {
   years: string[];
@@ -7,6 +10,7 @@ interface YearFilterProps {
 }
 
 export default function YearFilter({ years, selectedYear, onSelectYear }: YearFilterProps) {
+  const t = useTranslations('Filters');
   return (
     <div>
       <div className={styles.sortControls}>
@@ -14,7 +18,7 @@ export default function YearFilter({ years, selectedYear, onSelectYear }: YearFi
           onClick={() => onSelectYear(null)}
           className={`${styles.sortButton} ${selectedYear === null ? styles.active : ''}`}
         >
-          All Time
+          {t('allTime')}
         </button>
         {years.map(year => (
           <button

@@ -1,3 +1,5 @@
+'use client';
+
 import TopCrewsByActivityChart from './charts/TopCrewsByActivityChart';
 import { CrewActivity } from '@/lib/playerUtils';
 import { formatRegionName } from '@/lib/formatters';
@@ -5,13 +7,12 @@ import styles from '@/styles/Sidebar.module.css';
 import { FaGithub, FaDiscord, FaEnvelope } from 'react-icons/fa';
 
 const socialLinks = [
-  { href: "https://github.com/nanyinsbedroom", icon: FaGithub, label: "GitHub" },
-  { href: "https://discord.gg/Bs5cPKumFX", icon: FaDiscord, label: "Discord" },
+  { href: "https://github.com/nanyinsbedroom", icon: FaGithub, label: "Follow Us" }, 
+  { href: "https://discord.gg/Bs5cPKumFX", icon: FaDiscord, label: "Join Our Community" }, 
   { href: "mailto:soevielofficial@gmail.com", icon: FaEnvelope, label: "Contact" },
 ];
 
 interface SidebarProps {
-  // --- ADD isMobile PROP ---
   isMobile: boolean;
   totalPlayers: number;
   regions: string[];

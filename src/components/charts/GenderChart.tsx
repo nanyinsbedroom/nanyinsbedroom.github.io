@@ -4,6 +4,7 @@ import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip, TooltipProps } from 
 import { Account } from '@/lib/types';
 import styles from '@/styles/Chart.module.css';
 import ClientOnly from '@/components/ClientOnly';
+import { useTranslations } from '@/context/LanguageContext';
 
 const COLORS = ['var(--brand-glow)', 'var(--accent-pink)'];
 
@@ -32,18 +33,20 @@ const renderCustomizedLabel = ({ cx, cy, midAngle, innerRadius, outerRadius, per
 };
 
 export default function GenderChart({ accounts }: { accounts: Account[] }) {
+  const t = useTranslations('Charts');
+  const tFilters = useTranslations('Filters');
   const data = useMemo(() => {
     const maleCount = accounts.filter(acc => acc.gender === 0).length;
     const femaleCount = accounts.length - maleCount;
     return [
-      { name: 'Male', value: maleCount },
-      { name: 'Female', value: femaleCount },
+      { name: tFilters('male'), value: maleCount },
+      { name: tFilters('female'), value: femaleCount },
     ];
-  }, [accounts]);
+  }, [accounts, tFilters]);
 
   return (
     <div className={styles.chartCard}>
-      <h3>Gender Distribution</h3>
+      <h3>{t('genderDistribution')}</h3>
       <div className={styles.chartContainer}>
         <ClientOnly>
           <ResponsiveContainer width="100%" height="100%">

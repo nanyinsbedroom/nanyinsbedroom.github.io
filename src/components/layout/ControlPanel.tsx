@@ -4,6 +4,7 @@ import AdvancedFilters from '../AdvancedFilters';
 import YearFilter from '../YearFilter';
 import styles from '@/styles/PlayerTable.module.css';
 import { Account } from '@/lib/types';
+import { useTranslations } from '@/context/LanguageContext';
 
 type SortConfig = { key: keyof Account | 'activity_status'; direction: 'asc' | 'desc'; };
 
@@ -24,6 +25,7 @@ interface ControlPanelProps {
 }
 
 export default function ControlPanel(props: ControlPanelProps) {
+  const t = useTranslations('Filters');
   const handleSort = (key: keyof Account | 'activity_status') => {
     const direction =
       props.sortConfig.key === key && props.sortConfig.direction === 'desc' ? 'asc' : 'desc';
@@ -35,7 +37,7 @@ export default function ControlPanel(props: ControlPanelProps) {
       <div className={styles.controlsContainer}>
         <input
           type="text"
-          placeholder="Search players or crews..."
+          placeholder={t('searchPlaceholder')}
           value={props.searchQuery}
           onChange={(e) => props.onSearch(e.target.value)}
           className={styles.searchInput}
@@ -59,13 +61,13 @@ export default function ControlPanel(props: ControlPanelProps) {
               onClick={() => handleSort('registered')}
               className={`${styles.sortButton} ${props.sortConfig.key === 'registered' ? styles.active : ''}`}
             >
-              Newest {props.sortConfig.key === 'registered' && (props.sortConfig.direction === 'asc' ? '↑' : '↓')}
+              {t('newest')} {props.sortConfig.key === 'registered' && (props.sortConfig.direction === 'asc' ? '↑' : '↓')}
             </button>
             <button
               onClick={() => handleSort('last_seen')}
               className={`${styles.sortButton} ${props.sortConfig.key === 'last_seen' ? styles.active : ''}`}
             >
-              Last Seen {props.sortConfig.key === 'last_seen' && (props.sortConfig.direction === 'asc' ? '↑' : '↓')}
+              {t('lastSeen')} {props.sortConfig.key === 'last_seen' && (props.sortConfig.direction === 'asc' ? '↑' : '↓')}
             </button>
           </div>
         </div>

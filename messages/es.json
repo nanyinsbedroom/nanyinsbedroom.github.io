@@ -1,0 +1,72 @@
+{
+  "GlobalHeader": {
+    "mainButton": "Base de Datos del Juego",
+    "subText": "Haga clic aquí para más datos"
+  },
+  "Dashboard": {
+    "title": "Panel de Jugadores",
+    "lastUpdated": "Última Actualización:",
+    "refresh": "Actualizar",
+    "menu": "Menú",
+    "charts": "Gráficos"
+  },
+  "WelcomeNote": {
+    "title": "Bienvenido al Panel de Jugadores",
+    "intro": "Este panel es un proyecto impulsado por la comunidad, diseñado para proporcionar estadísticas y conocimientos sobre la base de jugadores del juego.",
+    "howTitle": "¿Cómo se recopilan estos datos?",
+    "howText": "La información se recopila utilizando herramientas de terceros disponibles públicamente. Piense en ello como un \"censo en el juego\" periódico, una instantánea de los datos de los jugadores visibles en un momento específico.",
+    "disclaimerTitle": "Aviso Importante",
+    "disclaimerP1_part1": "Para que quede muy claro: este sitio web ",
+    "disclaimerP1_part2_important": "no se conecta a los servidores del juego en vivo",
+    "disclaimerP1_part3": ". Los datos que ve ",
+    "disclaimerP1_part4_important": "no son en tiempo real",
+    "disclaimerP1_part5": ".",
+    "disclaimerP2": "Piense en estos datos como una fotografía, no como un video en vivo. Tomamos estas \"instantáneas\" de los datos públicos de los jugadores periódicamente. Esto significa que la información es una vista diferida, no una transmisión en vivo de lo que está sucediendo en el juego en este momento.",
+    "disclaimerP3_part1": "Por lo tanto, este sitio no está afiliado con ",
+    "disclaimerP3_part2_company": "Hotta Studio",
+    "disclaimerP3_part3": " ni con ",
+    "disclaimerP3_part4_company": "Perfect World Games",
+    "disclaimerP3_part5": ", y los datos ",
+    "disclaimerP3_part6_important": "pueden no estar 100% completos",
+    "disclaimerP3_part7": "."
+  },
+  "Sidebar": {
+    "totalPlayers": "Total de Jugadores",
+    "regions": "Regiones",
+    "activeCrews": "Clanes Más Activos",
+    "followUs": "Síguenos",
+    "joinCommunity": "Únete a Nuestra Comunidad",
+    "contact": "Contacto"
+  },
+  "Filters": {
+    "allRegions": "Todas las Regiones",
+    "allStatus": "Todos los Estados",
+    "online": "En línea",
+    "recent": "Reciente",
+    "inactive": "Inactivo",
+    "allGenders": "Todos los Géneros",
+    "male": "Masculino",
+    "female": "Femenino",
+    "allPlayers": "Todos los Jugadores",
+    "inACrew": "En un Clan",
+    "noCrew": "Sin Clan",
+    "allTime": "Desde Siempre",
+    "newest": "Más Nuevos",
+    "lastSeen": "Última Vez Visto",
+    "searchPlaceholder": "Buscar jugadores o clanes..."
+  },
+  "Table": {
+    "headerName": "Nombre",
+    "headerCrew": "Clan",
+    "headerRegion": "Región",
+    "headerRegistered": "Registrado",
+    "headerLastSeen": "Última Vez Visto"
+  },
+  "Charts": {
+    "genderDistribution": "Distribución de Género",
+    "newPlayersByYear": "Nuevos Jugadores por Año",
+    "monthlyActivePlayers": "Jugadores Activos Mensuales",
+    "playerRetention": "Retención de Jugadores por Cohorte",
+    "viewReport": "Ver Informe Detallado"
+  }
+}

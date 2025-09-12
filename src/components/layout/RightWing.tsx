@@ -29,9 +29,11 @@ export default function RightWing({ isMobile, isOpen, onClose, filteredAccounts,
       <aside className={`${styles.mobileWing} ${styles.right} ${isOpen ? styles.open : ''}`}>
         <div className={styles.wingHeader}>
           <h3 className={styles.wingTitle}>Visualizations</h3>
-          <button onClick={onClose} className={styles.closeButton}><FaTimes size={20} /></button>
+          <button onClick={onClose} className={styles.closeButton} aria-label="Close visualizations"><FaTimes size={20} /></button>
         </div>
-        <div className={styles.wingContent}>{content}</div>
+        <div className={styles.mobileWingScrollContent}> {/* Added a new div for scrollable content */}
+          <div className={styles.wingContent}>{content}</div>
+        </div>
       </aside>
     );
   }

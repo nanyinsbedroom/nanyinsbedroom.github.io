@@ -1,0 +1,72 @@
+{
+  "GlobalHeader": {
+    "mainButton": "游戏管理器数据库",
+    "subText": "点击此处获取更多数据"
+  },
+  "Dashboard": {
+    "title": "玩家数据面板",
+    "lastUpdated": "最后更新：",
+    "refresh": "刷新",
+    "menu": "菜单",
+    "charts": "图表"
+  },
+  "WelcomeNote": {
+    "title": "欢迎来到玩家数据面板",
+    "intro": "这个面板是一个由社区驱动的项目，旨在为游戏玩家群体提供统计数据和见解。",
+    "howTitle": "这些数据是如何收集的？",
+    "howText": "信息是通过公开可用的第三方工具收集的。可以把它想象成定期的“游戏内普查”——在特定时刻可见的玩家数据的快照。",
+    "disclaimerTitle": "重要免责声明",
+    "disclaimerP1_part1": "需要明确的是：本网站",
+    "disclaimerP1_part2_important": "不会连接到实时游戏服务器",
+    "disclaimerP1_part3": "。您看到的数据",
+    "disclaimerP1_part4_important": "不是实时",
+    "disclaimerP1_part5": "的。",
+    "disclaimerP2": "请将这些数据看作一张照片，而不是实时视频。我们会定期对公开的玩家数据进行“快照”。这意味着这些信息是延迟视图，而不是游戏当前情况的实时反馈。",
+    "disclaimerP3_part1": "因此，本网站与",
+    "disclaimerP3_part2_company": "Hotta Studio",
+    "disclaimerP3_part3": "或",
+    "disclaimerP3_part4_company": "完美世界游戏",
+    "disclaimerP3_part5": "无关，并且数据",
+    "disclaimerP3_part6_important": "可能不是100%完整",
+    "disclaimerP3_part7": "的。"
+  },
+  "Sidebar": {
+    "totalPlayers": "总玩家数",
+    "regions": "地区",
+    "activeCrews": "最活跃的公会",
+    "followUs": "关注我们",
+    "joinCommunity": "加入我们的社区",
+    "contact": "联系我们"
+  },
+  "Filters": {
+    "allRegions": "所有地区",
+    "allStatus": "所有状态",
+    "online": "在线",
+    "recent": "最近",
+    "inactive": "不活跃",
+    "allGenders": "所有性别",
+    "male": "男性",
+    "female": "女性",
+    "allPlayers": "所有玩家",
+    "inACrew": "有公会",
+    "noCrew": "无公会",
+    "allTime": "所有时间",
+    "newest": "最新",
+    "lastSeen": "最后上线",
+    "searchPlaceholder": "搜索玩家或公会..."
+  },
+  "Table": {
+    "headerName": "名称",
+    "headerCrew": "公会",
+    "headerRegion": "地区",
+    "headerRegistered": "注册时间",
+    "headerLastSeen": "最后上线"
+  },
+  "Charts": {
+    "genderDistribution": "性别分布",
+    "newPlayersByYear": "年度新增玩家",
+    "monthlyActivePlayers": "月活跃玩家",
+    "playerRetention": "玩家留存分析",
+    "viewReport": "查看详细报告"
+  }
+}

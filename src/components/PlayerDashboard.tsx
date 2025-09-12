@@ -6,7 +6,6 @@ import { useMediaQuery } from '@/lib/useMediaQuery';
 import { getActivityStatus, getCrewActivityScores } from '@/lib/playerUtils';
 import { getNewPlayersInLast, getMostActiveRegionToday, getFastestGrowingCrew, getAccountAgeExtremes } from '@/lib/insightsUtils';
 import { calculateRetentionCohorts, calculateAverageRetention } from '@/lib/cohortUtils';
-
 import WelcomeNote from './WelcomeNote';
 import LeftWing from './layout/LeftWing';
 import RightWing from './layout/RightWing';
@@ -16,7 +15,8 @@ import DashboardInsights from './DashboardInsights';
 import RetentionCohortChart from './charts/RetentionCohortChart';
 import PlayerTableSkeleton from './skeletons/PlayerTableSkeleton';
 import StatisticsModal from './StatisticsModal';
-
+import { useMobileMenu } from '@/context/MobileMenuContext';
+import { useTranslations } from '@/context/LanguageContext';
 import { FaSync, FaBars, FaChartBar } from 'react-icons/fa';
 import styles from '@/styles/Dashboard.module.css';
 import layoutStyles from '@/styles/Layout.module.css';
@@ -25,15 +25,14 @@ type SortConfig = { key: keyof Account | 'activity_status'; direction: 'asc' | '
 const REGIONS = ['All Regions', 'asia_pacific', 'europe', 'north_america', 'south_america', 'southeast_asia', 'korea'];
 
 export default function PlayerDashboard() {
+  const t = useTranslations('Dashboard');
   const [dashboardData, setDashboardData] = useState<DashboardData>({ 
     index: { total_accounts: 0, last_update: 0, regions: {} }, 
     accounts: [] 
   });
   const [isLoading, setIsLoading] = useState(true);
-  const [showWelcomeNote, setShowWelcomeNote] = useState(false);
   const [isCohortModalOpen, setIsCohortModalOpen] = useState(false);
-  const [isLeftWingOpen, setIsLeftWingOpen] = useState(false);
-  const [isRightWingOpen, setIsRightWingOpen] = useState(false);
+  const { isLeftWingOpen, setIsLeftWingOpen, isRightWingOpen, setIsRightWingOpen } = useMobileMenu(); 
   const isMobile = useMediaQuery(1199);
   
   const [selectedRegion, setSelectedRegion] = useState('All Regions');
@@ -92,17 +91,7 @@ export default function PlayerDashboard() {
     };
 
     fetchAllData();
-    
-    const hasDismissed = localStorage.getItem('hasDismissedWelcomeNote');
-    if (!hasDismissed) {
-      setShowWelcomeNote(true);
-    }
   }, []);
-
-  const handleDismissWelcome = () => {
-    localStorage.setItem('hasDismissedWelcomeNote', 'true');
-    setShowWelcomeNote(false);
-  };
 
   const insights = useMemo(() => ({
     newPlayers: getNewPlayersInLast(dashboardData.accounts, 7),
@@ -191,17 +180,17 @@ export default function PlayerDashboard() {
         <main className={styles.mainContent}>
           <div className={styles.topBar}>
             <div>
-              <h1>Player Dashboard</h1>
-              <p>Last Updated: {new Date(dashboardData.index.last_update * 1000).toLocaleString()}</p>
+              <h1>{t('title')}</h1>
+              <p>{t('lastUpdated')} {new Date(dashboardData.index.last_update * 1000).toLocaleString()}</p>
             </div>
             <div className={styles.headerActions}>
               {isMobile && (
                 <>
-                  <button onClick={() => setIsLeftWingOpen(true)} className={styles.mobileWingButton}><FaBars /> Menu</button>
-                  <button onClick={() => setIsRightWingOpen(true)} className={styles.mobileWingButton}><FaChartBar /> Charts</button>
+                  <button onClick={() => setIsLeftWingOpen(true)} className={styles.mobileWingButton} aria-label="Open menu"><FaBars /> {t('menu')}</button>
+                  <button onClick={() => setIsRightWingOpen(true)} className={styles.mobileWingButton} aria-label="Open charts"><FaChartBar /> {t('charts')}</button>
                 </>
               )}
-              <button onClick={handleRefresh} className={styles.refreshButton}><FaSync /> Refresh</button>
+              <button onClick={handleRefresh} className={styles.refreshButton} aria-label="Refresh data"><FaSync /> {t('refresh')}</button>
             </div>
           </div>
 
@@ -209,7 +198,7 @@ export default function PlayerDashboard() {
             <PlayerTableSkeleton />
           ) : (
             <>
-              {showWelcomeNote && <WelcomeNote onDismiss={handleDismissWelcome} />}
+              <WelcomeNote />
               <DashboardInsights
                 newPlayers={insights.newPlayers}
                 activeRegion={insights.activeRegion}

@@ -1,35 +1,53 @@
 'use client';
 
-import { FaTimes } from 'react-icons/fa';
+import { useTranslations } from '@/context/LanguageContext';
 import styles from '@/styles/WelcomeNote.module.css';
 
-interface WelcomeNoteProps {
-  onDismiss: () => void;
-}
+export default function WelcomeNote() {
+  const t = useTranslations('WelcomeNote');
 
-export default function WelcomeNote({ onDismiss }: WelcomeNoteProps) {
   return (
     <div className={styles.welcomeCard}>
       <div className={styles.header}>
-        <h3 className={styles.title}>Welcome to the Player Dashboard</h3>
-        <button onClick={onDismiss} className={styles.closeButton} aria-label="Dismiss welcome message">
-          <FaTimes size={20} />
-        </button>
+        <h3 className={styles.title}>{t('title')}</h3>
       </div>
       <div className={styles.content}>
-        <p>
-          This dashboard is a community-driven project designed to provide statistics and insights into the player base of the game.
-        </p>
+        <p>{t('intro')}</p>
         <div>
-          <h4>How is this data collected?</h4>
-          <p>
-            The information is gathered using publicly available, third-party tools in a semi-automated process. Think of it like a periodic "in-game census"—a snapshot of the player data that is visible at a specific moment in time. This process is run periodically to keep the stats as up-to-date as possible.
-          </p>
+          <h4>{t('howTitle')}</h4>
+          <p>{t('howText')}</p>
         </div>
         
-        <p>
-          Because of this method, please keep in mind that this dashboard is <strong>not</strong> an official, real-time feed from the game servers and is <strong>not affiliated</strong> with the game developers. It represents a large sample of the player base, but may not be 100% complete.
-        </p>
+        <div>
+          <h4>{t('disclaimerTitle')}</h4>
+          <p>
+            {t('disclaimerP1_part1')}
+            <strong className={styles.importantText}>
+              {t('disclaimerP1_part2_important')}
+            </strong>
+            {t('disclaimerP1_part3')}
+            <strong className={styles.importantText}>
+              {t('disclaimerP1_part4_important')}
+            </strong>
+            {t('disclaimerP1_part5')}
+          </p>
+          <p>{t('disclaimerP2')}</p>
+          <p>
+            {t('disclaimerP3_part1')}
+            <strong className={styles.companyName}>
+              {t('disclaimerP3_part2_company')}
+            </strong>
+            {t('disclaimerP3_part3')}
+            <strong className={styles.companyName}>
+              {t('disclaimerP3_part4_company')}
+            </strong>
+            {t('disclaimerP3_part5')}
+            <strong className={styles.importantText}>
+              {t('disclaimerP3_part6_important')}
+            </strong>
+            {t('disclaimerP3_part7')}
+          </p>
+        </div>
       </div>
     </div>
   );

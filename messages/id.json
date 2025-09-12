@@ -1,0 +1,72 @@
+{
+  "GlobalHeader": {
+    "mainButton": "Database Manajer Game",
+    "subText": "Klik di sini untuk data lebih lanjut"
+  },
+  "Dashboard": {
+    "title": "Dasbor Pemain",
+    "lastUpdated": "Terakhir Diperbarui:",
+    "refresh": "Segarkan",
+    "menu": "Menu",
+    "charts": "Grafik"
+  },
+  "WelcomeNote": {
+    "title": "Selamat Datang di Dasbor Pemain",
+    "intro": "Dasbor ini adalah proyek berbasis komunitas yang dirancang untuk menyediakan statistik dan wawasan tentang basis pemain game.",
+    "howTitle": "Bagaimana data ini dikumpulkan?",
+    "howText": "Informasi dikumpulkan menggunakan alat pihak ketiga yang tersedia untuk umum. Anggap saja seperti \"sensus dalam game\" berkala—sebuah potret data pemain yang terlihat pada saat tertentu.",
+    "disclaimerTitle": "Penafian Penting",
+    "disclaimerP1_part1": "Agar sangat jelas: situs web ini ",
+    "disclaimerP1_part2_important": "tidak terhubung ke server game langsung",
+    "disclaimerP1_part3": ". Data yang Anda lihat ",
+    "disclaimerP1_part4_important": "bukan real-time",
+    "disclaimerP1_part5": ".",
+    "disclaimerP2": "Anggap data ini seperti foto, bukan video langsung. Kami mengambil \"potret\" data pemain publik ini secara berkala. Ini berarti informasi tersebut adalah tampilan yang tertunda, bukan siaran langsung dari apa yang terjadi di dalam game saat ini.",
+    "disclaimerP3_part1": "Oleh karena itu, situs ini tidak berafiliasi dengan ",
+    "disclaimerP3_part2_company": "Hotta Studio",
+    "disclaimerP3_part3": " atau ",
+    "disclaimerP3_part4_company": "Perfect World Games",
+    "disclaimerP3_part5": ", dan datanya ",
+    "disclaimerP3_part6_important": "mungkin tidak 100% lengkap",
+    "disclaimerP3_part7": "."
+  },
+  "Sidebar": {
+    "totalPlayers": "Total Pemain",
+    "regions": "Wilayah",
+    "activeCrews": "Kru Paling Aktif",
+    "followUs": "Ikuti Kami",
+    "joinCommunity": "Gabung Komunitas Kami",
+    "contact": "Kontak"
+  },
+  "Filters": {
+    "allRegions": "Semua Wilayah",
+    "allStatus": "Semua Status",
+    "online": "Online",
+    "recent": "Baru-baru ini",
+    "inactive": "Tidak Aktif",
+    "allGenders": "Semua Jenis Kelamin",
+    "male": "Pria",
+    "female": "Wanita",
+    "allPlayers": "Semua Pemain",
+    "inACrew": "Dalam Kru",
+    "noCrew": "Tanpa Kru",
+    "allTime": "Semua Waktu",
+    "newest": "Terbaru",
+    "lastSeen": "Terakhir Dilihat",
+    "searchPlaceholder": "Cari pemain atau kru..."
+  },
+  "Table": {
+    "headerName": "Nama",
+    "headerCrew": "Kru",
+    "headerRegion": "Wilayah",
+    "headerRegistered": "Terdaftar",
+    "headerLastSeen": "Terakhir Dilihat"
+  },
+  "Charts": {
+    "genderDistribution": "Distribusi Jenis Kelamin",
+    "newPlayersByYear": "Pemain Baru per Tahun",
+    "monthlyActivePlayers": "Pemain Aktif Bulanan",
+    "playerRetention": "Retensi Pemain per Kelompok",
+    "viewReport": "Lihat Laporan Rinci"
+  }
+}

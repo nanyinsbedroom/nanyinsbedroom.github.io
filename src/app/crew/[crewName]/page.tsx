@@ -3,18 +3,6 @@ import { getDashboardData } from '@/lib/data-fetching';
 import CrewProfile from '@/components/CrewProfile';
 import { Account } from '@/lib/types';
 
-
-
-export async function generateStaticParams() {
-  const data = await getDashboardData();
-  
-  const crewNames = new Set(data.accounts.map((acc: Account) => acc.crew_name).filter(name => name && name !== 'N/A'));
-  
-  return Array.from(crewNames).map(name => ({
-    crewName: encodeURIComponent(name),
-  }));
-}
-
 export async function generateMetadata({ params }: { params: { crewName: string } }) {
   const crewName = decodeURIComponent(params.crewName);
   return {
