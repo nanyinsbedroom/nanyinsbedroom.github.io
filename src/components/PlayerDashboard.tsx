@@ -16,16 +16,14 @@ import RetentionCohortChart from './charts/RetentionCohortChart';
 import PlayerTableSkeleton from './skeletons/PlayerTableSkeleton';
 import StatisticsModal from './StatisticsModal';
 import { useMobileMenu } from '@/context/MobileMenuContext';
-import { useTranslations } from '@/context/LanguageContext';
 import { FaSync, FaBars, FaChartBar } from 'react-icons/fa';
 import styles from '@/styles/Dashboard.module.css';
 import layoutStyles from '@/styles/Layout.module.css';
 
 type SortConfig = { key: keyof Account | 'activity_status'; direction: 'asc' | 'desc'; };
-const REGIONS = ['All Regions', 'asia_pacific', 'europe', 'north_america', 'south_america', 'southeast_asia', 'korea'];
+const REGIONS = ['All Regions', 'asia_pacific', 'europe', 'north_america', 'south_america', 'southeast_asia', 'korea', 'china'];
 
 export default function PlayerDashboard() {
-  const t = useTranslations('Dashboard');
   const [dashboardData, setDashboardData] = useState<DashboardData>({ 
     index: { total_accounts: 0, last_update: 0, regions: {} }, 
     accounts: [] 
@@ -55,7 +53,7 @@ export default function PlayerDashboard() {
           { key: 'south_america',  url: `${baseRepoUrl}/accounts/south_america/accounts.json` },
           { key: 'southeast_asia', url: `${baseRepoUrl}/accounts/southeast_asia/accounts.json` },
           { key: 'korea',          url: 'https://raw.githubusercontent.com/nanyinsbedroom/tofgm-database/refs/heads/main/accounts/%C3%AC%E2%80%94%C2%90%C3%AC%C5%A0%C2%A4%C3%AD%C5%BD%CB%9C%C3%AB%C2%A6%C2%AC%C3%AC%E2%80%A2%E2%80%9E/accounts.json' },
-          { key: 'CN',             url: 'https://github.com/nanyinsbedroom/tofgm-database/blob/main/accounts/%C3%A7%C2%8F%C2%AD%C3%A5%C2%90%E2%80%B0%C3%A6%E2%80%93%C2%AF/accounts.json' }
+          { key: 'china',          url: 'https://raw.githubusercontent.com/nanyinsbedroom/tofgm-database/main/accounts/%C3%A7%C2%8F%C2%AD%C3%A5%C2%90%E2%80%B0%C3%A6%E2%80%93%C2%AF/accounts.json' }
         ];
 
         const [indexRes, ...regionResponses] = await Promise.all([
@@ -159,94 +157,94 @@ export default function PlayerDashboard() {
   const handleRefresh = () => window.location.reload();
 
   return (
-    <>
-      <div className={styles.pageContainer}>
-        <div 
-          className={`${layoutStyles.overlay} ${(isLeftWingOpen || isRightWingOpen) && isMobile ? layoutStyles.visible : ''}`}
-          onClick={() => { setIsLeftWingOpen(false); setIsRightWingOpen(false); }}
-        />
-        
-        <LeftWing
-          isMobile={isMobile}
-          isOpen={isLeftWingOpen}
-          onClose={() => setIsLeftWingOpen(false)}
-          totalPlayers={dashboardData.index.total_accounts}
-          regions={REGIONS}
-          regionCounts={regionCounts}
-          selectedRegion={selectedRegion}
-          onRegionChange={handleRegionChange}
-          crewActivityData={crewActivityData}
-        />
-        
-        <main className={styles.mainContent}>
-          <div className={styles.topBar}>
-            <div>
-              <h1>{t('title')}</h1>
-              <p>{t('lastUpdated')} {new Date(dashboardData.index.last_update * 1000).toLocaleString()}</p>
-            </div>
-            <div className={styles.headerActions}>
-              {isMobile && (
-                <>
-                  <button onClick={() => setIsLeftWingOpen(true)} className={styles.mobileWingButton} aria-label="Open menu"><FaBars /> {t('menu')}</button>
-                  <button onClick={() => setIsRightWingOpen(true)} className={styles.mobileWingButton} aria-label="Open charts"><FaChartBar /> {t('charts')}</button>
-                </>
-              )}
-              <button onClick={handleRefresh} className={styles.refreshButton} aria-label="Refresh data"><FaSync /> {t('refresh')}</button>
-            </div>
-          </div>
-
-          {isLoading ? (
-            <PlayerTableSkeleton />
-          ) : (
-            <>
-              <WelcomeNote />
-              <DashboardInsights
-                newPlayers={insights.newPlayers}
-                activeRegion={insights.activeRegion}
-                topCrew={insights.topCrew}
-                ageExtremes={insights.ageExtremes}
-              />
-              <RetentionCohortChart onOpenModal={() => setIsCohortModalOpen(true)} />
-              <ControlPanel
-                searchQuery={searchQuery}
-                onSearch={setSearchQuery}
-                sortConfig={sortConfig}
-                onSort={setSortConfig}
-                activityFilter={activityFilter}
-                onActivityChange={setActivityFilter}
-                genderFilter={genderFilter}
-                onGenderChange={setGenderFilter}
-                crewFilter={crewFilter}
-                onCrewChange={setCrewFilter}
-                availableYears={availableYears}
-                selectedYear={selectedYear}
-                onSelectYear={setSelectedYear}
-              />
-              <PlayerTable
-                accounts={sortedAccounts}
-                allAccounts={dashboardData.accounts}
-                currentPage={currentPage}
-                onPageChange={setCurrentPage}
-              />
-            </>
-          )}
-        </main>
-
-        <RightWing
-          isMobile={isMobile}
-          isOpen={isRightWingOpen}
-          onClose={() => setIsRightWingOpen(false)}
-          filteredAccounts={filteredAccounts}
-          monthlyActiveData={monthlyActiveData}
-        />
-      </div>
-      
-      <StatisticsModal 
-        isOpen={isCohortModalOpen}
-        onClose={() => setIsCohortModalOpen(false)}
-        data={cohortData}
-        averageRetention={averageRetention}
+    <div className={styles.pageContainer}>
+      <div 
+        className={`${layoutStyles.overlay} ${(isLeftWingOpen || isRightWingOpen) && isMobile ? layoutStyles.visible : ''}`}
+        onClick={() => { setIsLeftWingOpen(false); setIsRightWingOpen(false); }}
       />
-    </>
+      
+      <LeftWing
+        isMobile={isMobile}
+        isOpen={isLeftWingOpen}
+        onClose={() => setIsLeftWingOpen(false)}
+        totalPlayers={dashboardData.index.total_accounts}
+        regions={REGIONS}
+        regionCounts={regionCounts}
+        selectedRegion={selectedRegion}
+        onRegionChange={handleRegionChange}
+        crewActivityData={crewActivityData}
+      />
+      
+      <main className={styles.mainContent}>
+        <div className={styles.topBar}>
+          <div>
+            <h1>Player Dashboard</h1>
+            <p>Last Updated: {new Date(dashboardData.index.last_update * 1000).toLocaleString()}</p>
+          </div>
+          <div className={styles.headerActions}>
+            {isMobile && (
+              <>
+                <button onClick={() => setIsLeftWingOpen(true)} className={styles.mobileWingButton} aria-label="Open menu"><FaBars /> Menu</button>
+                <button onClick={() => setIsRightWingOpen(true)} className={styles.mobileWingButton} aria-label="Open charts"><FaChartBar /> Charts</button>
+              </>
+            )}
+            <button onClick={handleRefresh} className={styles.refreshButton} aria-label="Refresh data"><FaSync /> Refresh</button>
+          </div>
+        </div>
+
+        {isLoading ? (
+          <PlayerTableSkeleton />
+        ) : (
+          <>
+            <WelcomeNote />
+            <DashboardInsights
+              newPlayers={insights.newPlayers}
+              activeRegion={insights.activeRegion}
+              topCrew={insights.topCrew}
+              ageExtremes={insights.ageExtremes}
+            />
+            <RetentionCohortChart onOpenModal={() => setIsCohortModalOpen(true)} />
+            <ControlPanel
+              searchQuery={searchQuery}
+              onSearch={setSearchQuery}
+              sortConfig={sortConfig}
+              onSort={setSortConfig}
+              activityFilter={activityFilter}
+              onActivityChange={setActivityFilter}
+              genderFilter={genderFilter}
+              onGenderChange={setGenderFilter}
+              crewFilter={crewFilter}
+              onCrewChange={setCrewFilter}
+              availableYears={availableYears}
+              selectedYear={selectedYear}
+              onSelectYear={setSelectedYear}
+            />
+            <PlayerTable
+              accounts={sortedAccounts}
+              allAccounts={dashboardData.accounts}
+              currentPage={currentPage}
+              onPageChange={setCurrentPage}
+            />
+          </>
+        )}
+      </main>
+
+      <RightWing
+        isMobile={isMobile}
+        isOpen={isRightWingOpen}
+        onClose={() => setIsRightWingOpen(false)}
+        filteredAccounts={filteredAccounts}
+        monthlyActiveData={monthlyActiveData}
+      />
+
+      {isCohortModalOpen && (
+        <StatisticsModal
+          isOpen={isCohortModalOpen}
+          onClose={() => setIsCohortModalOpen(false)}
+          data={cohortData}
+          averageRetention={averageRetention}
+        />
+      )}
+    </div>
   );
 }
