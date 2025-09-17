@@ -1,4 +1,5 @@
 import { Account } from "./types";
+import { parseAllDateFormats } from "./formatters";
 
 export interface CohortData {
   cohortMonth: string;
@@ -19,7 +20,11 @@ export function calculateRetentionCohorts(accounts: Account[]): CohortData[] {
 
   accounts.forEach(acc => {
     if (!acc.registered) return;
-    const registeredDate = new Date(acc.registered);
+    
+    // MODIFICATION: Use the robust parser for registered dates
+    const registeredDate = parseAllDateFormats(acc.registered);
+    if (!registeredDate || isNaN(registeredDate.getTime())) return;
+
     const cohortKey = `${registeredDate.getFullYear()}-${String(registeredDate.getMonth() + 1).padStart(2, '0')}`;
 
     if (!cohorts[cohortKey]) {
@@ -27,7 +32,9 @@ export function calculateRetentionCohorts(accounts: Account[]): CohortData[] {
     }
     cohorts[cohortKey].registered.push(registeredDate);
 
-    const lastSeenDate = new Date(acc.last_seen * 1000);
+    // The last_seen is a UNIX timestamp in seconds, so it's handled by `new Date(acc.last_seen * 1000)`
+    const lastSeenDate = new Date(acc.last_seen * 1000); 
+
     const monthIndex = monthDiff(registeredDate, lastSeenDate);
 
     if (!cohorts[cohortKey].activities[monthIndex]) {
