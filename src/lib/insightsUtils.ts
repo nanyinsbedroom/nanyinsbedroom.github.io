@@ -1,4 +1,6 @@
 import { Account } from "./types";
+// MODIFICATION: Import our robust date parser
+import { parseAllDateFormats } from "./formatters";
 
 export interface AccountAgeInfo {
   account: Account;
@@ -6,14 +8,19 @@ export interface AccountAgeInfo {
 }
 
 function calculateAgeInDays(registeredDate: string): number {
-  const regDate = new Date(registeredDate);
-  if (isNaN(regDate.getTime())) return 0;
+  // MODIFICATION: Use the robust parser instead of the simple new Date()
+  const regDate = parseAllDateFormats(registeredDate);
+  if (!regDate || isNaN(regDate.getTime())) return 0;
   return Math.floor((Date.now() - regDate.getTime()) / (1000 * 60 * 60 * 24));
 }
 
 export function getNewPlayersInLast(accounts: Account[], days: number): number {
   const threshold = Date.now() - days * 24 * 60 * 60 * 1000;
-  return accounts.filter(acc => new Date(acc.registered).getTime() >= threshold).length;
+  // MODIFICATION: Use the robust parser to correctly filter new players
+  return accounts.filter(acc => {
+    const regDate = parseAllDateFormats(acc.registered);
+    return regDate ? regDate.getTime() >= threshold : false;
+  }).length;
 }
 
 export function getMostActiveRegionToday(accounts: Account[]): string {
@@ -32,7 +39,8 @@ export function getFastestGrowingCrew(accounts: Account[]): string {
   const threshold = Date.now() - 30 * 24 * 60 * 60 * 1000;
   const newCrewMembers: Record<string, number> = {};
   accounts.forEach(acc => {
-    if (new Date(acc.registered).getTime() >= threshold && acc.crew_name && acc.crew_name !== 'N/A') {
+    const regDate = parseAllDateFormats(acc.registered);
+    if (regDate && regDate.getTime() >= threshold && acc.crew_name && acc.crew_name !== 'N/A') {
       newCrewMembers[acc.crew_name] = (newCrewMembers[acc.crew_name] || 0) + 1;
     }
   });
@@ -41,7 +49,12 @@ export function getFastestGrowingCrew(accounts: Account[]): string {
 }
 
 export function getAccountAgeExtremes(accounts: Account[]): { oldest: AccountAgeInfo; newest: AccountAgeInfo } | null {
-  const validAccounts = accounts.filter(acc => acc.registered && !isNaN(new Date(acc.registered).getTime()));
+  const validAccounts = accounts.filter(acc => {
+    if (!acc.registered) return false;
+    const date = parseAllDateFormats(acc.registered);
+    return date && !isNaN(date.getTime());
+  });
+
   if (validAccounts.length === 0) {
     return null;
   }
@@ -50,10 +63,14 @@ export function getAccountAgeExtremes(accounts: Account[]): { oldest: AccountAge
   let newestAccount = validAccounts[0];
 
   for (const account of validAccounts) {
-    if (new Date(account.registered).getTime() < new Date(oldestAccount.registered).getTime()) {
+    const accountDate = parseAllDateFormats(account.registered)!;
+    const oldestDate = parseAllDateFormats(oldestAccount.registered)!;
+    const newestDate = parseAllDateFormats(newestAccount.registered)!;
+
+    if (accountDate.getTime() < oldestDate.getTime()) {
       oldestAccount = account;
     }
-    if (new Date(account.registered).getTime() > new Date(newestAccount.registered).getTime()) {
+    if (accountDate.getTime() > newestDate.getTime()) {
       newestAccount = account;
     }
   }

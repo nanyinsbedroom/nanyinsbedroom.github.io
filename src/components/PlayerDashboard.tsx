@@ -20,8 +20,29 @@ import { FaSync, FaBars, FaChartBar } from 'react-icons/fa';
 import styles from '@/styles/Dashboard.module.css';
 import layoutStyles from '@/styles/Layout.module.css';
 
+// Helper function to handle multiple date formats
+function parseAllDateFormats(dateInput: string | number): Date | null {
+    if (typeof dateInput === 'string') {
+        const chineseDateRegex = /(\d{4})年(\d{1,2})月(\d{1,2})日\s+(上午|下午)(\d{1,2}:\d{2}:\d{2})/;
+        const match = dateInput.match(chineseDateRegex);
+        if (match) {
+            const [, year, month, day, period, time] = match;
+            let [hours, minutes, seconds] = time.split(':').map(Number);
+            if (period === '下午' && hours !== 12) hours += 12;
+            if (period === '上午' && hours === 12) hours = 0;
+            const isoString = `${year}-${String(month).padStart(2, '0')}-${String(day).padStart(2, '0')}T${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+            return new Date(isoString);
+        } else {
+            return new Date(dateInput.replace(' ', 'T'));
+        }
+    } else if (typeof dateInput === 'number') {
+        return new Date(dateInput > 10000000000 ? dateInput : dateInput * 1000);
+    }
+    return null;
+}
+
 type SortConfig = { key: keyof Account | 'activity_status'; direction: 'asc' | 'desc'; };
-const REGIONS = ['All Regions', 'asia_pacific', 'europe', 'north_america', 'south_america', 'southeast_asia', 'korea', 'china'];
+const REGIONS = ['All Regions', 'asia_pacific', 'europe', 'north_america', 'south_america', 'southeast_asia', 'korea', '班吉斯', '回溯'];
 
 export default function PlayerDashboard() {
   const [dashboardData, setDashboardData] = useState<DashboardData>({ 
@@ -52,8 +73,9 @@ export default function PlayerDashboard() {
           { key: 'north_america',  url: `${baseRepoUrl}/accounts/north_america/accounts.json` },
           { key: 'south_america',  url: `${baseRepoUrl}/accounts/south_america/accounts.json` },
           { key: 'southeast_asia', url: `${baseRepoUrl}/accounts/southeast_asia/accounts.json` },
-          { key: 'korea',          url: 'https://raw.githubusercontent.com/nanyinsbedroom/tofgm-database/refs/heads/main/accounts/%C3%AC%E2%80%94%C2%90%C3%AC%C5%A0%C2%A4%C3%AD%C5%BD%CB%9C%C3%AB%C2%A6%C2%AC%C3%AC%E2%80%A2%E2%80%9E/accounts.json' },
-          { key: 'china',          url: 'https://raw.githubusercontent.com/nanyinsbedroom/tofgm-database/main/accounts/%C3%A7%C2%8F%C2%AD%C3%A5%C2%90%E2%80%B0%C3%A6%E2%80%93%C2%AF/accounts.json' }
+          { key: 'korea',          url: `${baseRepoUrl}/accounts/%C3%AC%E2%80%94%C2%90%C3%AC%C5%A0%C2%A4%C3%AD%C5%BD%CB%9C%C3%AB%C2%A6%C2%AC%C3%AC%E2%80%A2%E2%80%9E/accounts.json` },
+          { key: '班吉斯',          url: `${baseRepoUrl}/accounts/%C3%A7%C2%8F%C2%AD%C3%A5%C2%90%E2%80%B0%C3%A6%E2%80%93%C2%AF/accounts.json` },
+          { key: '回溯',            url: `${baseRepoUrl}/accounts/%C3%A5%E2%80%BA%C5%BE%C3%A6%C2%BA%C2%AF/accounts.json` }
         ];
 
         const [indexRes, ...regionResponses] = await Promise.all([
@@ -82,7 +104,7 @@ export default function PlayerDashboard() {
 
         processedAccounts.forEach(account => {
           if (account.crew_name && account.crew_name !== 'N/A') {
-            const trimmedCrewName = account.crew_name.trim(); // Trim whitespace
+            const trimmedCrewName = account.crew_name.trim(); 
             if (!crewRegionCounts.has(trimmedCrewName)) {
               crewRegionCounts.set(trimmedCrewName, new Map());
             }
@@ -106,7 +128,7 @@ export default function PlayerDashboard() {
 
         processedAccounts = processedAccounts.map(account => {
           if (account.crew_name && account.crew_name !== 'N/A') {
-            const trimmedCrewName = account.crew_name.trim(); // Trim again for lookup
+            const trimmedCrewName = account.crew_name.trim(); 
             if (primaryCrewRegions.has(trimmedCrewName)) {
               return { ...account, server_region: primaryCrewRegions.get(trimmedCrewName)! };
             }
@@ -144,14 +166,26 @@ export default function PlayerDashboard() {
   }, [dashboardData.accounts, dashboardData.index.total_accounts]);
 
   const availableYears = useMemo(() => {
-    const years = new Set(dashboardData.accounts.map(acc => new Date(acc.registered).getFullYear().toString()));
+    const years = new Set(
+      dashboardData.accounts
+        .map(acc => {
+          const date = parseAllDateFormats(acc.registered);
+          return date && !isNaN(date.getTime()) ? date.getFullYear().toString() : null;
+        })
+        .filter((year): year is string => year !== null)
+    );
     return Array.from(years).sort((a, b) => parseInt(b) - parseInt(a));
   }, [dashboardData.accounts]);
 
   const filteredAccounts = useMemo(() => {
     let accountsToFilter = dashboardData.accounts;
     if (selectedRegion !== 'All Regions') { accountsToFilter = accountsToFilter.filter(acc => acc.server_region === selectedRegion); }
-    if (selectedYear) { accountsToFilter = accountsToFilter.filter(acc => new Date(acc.registered).getFullYear().toString() === selectedYear); }
+    if (selectedYear) { 
+        accountsToFilter = accountsToFilter.filter(acc => {
+            const date = parseAllDateFormats(acc.registered);
+            return date && !isNaN(date.getTime()) && date.getFullYear().toString() === selectedYear;
+        });
+    }
     if (activityFilter !== 'all') { accountsToFilter = accountsToFilter.filter(acc => getActivityStatus(acc.last_seen).status === activityFilter); }
     if (genderFilter !== 'all') { const genderValue = genderFilter === 'male' ? 0 : 1; accountsToFilter = accountsToFilter.filter(acc => acc.gender === genderValue); }
     if (crewFilter === 'in_crew') { accountsToFilter = accountsToFilter.filter(acc => acc.crew_name && acc.crew_name !== 'N/A'); }
@@ -165,10 +199,21 @@ export default function PlayerDashboard() {
   const sortedAccounts = useMemo(() => {
     return [...filteredAccounts].sort((a, b) => {
       let aValue: any, bValue: any;
-      if (sortConfig.key === 'activity_status') { const statusOrder = { online: 0, recent: 1, inactive: 2, dormant: 3 }; aValue = statusOrder[getActivityStatus(a.last_seen).status as keyof typeof statusOrder]; bValue = statusOrder[getActivityStatus(b.last_seen).status as keyof typeof statusOrder]; }
-      else if (sortConfig.key === 'registered' || sortConfig.key === 'last_seen') { aValue = new Date(a[sortConfig.key] as string).getTime(); bValue = new Date(b[sortConfig.key] as string).getTime(); }
-      else { aValue = a[sortConfig.key]; bValue = b[sortConfig.key]; }
-      if (typeof aValue === 'string') aValue = aValue.toLowerCase(); if (typeof bValue === 'string') bValue = bValue.toLowerCase();
+      if (sortConfig.key === 'activity_status') { 
+        const statusOrder = { online: 0, recent: 1, inactive: 2, dormant: 3 }; 
+        aValue = statusOrder[getActivityStatus(a.last_seen).status as keyof typeof statusOrder]; 
+        bValue = statusOrder[getActivityStatus(b.last_seen).status as keyof typeof statusOrder]; 
+      }
+      else if (sortConfig.key === 'registered' || sortConfig.key === 'last_seen') { 
+        aValue = parseAllDateFormats(a[sortConfig.key] as string)?.getTime() ?? 0; 
+        bValue = parseAllDateFormats(b[sortConfig.key] as string)?.getTime() ?? 0;
+      }
+      else { 
+        aValue = a[sortConfig.key]; 
+        bValue = b[sortConfig.key]; 
+      }
+      if (typeof aValue === 'string') aValue = aValue.toLowerCase(); 
+      if (typeof bValue === 'string') bValue = bValue.toLowerCase();
       return sortConfig.direction === 'asc' ? (aValue < bValue ? -1 : aValue > bValue ? 1 : 0) : (aValue > bValue ? -1 : aValue < bValue ? 1 : 0);
     });
   }, [filteredAccounts, sortConfig]);

@@ -9,8 +9,9 @@ export async function getDashboardData(): Promise<DashboardData> {
     { key: 'north_america',  url: `${baseRepoUrl}/accounts/north_america/accounts.json` },
     { key: 'south_america',  url: `${baseRepoUrl}/accounts/south_america/accounts.json` },
     { key: 'southeast_asia', url: `${baseRepoUrl}/accounts/southeast_asia/accounts.json` },
-    { key: 'korea',          url: 'https://raw.githubusercontent.com/nanyinsbedroom/tofgm-database/refs/heads/main/accounts/%C3%AC%E2%80%94%C2%90%C3%AC%C5%A0%C2%A4%C3%AD%C5%BD%CB%9C%C3%AB%C2%A6%C2%AC%C3%AC%E2%80%A2%E2%80%9E/accounts.json' },
-    { key: 'china',          url: 'https://raw.githubusercontent.com/nanyinsbedroom/tofgm-database/main/accounts/%C3%A7%C2%8F%C2%AD%C3%A5%C2%90%E2%80%B0%C3%A6%E2%80%93%C2%AF/accounts.json' }
+    { key: 'korea',          url: `${baseRepoUrl}/accounts/%C3%AC%E2%80%94%C2%90%C3%AC%C5%A0%C2%A4%C3%AD%C5%BD%CB%9C%C3%AB%C2%A6%C2%AC%C3%AC%E2%80%A2%E2%80%9E/accounts.json` },
+    { key: '班吉斯',          url: `${baseRepoUrl}/accounts/%C3%A7%C2%8F%C2%AD%C3%A5%C2%90%E2%80%B0%C3%A6%E2%80%93%C2%AF/accounts.json` },
+    { key: '回溯',            url: `${baseRepoUrl}/accounts/%C3%A5%E2%80%BA%C5%BE%C3%A6%C2%BA%C2%AF/accounts.json` }
   ];
 
   try {
