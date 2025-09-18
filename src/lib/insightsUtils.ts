@@ -1,5 +1,4 @@
 import { Account } from "./types";
-// MODIFICATION: Import our robust date parser
 import { parseAllDateFormats } from "./formatters";
 
 export interface AccountAgeInfo {
@@ -8,15 +7,18 @@ export interface AccountAgeInfo {
 }
 
 function calculateAgeInDays(registeredDate: string): number {
-  // MODIFICATION: Use the robust parser instead of the simple new Date()
   const regDate = parseAllDateFormats(registeredDate);
   if (!regDate || isNaN(regDate.getTime())) return 0;
-  return Math.floor((Date.now() - regDate.getTime()) / (1000 * 60 * 60 * 24));
+  
+  // MODIFICATION: Ensure ageInDays is never negative
+  const diffInMilliseconds = Date.now() - regDate.getTime();
+  const diffInDays = Math.floor(diffInMilliseconds / (1000 * 60 * 60 * 24));
+  
+  return Math.max(0, diffInDays); // Ensure days are at least 0
 }
 
 export function getNewPlayersInLast(accounts: Account[], days: number): number {
   const threshold = Date.now() - days * 24 * 60 * 60 * 1000;
-  // MODIFICATION: Use the robust parser to correctly filter new players
   return accounts.filter(acc => {
     const regDate = parseAllDateFormats(acc.registered);
     return regDate ? regDate.getTime() >= threshold : false;
