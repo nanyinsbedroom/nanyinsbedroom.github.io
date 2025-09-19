@@ -52,7 +52,7 @@ export default function GenderChart({ accounts }: { accounts: Account[] }) {
           <ResponsiveContainer width="100%" height="100%">
             <PieChart>
               <Tooltip content={<CustomTooltip />} />
-              <Pie data={data} dataKey="value" cx="50%" cy="50%" labelLine={false} label={renderCustomizedLabel} outerRadius={80} paddingAngle={5}>
+              <Pie data={data} dataKey="value" cx="50%" cy="50%" labelLine={false} label={renderCustomizedLabel} outerRadius={80}>
                 {data.map((_entry, index) => (
                   <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
                 ))}
