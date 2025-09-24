@@ -10,6 +10,7 @@ import styles from '@/styles/CrewProfile.module.css';
 
 interface CrewProfileProps {
   crewName: string;
+  crewUid: number;
   crewMembers: Account[];
 }
 
@@ -18,7 +19,7 @@ type SortConfig = {
   direction: 'asc' | 'desc';
 };
 
-export default function CrewProfile({ crewName, crewMembers }: CrewProfileProps) {
+export default function CrewProfile({ crewName, crewUid, crewMembers }: CrewProfileProps) {
   const [sortConfig, setSortConfig] = useState<SortConfig>({ key: 'last_seen', direction: 'desc' });
 
   const crewStats = useMemo(() => {
@@ -68,6 +69,7 @@ export default function CrewProfile({ crewName, crewMembers }: CrewProfileProps)
       <Link href="/" className={styles.backLink}><FaArrowLeft /> Back to Dashboard</Link>
       <header className={styles.header}>
         <h1 className={styles.crewName}>{crewName}</h1>
+        <span className={styles.crewUid}>#{crewUid}</span>
       </header>
 
       <div className={styles.statsGrid}>

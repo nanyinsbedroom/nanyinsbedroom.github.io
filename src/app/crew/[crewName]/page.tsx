@@ -37,5 +37,7 @@ export default async function CrewProfilePage({ params }: { params: { crewName: 
     notFound();
   }
 
-  return <CrewProfile crewName={crewName} crewMembers={crewMembers} />;
+  const crewUid = crewMembers[0]?.crew_id;
+  
+  return <CrewProfile crewName={crewName} crewUid={crewUid} crewMembers={crewMembers} />;
 }
