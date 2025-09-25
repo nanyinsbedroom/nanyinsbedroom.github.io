@@ -42,7 +42,7 @@ function parseAllDateFormats(dateInput: string | number): Date | null {
 }
 
 type SortConfig = { key: keyof Account | 'activity_status'; direction: 'asc' | 'desc'; };
-const REGIONS = ['All Regions', 'asia_pacific', 'europe', 'north_america', 'south_america', 'southeast_asia', 'korea', '方舟演算', '重塑未来', '未来人类', '蔚色艾达', '时空回溯'];
+const REGIONS = ['All Regions', 'asia_pacific', 'europe', 'north_america', 'south_america', 'southeast_asia', 'korea', '方舟演算', '重塑未来', '未来人类', '蔚色艾达', '时空回溯', '宇宙折跃'];
 
 export default function PlayerDashboard() {
   const [dashboardData, setDashboardData] = useState<DashboardData>({ 
@@ -78,7 +78,8 @@ export default function PlayerDashboard() {
           { key: '重塑未来',  url: `${baseRepoUrl}/accounts/reshaping_the_future/accounts.json` },
           { key: '未来人类',  url: `${baseRepoUrl}/accounts/future_humanity/accounts.json` },
           { key: '蔚色艾达',  url: `${baseRepoUrl}/accounts/visser_aida/accounts.json` },
-          { key: '时空回溯',  url: `${baseRepoUrl}/accounts/time_travel/accounts.json` }
+          { key: '时空回溯',  url: `${baseRepoUrl}/accounts/time_travel/accounts.json` },
+          { key: '宇宙折跃',  url: `${baseRepoUrl}/accounts/cosmic_fold/accounts.json` }
         ];
 
         const [indexRes, ...regionResponses] = await Promise.all([
