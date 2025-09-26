@@ -1,7 +1,6 @@
 'use client';
 
 import Link from 'next/link';
-import { useSearchParams } from 'next/navigation';
 import { Account } from '@/lib/types';
 import { formatRelativeDate, formatRegionName } from '@/lib/formatters';
 import { getCrewMemberCount } from '@/lib/playerUtils';
@@ -24,9 +23,6 @@ export default function PlayerTable({
   onPageChange,
 }: PlayerTableProps) {
   
-  const searchParams = useSearchParams();
-  const currentQueryString = searchParams.toString();
-
   const totalPages = Math.ceil(accounts.length / PAGE_SIZE);
   const paginatedAccounts = accounts.slice(
     (currentPage - 1) * PAGE_SIZE,
@@ -51,9 +47,6 @@ export default function PlayerTable({
           <tbody>
             {paginatedAccounts.map((player) => {
               const crewMemberCount = getCrewMemberCount(allAccounts, player.crew_name);
-              
-              const crewLinkHref = `/crew/${encodeURIComponent(player.crew_name)}?${currentQueryString}`;
-
               return (
                 <tr key={player.role_id}>
 
@@ -67,7 +60,7 @@ export default function PlayerTable({
                     <div className={styles.crewInfo}>
                       {player.crew_name && player.crew_name !== 'N/A' ? (
                         <>
-                          <Link href={crewLinkHref} className={styles.crewLink}>
+                          <Link href={`/crew/${encodeURIComponent(player.crew_name)}`} className={styles.crewLink}>
                             <span className={styles.crewName}>{player.crew_name}</span>
                           </Link>
                           <span className={styles.memberCount}>({crewMemberCount} members)</span>

@@ -1,5 +1,6 @@
 'use client';
 
+import { Suspense } from 'react';
 import { useMobileMenu } from '@/context/MobileMenuContext';
 import { useRouter } from 'next/navigation';
 import { FaArrowLeft } from 'react-icons/fa';
@@ -39,7 +40,9 @@ export default function GlobalHeader() {
         <p className="switch-project-text">{t('subText')}</p>
       </nav>
 
-      <LanguageSwitcher />
+      <Suspense fallback={<div style={{ width: '80px' }} />}>
+        <LanguageSwitcher />
+      </Suspense>
     </header>
   );
 }
