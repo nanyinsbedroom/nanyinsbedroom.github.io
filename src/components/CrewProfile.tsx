@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useMemo } from 'react';
+import { useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import { Account } from '@/lib/types';
 import { getActivityStatus } from '@/lib/playerUtils';
@@ -21,6 +22,9 @@ type SortConfig = {
 
 export default function CrewProfile({ crewName, crewUid, crewMembers }: CrewProfileProps) {
   const [sortConfig, setSortConfig] = useState<SortConfig>({ key: 'last_seen', direction: 'desc' });
+  
+  const searchParams = useSearchParams();
+  const backHref = `/?${searchParams.toString()}`;
 
   const crewStats = useMemo(() => {
     let totalDaysSinceSeen = 0;
@@ -66,10 +70,10 @@ export default function CrewProfile({ crewName, crewUid, crewMembers }: CrewProf
 
   return (
     <div className={styles.profileContainer}>
-      <Link href="/" className={styles.backLink}><FaArrowLeft /> Back to Dashboard</Link>
+      <Link href={backHref} className={styles.backLink}><FaArrowLeft /> Back to Dashboard</Link>
+      
       <header className={styles.header}>
         <h1 className={styles.crewName}>{crewName}</h1>
-        <span className={styles.crewUid}>#{crewUid}</span>
       </header>
 
       <div className={styles.statsGrid}>
