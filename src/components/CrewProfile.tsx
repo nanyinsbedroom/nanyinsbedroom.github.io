@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useMemo } from 'react';
-import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import { Account } from '@/lib/types';
 import { getActivityStatus } from '@/lib/playerUtils';
 import { formatRegionName, formatRelativeDate } from '@/lib/formatters';
@@ -21,6 +21,8 @@ type SortConfig = {
 
 export default function CrewProfile({ crewName, crewUid, crewMembers }: CrewProfileProps) {
   const [sortConfig, setSortConfig] = useState<SortConfig>({ key: 'last_seen', direction: 'desc' });
+  
+  const router = useRouter();
 
   const crewStats = useMemo(() => {
     let totalDaysSinceSeen = 0;
@@ -66,7 +68,10 @@ export default function CrewProfile({ crewName, crewUid, crewMembers }: CrewProf
 
   return (
     <div className={styles.profileContainer}>
-      <Link href="/" className={styles.backLink}><FaArrowLeft /> Back to Dashboard</Link>
+      <button onClick={() => router.back()} className={styles.backLink}>
+        <FaArrowLeft /> Back to Dashboard
+      </button>
+      
       <header className={styles.header}>
         <h1 className={styles.crewName}>{crewName}</h1>
         <span className={styles.crewUid}>#{crewUid}</span>

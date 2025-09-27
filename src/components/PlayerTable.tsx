@@ -58,9 +58,16 @@ export default function PlayerTable({
                   </td>
                   <td data-label="Crew">
                     <div className={styles.crewInfo}>
-                      {player.crew_name && player.crew_name !== 'N/A' ? (
+                      {/* 
+                        This block checks if a player is in a valid crew.
+                        A valid crew has a name and a non-zero ID.
+                      */}
+                      {player.crew_name && player.crew_name !== 'N/A' && player.crew_id !== 0 ? (
                         <>
-                          <Link href={`/crew/${encodeURIComponent(player.crew_name)}`} className={styles.crewLink}>
+                          {/* 
+                            ink now correctly points to /crew/{player.crew_id}
+                          */}
+                          <Link href={`/crew/${player.crew_id}`} className={styles.crewLink}>
                             <span className={styles.crewName}>{player.crew_name}</span>
                           </Link>
                           <span className={styles.memberCount}>({crewMemberCount} members)</span>

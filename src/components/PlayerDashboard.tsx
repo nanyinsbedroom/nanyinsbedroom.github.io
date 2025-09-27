@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useMemo, useEffect } from 'react';
+import { useRouter, usePathname, useSearchParams } from 'next/navigation';
 import { DashboardData, Account, RegionData, IndexData } from '@/lib/types';
 import { useMediaQuery } from '@/lib/useMediaQuery';
 import { getActivityStatus, getCrewActivityScores } from '@/lib/playerUtils';
@@ -53,16 +54,54 @@ export default function PlayerDashboard() {
   const [isCohortModalOpen, setIsCohortModalOpen] = useState(false);
   const { isLeftWingOpen, setIsLeftWingOpen, isRightWingOpen, setIsRightWingOpen } = useMobileMenu(); 
   const isMobile = useMediaQuery(1199);
-  
-  const [selectedRegion, setSelectedRegion] = useState('All Regions');
-  const [selectedYear, setSelectedYear] = useState<string | null>(null);
-  const [searchQuery, setSearchQuery] = useState('');
-  const [sortConfig, setSortConfig] = useState<SortConfig>({ key: 'registered', direction: 'desc' });
-  const [activityFilter, setActivityFilter] = useState('all');
-  const [genderFilter, setGenderFilter] = useState('all');
-  const [crewFilter, setCrewFilter] = useState('all');
-  const [currentPage, setCurrentPage] = useState(1);
 
+  const router = useRouter();
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
+
+  // Derive filter state from URL search parameters
+  const selectedRegion = searchParams.get('region') || 'All Regions';
+  const selectedYear = searchParams.get('year') || null;
+  const searchQuery = searchParams.get('q') || '';
+  const activityFilter = searchParams.get('activity') || 'all';
+  const genderFilter = searchParams.get('gender') || 'all';
+  const crewFilter = searchParams.get('crew') || 'all';
+  const currentPage = parseInt(searchParams.get('page') || '1');
+  const sortConfig: SortConfig = {
+    key: (searchParams.get('sortKey') as keyof Account | 'activity_status') || 'registered',
+    direction: (searchParams.get('sortDir') as 'asc' | 'desc') || 'desc',
+  };
+
+  const updateUrlParams = (newParams: Record<string, string | null | undefined>) => {
+    const currentParams = new URLSearchParams(searchParams.toString());
+    Object.entries(newParams).forEach(([key, value]) => {
+      if (value) {
+        currentParams.set(key, value);
+      } else {
+        currentParams.delete(key);
+      }
+    });
+
+    // Reset page to 1 for any filter change except pagination itself
+    if (!('page' in newParams)) {
+      currentParams.set('page', '1');
+    }
+
+    router.push(`${pathname}?${currentParams.toString()}`, { scroll: false });
+  };
+  
+  const handleSearch = (query: string) => updateUrlParams({ q: query });
+  const handleRegionChange = (region: string) => {
+    updateUrlParams({ region: region === 'All Regions' ? null : region, year: null });
+    if (isMobile) setIsLeftWingOpen(false);
+  };
+  const handleSelectYear = (year: string | null) => updateUrlParams({ year });
+  const handleActivityChange = (status: string) => updateUrlParams({ activity: status === 'all' ? null : status });
+  const handleGenderChange = (gender: string) => updateUrlParams({ gender: gender === 'all' ? null : gender });
+  const handleCrewChange = (status: string) => updateUrlParams({ crew: status === 'all' ? null : status });
+  const handlePageChange = (page: number) => updateUrlParams({ page: page.toString() });
+  const handleSort = (config: SortConfig) => updateUrlParams({ sortKey: config.key, sortDir: config.direction });
+  
   useEffect(() => {
     const fetchAllData = async () => {
       try {
@@ -198,8 +237,6 @@ export default function PlayerDashboard() {
     return accountsToFilter;
   }, [dashboardData.accounts, selectedRegion, selectedYear, searchQuery, activityFilter, genderFilter, crewFilter]);
 
-  useEffect(() => { setCurrentPage(1); }, [filteredAccounts]);
-
   const sortedAccounts = useMemo(() => {
     return [...filteredAccounts].sort((a, b) => {
       let aValue: any, bValue: any;
@@ -233,12 +270,6 @@ export default function PlayerDashboard() {
   const cohortData = useMemo(() => calculateRetentionCohorts(dashboardData.accounts), [dashboardData.accounts]);
   const averageRetention = useMemo(() => calculateAverageRetention(cohortData), [cohortData]);
   
-  const handleRegionChange = (region: string) => {
-    setSelectedRegion(region);
-    setSearchQuery('');
-    setSelectedYear(null);
-    if (isMobile) setIsLeftWingOpen(false);
-  };
   const handleRefresh = () => window.location.reload();
 
   return (
@@ -291,24 +322,24 @@ export default function PlayerDashboard() {
             <RetentionCohortChart onOpenModal={() => setIsCohortModalOpen(true)} />
             <ControlPanel
               searchQuery={searchQuery}
-              onSearch={setSearchQuery}
+              onSearch={handleSearch}
               sortConfig={sortConfig}
-              onSort={setSortConfig}
+              onSort={handleSort}
               activityFilter={activityFilter}
-              onActivityChange={setActivityFilter}
+              onActivityChange={handleActivityChange}
               genderFilter={genderFilter}
-              onGenderChange={setGenderFilter}
+              onGenderChange={handleGenderChange}
               crewFilter={crewFilter}
-              onCrewChange={setCrewFilter}
+              onCrewChange={handleCrewChange}
               availableYears={availableYears}
               selectedYear={selectedYear}
-              onSelectYear={setSelectedYear}
+              onSelectYear={handleSelectYear}
             />
             <PlayerTable
               accounts={sortedAccounts}
               allAccounts={dashboardData.accounts}
               currentPage={currentPage}
-              onPageChange={setCurrentPage}
+              onPageChange={handlePageChange}
             />
           </>
         )}

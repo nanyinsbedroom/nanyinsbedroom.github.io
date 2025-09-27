@@ -9,9 +9,13 @@ export async function getDashboardData(): Promise<DashboardData> {
     { key: 'north_america',  url: `${baseRepoUrl}/accounts/north_america/accounts.json` },
     { key: 'south_america',  url: `${baseRepoUrl}/accounts/south_america/accounts.json` },
     { key: 'southeast_asia', url: `${baseRepoUrl}/accounts/southeast_asia/accounts.json` },
-    { key: 'korea',          url: `${baseRepoUrl}/accounts/%C3%AC%E2%80%94%C2%90%C3%AC%C5%A0%C2%A4%C3%AD%C5%BD%CB%9C%C3%AB%C2%A6%C2%AC%C3%AC%E2%80%A2%E2%80%9E/accounts.json` },
-    { key: '班吉斯',          url: `${baseRepoUrl}/accounts/%C3%A7%C2%8F%C2%AD%C3%A5%C2%90%E2%80%B0%C3%A6%E2%80%93%C2%AF/accounts.json` },
-    { key: '回溯',            url: `${baseRepoUrl}/accounts/%C3%A5%E2%80%BA%C5%BE%C3%A6%C2%BA%C2%AF/accounts.json` }
+    { key: 'korea',          url: `${baseRepoUrl}/accounts/korea/accounts.json` },
+    { key: '方舟演算',       url: `${baseRepoUrl}/accounts/ark_calculus/accounts.json` },
+    { key: '重塑未来',       url: `${baseRepoUrl}/accounts/reshaping_the_future/accounts.json` },
+    { key: '未来人类',       url: `${baseRepoUrl}/accounts/future_humanity/accounts.json` },
+    { key: '蔚色艾达',       url: `${baseRepoUrl}/accounts/visser_aida/accounts.json` },
+    { key: '时空回溯',       url: `${baseRepoUrl}/accounts/time_travel/accounts.json` },
+    { key: '宇宙折跃',       url: `${baseRepoUrl}/accounts/cosmic_fold/accounts.json` }
   ];
 
   try {
@@ -38,17 +42,22 @@ export async function getDashboardData(): Promise<DashboardData> {
     const allAccounts: Account[] = allAccountsArrays.flat();
     const uniqueAccountsMap = new Map<number, Account>();
     allAccounts.forEach(account => uniqueAccountsMap.set(account.role_id, account));
-    let processedAccounts = Array.from(uniqueAccountsMap.values());
+    
+    let processedAccounts = Array.from(uniqueAccountsMap.values()).map(account => {
+        if (account.crew_name) {
+            return { ...account, crew_name: account.crew_name.trim() };
+        }
+        return account;
+    });
 
     const crewRegionCounts = new Map<string, Map<string, number>>();
 
     processedAccounts.forEach(account => {
       if (account.crew_name && account.crew_name !== 'N/A') {
-        const trimmedCrewName = account.crew_name.trim(); // Trim whitespace
-        if (!crewRegionCounts.has(trimmedCrewName)) {
-          crewRegionCounts.set(trimmedCrewName, new Map());
+        if (!crewRegionCounts.has(account.crew_name)) {
+          crewRegionCounts.set(account.crew_name, new Map());
         }
-        const regionMap = crewRegionCounts.get(trimmedCrewName)!;
+        const regionMap = crewRegionCounts.get(account.crew_name)!;
         regionMap.set(account.server_region, (regionMap.get(account.server_region) || 0) + 1);
       }
     });
@@ -68,9 +77,8 @@ export async function getDashboardData(): Promise<DashboardData> {
 
     processedAccounts = processedAccounts.map(account => {
       if (account.crew_name && account.crew_name !== 'N/A') {
-        const trimmedCrewName = account.crew_name.trim(); // Trim again for lookup
-        if (primaryCrewRegions.has(trimmedCrewName)) {
-          return { ...account, server_region: primaryCrewRegions.get(trimmedCrewName)! };
+        if (primaryCrewRegions.has(account.crew_name)) {
+          return { ...account, server_region: primaryCrewRegions.get(account.crew_name)! };
         }
       }
       return account;
