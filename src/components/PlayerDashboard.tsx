@@ -4,6 +4,7 @@ import { useState, useMemo, useEffect } from 'react';
 import { useRouter, usePathname, useSearchParams } from 'next/navigation';
 import { DashboardData, Account, RegionData, IndexData } from '@/lib/types';
 import { useMediaQuery } from '@/lib/useMediaQuery';
+import { useDebounce } from '@/lib/useDebounce';
 import { getActivityStatus, getCrewActivityScores } from '@/lib/playerUtils';
 import { getNewPlayersInLast, getMostActiveRegionToday, getFastestGrowingCrew, getAccountAgeExtremes } from '@/lib/insightsUtils';
 import { calculateRetentionCohorts, calculateAverageRetention } from '@/lib/cohortUtils';
@@ -62,7 +63,6 @@ export default function PlayerDashboard() {
   // Derive filter state from URL search parameters
   const selectedRegion = searchParams.get('region') || 'All Regions';
   const selectedYear = searchParams.get('year') || null;
-  const searchQuery = searchParams.get('q') || '';
   const activityFilter = searchParams.get('activity') || 'all';
   const genderFilter = searchParams.get('gender') || 'all';
   const crewFilter = searchParams.get('crew') || 'all';
@@ -71,6 +71,9 @@ export default function PlayerDashboard() {
     key: (searchParams.get('sortKey') as keyof Account | 'activity_status') || 'registered',
     direction: (searchParams.get('sortDir') as 'asc' | 'desc') || 'desc',
   };
+
+  const [searchQuery, setSearchQuery] = useState(searchParams.get('q') || '');
+  const debouncedSearchQuery = useDebounce(searchQuery, 300);
 
   const updateUrlParams = (newParams: Record<string, string | null | undefined>) => {
     const currentParams = new URLSearchParams(searchParams.toString());
@@ -81,8 +84,6 @@ export default function PlayerDashboard() {
         currentParams.delete(key);
       }
     });
-
-    // Reset page to 1 for any filter change except pagination itself
     if (!('page' in newParams)) {
       currentParams.set('page', '1');
     }
@@ -90,7 +91,13 @@ export default function PlayerDashboard() {
     router.push(`${pathname}?${currentParams.toString()}`, { scroll: false });
   };
   
-  const handleSearch = (query: string) => updateUrlParams({ q: query });
+  const handleSearch = (query: string) => setSearchQuery(query);
+    useEffect(() => {
+    if (debouncedSearchQuery !== (searchParams.get('q') || '')) {
+      updateUrlParams({ q: debouncedSearchQuery });
+    }
+  }, [debouncedSearchQuery, searchParams]);
+  
   const handleRegionChange = (region: string) => {
     updateUrlParams({ region: region === 'All Regions' ? null : region, year: null });
     if (isMobile) setIsLeftWingOpen(false);
@@ -233,9 +240,17 @@ export default function PlayerDashboard() {
     if (genderFilter !== 'all') { const genderValue = genderFilter === 'male' ? 0 : 1; accountsToFilter = accountsToFilter.filter(acc => acc.gender === genderValue); }
     if (crewFilter === 'in_crew') { accountsToFilter = accountsToFilter.filter(acc => acc.crew_name && acc.crew_name !== 'N/A'); }
     else if (crewFilter === 'no_crew') { accountsToFilter = accountsToFilter.filter(acc => !acc.crew_name || acc.crew_name === 'N/A'); }
-    if (searchQuery.trim()) { const lowerQuery = searchQuery.toLowerCase(); accountsToFilter = accountsToFilter.filter(acc => acc.name.toLowerCase().includes(lowerQuery) || (acc.crew_name && acc.crew_name.toLowerCase().includes(lowerQuery)) || acc.role_id.toString().includes(searchQuery.trim())); }
+    
+    if (debouncedSearchQuery.trim()) { 
+      const lowerQuery = debouncedSearchQuery.toLowerCase(); 
+      accountsToFilter = accountsToFilter.filter(acc => 
+        acc.name.toLowerCase().includes(lowerQuery) || 
+        (acc.crew_name && acc.crew_name.toLowerCase().includes(lowerQuery)) || 
+        acc.role_id.toString().includes(debouncedSearchQuery.trim())
+      ); 
+    }
     return accountsToFilter;
-  }, [dashboardData.accounts, selectedRegion, selectedYear, searchQuery, activityFilter, genderFilter, crewFilter]);
+  }, [dashboardData.accounts, selectedRegion, selectedYear, debouncedSearchQuery, activityFilter, genderFilter, crewFilter]);
 
   const sortedAccounts = useMemo(() => {
     return [...filteredAccounts].sort((a, b) => {
@@ -321,8 +336,8 @@ export default function PlayerDashboard() {
             />
             <RetentionCohortChart onOpenModal={() => setIsCohortModalOpen(true)} />
             <ControlPanel
-              searchQuery={searchQuery}
-              onSearch={handleSearch}
+              searchQuery={searchQuery} // Pass the live search query for the input value
+              onSearch={handleSearch}   // Pass the handler that updates local state
               sortConfig={sortConfig}
               onSort={handleSort}
               activityFilter={activityFilter}

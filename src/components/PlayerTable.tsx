@@ -1,3 +1,5 @@
+// --- START OF FILE PlayerTable.tsx ---
+
 'use client';
 
 import Link from 'next/link';
@@ -52,7 +54,9 @@ export default function PlayerTable({
 
                   <td data-label="Name">
                     <div className={styles.playerName}>
-                      {player.name}
+                      <Link href={`/player/${player.role_id}`} className={styles.playerLink}>
+                        {player.name}
+                      </Link>
                       <span className={styles.roleId}>#{player.role_id}</span>
                     </div>
                   </td>
@@ -65,7 +69,7 @@ export default function PlayerTable({
                       {player.crew_name && player.crew_name !== 'N/A' && player.crew_id !== 0 ? (
                         <>
                           {/* 
-                            ink now correctly points to /crew/{player.crew_id}
+                            Link points to /crew/{player.crew_id}
                           */}
                           <Link href={`/crew/${player.crew_id}`} className={styles.crewLink}>
                             <span className={styles.crewName}>{player.crew_name}</span>
