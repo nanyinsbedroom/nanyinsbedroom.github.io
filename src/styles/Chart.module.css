@@ -59,6 +59,7 @@
   overflow-y: auto;
   scrollbar-width: thin;
   scrollbar-color: #888 #22223b;
+  line-height: 200%;
 }
 
 .serverInfoList ul {
