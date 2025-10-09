@@ -63,6 +63,7 @@
     "headerLastSeen": "Last Seen"
   },
   "Charts": {
+    "serverInformation": "Server Information",
     "genderDistribution": "Gender Distribution",
     "newPlayersByYear": "New Players by Year",
     "monthlyActivePlayers": "Monthly Active Players",

@@ -63,6 +63,7 @@
     "headerLastSeen": "Última Vez Visto"
   },
   "Charts": {
+    "serverInformation": "Server Information",
     "genderDistribution": "Distribución de Género",
     "newPlayersByYear": "Nuevos Jugadores por Año",
     "monthlyActivePlayers": "Jugadores Activos Mensuales",

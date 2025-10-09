@@ -63,6 +63,7 @@
     "headerLastSeen": "最后上线"
   },
   "Charts": {
+    "serverInformation": "Server Information",
     "genderDistribution": "性别分布",
     "newPlayersByYear": "年度新增玩家",
     "monthlyActivePlayers": "月活跃玩家",
