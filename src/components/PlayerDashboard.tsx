@@ -145,10 +145,7 @@ export default function PlayerDashboard() {
           })
         );
         
-        const allAccounts = allAccountsArrays.flat();
-        const uniqueAccountsMap = new Map<number, Account>();
-        allAccounts.forEach(acc => uniqueAccountsMap.set(acc.role_id, acc));
-        let processedAccounts = Array.from(uniqueAccountsMap.values());
+        let processedAccounts = allAccountsArrays.flat();
 
         const crewRegionCounts = new Map<string, Map<string, number>>();
 
@@ -176,15 +173,15 @@ export default function PlayerDashboard() {
           primaryCrewRegions.set(crewName, majorityRegion);
         });
 
-        processedAccounts = processedAccounts.map(account => {
-          if (account.crew_name && account.crew_name !== 'N/A') {
-            const trimmedCrewName = account.crew_name.trim(); 
-            if (primaryCrewRegions.has(trimmedCrewName)) {
-              return { ...account, server_region: primaryCrewRegions.get(trimmedCrewName)! };
-            }
-          }
-          return account;
-        });
+        // processedAccounts = processedAccounts.map(account => {
+        //   if (account.crew_name && account.crew_name !== 'N/A') {
+        //     const trimmedCrewName = account.crew_name.trim(); 
+        //     if (primaryCrewRegions.has(trimmedCrewName)) {
+        //       return { ...account, server_region: primaryCrewRegions.get(trimmedCrewName)! };
+        //     }
+        //   }
+        //   return account;
+        // });
 
         setDashboardData({
           index: { ...indexData, total_accounts: processedAccounts.length },
