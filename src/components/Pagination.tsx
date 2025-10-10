@@ -1,4 +1,5 @@
 import styles from '@/styles/PlayerTable.module.css';
+import { useMediaQuery } from '@/lib/useMediaQuery';
 import { useTranslations } from '@/context/LanguageContext';
 
 interface PaginationProps {
@@ -8,7 +9,8 @@ interface PaginationProps {
 }
 
 export default function Pagination({ currentPage, totalPages, onPageChange }: PaginationProps) {
-  const maxPageButtons = 5;
+  const isMobile = useMediaQuery(1199);
+  const maxPageButtons = isMobile ? 1 : 5;
   const pageNumbers = [];
   const t = useTranslations('Pagination');
 
