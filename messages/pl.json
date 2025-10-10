@@ -1,0 +1,99 @@
+{
+  "GlobalHeader": {
+    "mainButton": "Baza danych menedżera gry",
+    "subText": "Kliknij tutaj, aby zobaczyć więcej danych"
+  },
+  "Dashboard": {
+    "title": "Pulpit kont",
+    "lastUpdated": "Ostatnia aktualizacja:",
+    "refresh": "Odśwież",
+    "menu": "Menu",
+    "charts": "Wykresy",
+    "selectLanguage": "Język:"
+  },
+  "DashboardInsights": {
+    "newPlayerByWeek": "Nowe konta w ostatnim tygodniu",
+    "oldestAccount": "Najstarsze konto",
+    "newAccount": "Najnowsze konto",
+    "mostActiveRegion": "Najaktywniejszy region",
+    "mostActiveCrew": "Najaktywniejsza załoga",
+    "days": "dni"
+  },
+  "WelcomeNote": {
+    "title": "Witamy na pulpicie kont",
+    "intro": "Ten pulpit jest projektem tworzonym przez społeczność, zaprojektowanym w celu dostarczania statystyk i informacji o bazie graczy w grze.",
+    "howTitle": "Jak są zbierane te dane?",
+    "howText": "Informacje są gromadzone przy użyciu publicznie dostępnych, zewnętrznych narzędzi. Można to porównać do okresowego \"spisu graczy w grze\" — migawki danych graczy, które są widoczne w konkretnym momencie.",
+    "disclaimerTitle": "Ważne zastrzeżenie",
+    "disclaimerP1_part1": "Dla pełnej jasności: ta strona internetowa ",
+    "disclaimerP1_part2_important": "nie łączy się z aktywnymi serwerami gry",
+    "disclaimerP1_part3": ". Dane, które widzisz, ",
+    "disclaimerP1_part4_important": "nie są w czasie rzeczywistym",
+    "disclaimerP1_part5": ".",
+    "disclaimerP2": "Traktuj te dane jak fotografię, a nie transmisję wideo na żywo. Robimy te \"migawki\" publicznych danych graczy okresowo. Oznacza to, że informacje są opóźnione i nie stanowią bezpośredniego przekazu z tego, co dzieje się w grze w danej chwili.",
+    "disclaimerP3_part1": "W związku z tym, ta strona nie jest powiązana z ",
+    "disclaimerP3_part2_company": "Hotta Studio",
+    "disclaimerP3_part3": " ani ",
+    "disclaimerP3_part4_company": "Perfect World Games",
+    "disclaimerP3_part5": ", a dane ",
+    "disclaimerP3_part6_important": "mogą nie być w 100% kompletne",
+    "disclaimerP3_part7": "."
+  },
+  "Sidebar": {
+    "totalPlayers": "Wszystkie konta",
+    "regions": "Regiony",
+    "activeCrews": "Najaktywniejsze załogi",
+    "followUs": "Obserwuj nas",
+    "joinCommunity": "Dołącz do naszej społeczności",
+    "contact": "Kontakt"
+  },
+  "Filters": {
+    "allRegions": "Wszystkie regiony",
+    "allStatus": "Wszystkie statusy",
+    "online": "Online",
+    "recent": "Ostatnie",
+    "inactive": "Nieaktywne",
+    "allGenders": "Wszystkie płcie",
+    "male": "Mężczyzna",
+    "female": "Kobieta",
+    "allPlayers": "Wszystkie konta",
+    "inACrew": "W załodze",
+    "noCrew": "Brak załogi",
+    "allTime": "Cały czas",
+    "newest": "Najnowsze",
+    "lastSeen": "Ostatnio widziany",
+    "searchPlaceholder": "Szukaj kont lub załóg..."
+  },
+  "Table": {
+    "headerName": "Nazwa",
+    "headerCrew": "Załoga",
+    "headerRegion": "Region",
+    "headerRegistered": "Zarejestrowany",
+    "headerLastSeen": "Ostatnio widziany",
+    "crewTableMember": "członków",
+    "footerPagination": "Wyświetlane konta"
+  },
+  "Charts": {
+    "serverInformation": "Informacje o serwerze",
+    "genderDistribution": "Rozkład płci",
+    "newPlayersByYear": "Nowe konta według roku",
+    "monthlyActivePlayers": "Miesięczne aktywne konta",
+    "playerRetention": "Retencja kont według kohorty",
+    "viewReport": "Zobacz szczegółowy raport"
+  },
+  "Pagination": {
+    "previous": "Poprzednia",
+    "next": "Następna"
+  },
+  "Server": {
+    "ipAddress": "Adres IP",
+    "hostname": "Nazwa hosta",
+    "asn": "ASN",
+    "isp": "ISP",
+    "services": "Usługi",
+    "country": "Kraj",
+    "city": "Miasto",
+    "latitude": "Szerokość geogr.",
+    "longitude": "Długość geogr."
+  }
+}

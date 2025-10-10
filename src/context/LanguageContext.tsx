@@ -1,22 +1,28 @@
 'use client';
 
 import { createContext, useContext, useState, useEffect, ReactNode } from 'react';
+import deMessages from '../../messages/de.json';
 import enMessages from '../../messages/en.json';
 import esMessages from '../../messages/es.json';
 import idMessages from '../../messages/id.json';
 import jaMessages from '../../messages/ja.json';
 import msMessages from '../../messages/ms.json';
+import plMessages from '../../messages/pl.json';
+import ruMessages from '../../messages/ru.json';
 import thMessages from '../../messages/th.json';
 import tlMessages from '../../messages/tl.json';
 import viMessages from '../../messages/vi.json';
 import zhMessages from '../../messages/zh.json';
 
 const messagesData: any = {
+  de: deMessages,
   en: enMessages,
   es: esMessages,
   id: idMessages,
   ja: jaMessages,
   ms: msMessages,
+  pl: plMessages,
+  ru: ruMessages,
   th: thMessages,
   tl: tlMessages,
   vi: viMessages,

@@ -33,11 +33,14 @@ export default function LanguageSwitcher() {
             className={styles.languageSelect}
             aria-label="Select Language"
           >
+            <option value="de">Deutsch</option>
             <option value="en">English</option>
             <option value="es">Español</option>
             <option value="id">Bahasa Indonesia</option>
             <option value="ja">日本語</option>
             <option value="ms">Bahasa Melayu</option>
+            <option value="pl">Polski</option>
+            <option value="ru">Русский</option>
             <option value="th">ไทย</option>
             <option value="tl">Filipino</option>
             <option value="vi">Tiếng Việt</option>
