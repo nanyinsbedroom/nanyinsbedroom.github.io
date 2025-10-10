@@ -8,6 +8,7 @@ import { formatRelativeDate, formatRegionName } from '@/lib/formatters';
 import { getCrewMemberCount } from '@/lib/playerUtils';
 import Pagination from './Pagination';
 import styles from '@/styles/PlayerTable.module.css';
+import { useTranslations } from '@/context/LanguageContext';
 
 const PAGE_SIZE = 50;
 
@@ -32,18 +33,18 @@ export default function PlayerTable({
   );
   const startRange = (currentPage - 1) * PAGE_SIZE + 1;
   const endRange = Math.min(currentPage * PAGE_SIZE, accounts.length);
-
+  const t = useTranslations('Table');
   return (
     <div className={styles.card}>
       <div className={styles.tableContainer}>
         <table className={styles.table}>
           <thead>
             <tr>
-              <th>Name</th>
-              <th>Crew</th>
-              <th>Region</th>
-              <th>Registered</th>
-              <th>Last Seen</th>
+              <th>{t('headerName')}</th>
+              <th>{t('headerCrew')}</th>
+              <th>{t('headerRegion')}</th>
+              <th>{t('headerRegistered')}</th>
+              <th>{t('headerLastSeen')}</th>
             </tr>
           </thead>
           <tbody>
@@ -91,7 +92,7 @@ export default function PlayerTable({
 
       <div className={styles.footer}>
         <p className={styles.note}>
-          Showing players {startRange} - {endRange} of {accounts.length.toLocaleString()}
+          {t('footerPagination')} {startRange} - {endRange} of {accounts.length.toLocaleString()}
         </p>
         <Pagination
           currentPage={currentPage}

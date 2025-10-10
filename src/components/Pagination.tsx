@@ -1,4 +1,5 @@
 import styles from '@/styles/PlayerTable.module.css';
+import { useTranslations } from '@/context/LanguageContext';
 
 interface PaginationProps {
   currentPage: number;
@@ -9,7 +10,8 @@ interface PaginationProps {
 export default function Pagination({ currentPage, totalPages, onPageChange }: PaginationProps) {
   const maxPageButtons = 5;
   const pageNumbers = [];
-  
+  const t = useTranslations('Pagination');
+
   let startPage = Math.max(1, currentPage - Math.floor(maxPageButtons / 2));
   let endPage = Math.min(totalPages, startPage + maxPageButtons - 1);
 
@@ -30,7 +32,7 @@ export default function Pagination({ currentPage, totalPages, onPageChange }: Pa
         disabled={currentPage === 1}
         className={styles.paginationButton}
       >
-        Previous
+        {t('previous')}
       </button>
 
       {startPage > 1 && (
@@ -62,7 +64,7 @@ export default function Pagination({ currentPage, totalPages, onPageChange }: Pa
         disabled={currentPage === totalPages}
         className={styles.paginationButton}
       >
-        Next
+        {t('next')}
       </button>
     </div>
   );

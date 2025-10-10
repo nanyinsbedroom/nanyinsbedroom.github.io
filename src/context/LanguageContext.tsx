@@ -2,14 +2,24 @@
 
 import { createContext, useContext, useState, useEffect, ReactNode } from 'react';
 import enMessages from '../../messages/en.json';
-import idMessages from '../../messages/id.json';
 import esMessages from '../../messages/es.json';
+import idMessages from '../../messages/id.json';
+import jaMessages from '../../messages/ja.json';
+import msMessages from '../../messages/ms.json';
+import thMessages from '../../messages/th.json';
+import tlMessages from '../../messages/tl.json';
+import viMessages from '../../messages/vi.json';
 import zhMessages from '../../messages/zh.json';
 
 const messagesData: any = {
   en: enMessages,
-  id: idMessages,
   es: esMessages,
+  id: idMessages,
+  ja: jaMessages,
+  ms: msMessages,
+  th: thMessages,
+  tl: tlMessages,
+  vi: viMessages,
   zh: zhMessages,
 };
 

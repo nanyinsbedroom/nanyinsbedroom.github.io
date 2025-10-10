@@ -4,14 +4,23 @@
     "subText": "Click here for more data"
   },
   "Dashboard": {
-    "title": "Player Dashboard",
+    "title": "Accounts Dashboard",
     "lastUpdated": "Last Updated:",
     "refresh": "Refresh",
     "menu": "Menu",
-    "charts": "Charts"
+    "charts": "Charts",
+    "selectLanguage": "Language:"
+  },
+  "DashboardInsights": {
+    "newPlayerByWeek": "New accounts in the last week",
+    "oldestAccount": "Oldest account",
+    "newAccount": "Newest account",
+    "mostActiveRegion": "Most active region",
+    "mostActiveCrew": "Most active crew",
+    "days": "days"
   },
   "WelcomeNote": {
-    "title": "Welcome to the Player Dashboard",
+    "title": "Welcome to the Account Dashboard",
     "intro": "This dashboard is a community-driven project designed to provide statistics and insights into the player base of the game.",
     "howTitle": "How is this data collected?",
     "howText": "The information is gathered using publicly available, third-party tools. Think of it like a periodic \"in-game census\"—a snapshot of the player data that is visible at a specific moment in time.",
@@ -31,7 +40,7 @@
     "disclaimerP3_part7": "."
   },
   "Sidebar": {
-    "totalPlayers": "Total Players",
+    "totalPlayers": "Total Accounts",
     "regions": "Regions",
     "activeCrews": "Most Active Crews",
     "followUs": "Follow Us",
@@ -47,27 +56,44 @@
     "allGenders": "All Genders",
     "male": "Male",
     "female": "Female",
-    "allPlayers": "All Players",
+    "allPlayers": "All Accounts",
     "inACrew": "In a Crew",
     "noCrew": "No Crew",
     "allTime": "All Time",
     "newest": "Newest",
     "lastSeen": "Last Seen",
-    "searchPlaceholder": "Search players or crews..."
+    "searchPlaceholder": "Search Accounts or Crews..."
   },
   "Table": {
     "headerName": "Name",
     "headerCrew": "Crew",
     "headerRegion": "Region",
     "headerRegistered": "Registered",
-    "headerLastSeen": "Last Seen"
+    "headerLastSeen": "Last Seen",
+    "crewTableMember": "members",
+    "footerPagination": "Showing Accounts"
   },
   "Charts": {
     "serverInformation": "Server Information",
     "genderDistribution": "Gender Distribution",
-    "newPlayersByYear": "New Players by Year",
-    "monthlyActivePlayers": "Monthly Active Players",
-    "playerRetention": "Player Retention by Cohort",
+    "newPlayersByYear": "New Accounts by Year",
+    "monthlyActivePlayers": "Monthly Active Accounts",
+    "playerRetention": "Account Retention by Cohort",
     "viewReport": "View Detailed Report"
+  },
+  "Pagination": {
+    "previous": "Previous",
+    "next": "Next"
+  },
+  "Server": {
+    "ipAddress": "IP Address",
+    "hostname": "Hostname",
+    "asn": "ASN",
+    "isp": "ISP",
+    "services": "Services",
+    "country": "Country",
+    "city": "City",
+    "latitude": "Latitude",
+    "longitude": "Longitude"
   }
 }

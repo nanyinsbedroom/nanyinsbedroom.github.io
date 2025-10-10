@@ -21,6 +21,7 @@ import { useMobileMenu } from '@/context/MobileMenuContext';
 import { FaSync, FaBars, FaChartBar } from 'react-icons/fa';
 import styles from '@/styles/Dashboard.module.css';
 import layoutStyles from '@/styles/Layout.module.css';
+import { useTranslations } from '@/context/LanguageContext';
 
 // Helper function to handle multiple date formats
 function parseAllDateFormats(dateInput: string | number): Date | null {
@@ -56,7 +57,7 @@ export default function PlayerDashboard() {
   const [serverData, setServerData] = useState<any>(null);
   const { isLeftWingOpen, setIsLeftWingOpen, isRightWingOpen, setIsRightWingOpen } = useMobileMenu();
   const isMobile = useMediaQuery(1199);
-
+  const t = useTranslations('Dashboard');
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
@@ -303,7 +304,7 @@ export default function PlayerDashboard() {
         <div className={styles.topBar}>
           <div>
             <h1>Player Dashboard</h1>
-            <p>Last Updated: {new Date(dashboardData.index.last_update * 1000).toLocaleString()}</p>
+            <p>{t('lastUpdated')} {new Date(dashboardData.index.last_update * 1000).toLocaleString()}</p>
           </div>
           <div className={styles.headerActions}>
             {isMobile && (
@@ -312,7 +313,7 @@ export default function PlayerDashboard() {
                 <button onClick={() => setIsRightWingOpen(true)} className={styles.mobileWingButton} aria-label="Open charts"><FaChartBar /> Charts</button>
               </>
             )}
-            <button onClick={handleRefresh} className={styles.refreshButton} aria-label="Refresh data"><FaSync /> Refresh</button>
+            <button onClick={handleRefresh} className={styles.refreshButton} aria-label="Refresh data"><FaSync /> {t('refresh')}</button>
           </div>
         </div>
 

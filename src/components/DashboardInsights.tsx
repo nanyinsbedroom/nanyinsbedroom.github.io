@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { formatRegionName } from '@/lib/formatters';
 import { AccountAgeInfo } from '@/lib/insightsUtils';
 import styles from '@/styles/Insights.module.css';
+import { useTranslations } from '@/context/LanguageContext';
 
 interface InsightsProps {
   newPlayers: number;
@@ -17,6 +18,8 @@ interface InsightsProps {
 }
 
 export default function DashboardInsights({ newPlayers, activeRegion, topCrew, ageExtremes }: InsightsProps) {
+  const t = useTranslations('DashboardInsights');
+  
   return (
     <div className={styles.insightsGrid}>
       <div className={styles.primaryCard}>
@@ -24,7 +27,7 @@ export default function DashboardInsights({ newPlayers, activeRegion, topCrew, a
           <FaUserPlus className={styles.primaryIcon} />
           <span>+{newPlayers.toLocaleString()}</span>
         </div>
-        <p className={styles.primaryLabel}>New players in the last week</p>
+        <p className={styles.primaryLabel}>{t('newPlayerByWeek')}</p>
       </div>
 
       <div className={styles.stackedCard}>
@@ -32,18 +35,18 @@ export default function DashboardInsights({ newPlayers, activeRegion, topCrew, a
           <>
             <div className={styles.stackedItem}>
               <span className={`${styles.stackedValue} ${styles.oldest}`}>
-                {ageExtremes.oldest.ageInDays.toLocaleString()} days
+                {ageExtremes.oldest.ageInDays.toLocaleString()} {t('days')}
               </span>
-              <span className={styles.stackedLabel}>Oldest Account</span>
+              <span className={styles.stackedLabel}>{t('oldestAccount')}</span>
               <span className={styles.playerNameLink}>
                 {ageExtremes.oldest.account.name}
               </span>
             </div>
             <div className={styles.stackedItem}>
               <span className={`${styles.stackedValue} ${styles.newest}`}>
-                {ageExtremes.newest.ageInDays.toLocaleString()} days
+                {ageExtremes.newest.ageInDays.toLocaleString()} {t('days')}
               </span>
-              <span className={styles.stackedLabel}>Newest Account</span>
+              <span className={styles.stackedLabel}>{t('newAccount')}</span>
               <span className={styles.playerNameLink}>
                 {ageExtremes.newest.account.name}
               </span>
@@ -58,7 +61,7 @@ export default function DashboardInsights({ newPlayers, activeRegion, topCrew, a
             <FaGlobeAmericas className={styles.leaderboardIcon} style={{ color: 'var(--accent-green)' }} />
             <div className={styles.leaderboardContent}>
               <h3>{formatRegionName(activeRegion)}</h3>
-              <p>Most active region today</p>
+              <p>{t('mostActiveRegion')}</p>
             </div>
           </div>
         </div>
@@ -67,7 +70,7 @@ export default function DashboardInsights({ newPlayers, activeRegion, topCrew, a
             <FaAward className={styles.leaderboardIcon} style={{ color: 'var(--accent-orange)' }} />
             <div className={styles.leaderboardContent}>
               <h3>{topCrew}</h3>
-              <p>Fastest-growing crew this month</p>
+              <p>{t('mostActiveCrew')}</p>
             </div>
           </div>
         </div>

@@ -5,10 +5,11 @@ import { CrewActivity } from '@/lib/playerUtils';
 import { formatRegionName } from '@/lib/formatters';
 import styles from '@/styles/Sidebar.module.css';
 import { FaGithub, FaDiscord, FaEnvelope } from 'react-icons/fa';
+import { useTranslations } from '@/context/LanguageContext';
 
 const socialLinks = [
-  { href: "https://github.com/nanyinsbedroom", icon: FaGithub, label: "Follow Us" }, 
-  { href: "https://discord.gg/Bs5cPKumFX", icon: FaDiscord, label: "Join Our Community" }, 
+  { href: "https://github.com/nanyinsbedroom", icon: FaGithub, label: "Follow Us" },
+  { href: "https://discord.gg/Bs5cPKumFX", icon: FaDiscord, label: "Join Our Community" },
   { href: "mailto:soevielofficial@gmail.com", icon: FaEnvelope, label: "Contact" },
 ];
 
@@ -33,16 +34,16 @@ export default function Sidebar({
 }: SidebarProps) {
 
   const sidebarClasses = `${styles.sidebar} ${isMobile ? styles.isMobile : ''}`;
-
+  const t = useTranslations('Sidebar');
   return (
     <aside className={sidebarClasses}>
       <div className={styles.scrollableContent}>
         <div className={styles.card}>
-          <h3>Total Players</h3>
+          <h3>{t('totalPlayers')}</h3>
           <p className={styles.metric}>{totalPlayers.toLocaleString()}</p>
         </div>
         <div className={`${styles.card} ${styles.regionNav}`}>
-          <h3>Regions</h3>
+          <h3>{t('regions')}</h3>
           <ul>
             {regions.map(region => (
               <li key={region}>
@@ -59,15 +60,14 @@ export default function Sidebar({
         </div>
         <TopCrewsByActivityChart data={crewActivityData} />
       </div>
-
-      <div className={styles.socialCard}>
+      {/* <div className={styles.socialCard}>
         {socialLinks.map(({ href, icon: Icon, label }) => (
           <a key={href} href={href} target="_blank" rel="noopener noreferrer" className={styles.socialButton}>
             <Icon size={18} />
             <span>{label}</span>
           </a>
         ))}
-      </div>
+      </div> */}
     </aside>
   );
 }

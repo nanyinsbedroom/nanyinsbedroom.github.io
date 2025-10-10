@@ -3,6 +3,7 @@ import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, Cell, Toolti
 import { CrewActivity } from '@/lib/playerUtils';
 import styles from '@/styles/Chart.module.css';
 import ClientOnly from '@/components/ClientOnly';
+import { useTranslations } from '@/context/LanguageContext';
 
 const COLORS = [
   'var(--brand-glow)',
@@ -31,11 +32,12 @@ interface TopCrewsChartProps {
 }
 
 export default function TopCrewsByActivityChart({ data }: TopCrewsChartProps) {
+  const t = useTranslations('Sidebar');
   const chartData = data.slice(0, 5).reverse();
 
   return (
     <div className={styles.chartCard}>
-      <h3>Most Active Crews</h3>
+      <h3>{t('activeCrews')}</h3>
       <div className={styles.chartContainer}>
         <ClientOnly>
           {chartData.length > 0 ? (

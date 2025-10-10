@@ -1,0 +1,99 @@
+{
+  "GlobalHeader": {
+    "mainButton": "Cơ sở dữ liệu Quản lý Trò chơi",
+    "subText": "Nhấp vào đây để biết thêm dữ liệu"
+  },
+  "Dashboard": {
+    "title": "Bảng điều khiển Tài khoản",
+    "lastUpdated": "Cập nhật lần cuối:",
+    "refresh": "Làm mới",
+    "menu": "Menu",
+    "charts": "Biểu đồ",
+    "selectLanguage": "Ngôn ngữ:"
+  },
+  "DashboardInsights": {
+    "newPlayerByWeek": "Tài khoản mới trong tuần qua",
+    "oldestAccount": "Tài khoản cũ nhất",
+    "newAccount": "Tài khoản mới nhất",
+    "mostActiveRegion": "Khu vực hoạt động nhiều nhất",
+    "mostActiveCrew": "Đội hoạt động nhiều nhất",
+    "days": "ngày"
+  },
+  "WelcomeNote": {
+    "title": "Chào mừng đến với Bảng điều khiển Tài khoản",
+    "intro": "Bảng điều khiển này là một dự án cộng đồng được thiết kế để cung cấp số liệu thống kê và thông tin chi tiết về cơ sở người chơi của trò chơi.",
+    "howTitle": "Dữ liệu này được thu thập như thế nào?",
+    "howText": "Thông tin được thu thập bằng các công cụ của bên thứ ba có sẵn công khai. Hãy coi nó như một \"cuộc điều tra dân số trong trò chơi\" định kỳ—một ảnh chụp nhanh của dữ liệu người chơi có thể nhìn thấy tại một thời điểm cụ thể.",
+    "disclaimerTitle": "Tuyên bố miễn trừ trách nhiệm quan trọng",
+    "disclaimerP1_part1": "Để làm rõ: trang web này ",
+    "disclaimerP1_part2_important": "không kết nối với máy chủ trò chơi trực tiếp",
+    "disclaimerP1_part3": ". Dữ liệu bạn thấy ",
+    "disclaimerP1_part4_important": "không phải thời gian thực",
+    "disclaimerP1_part5": ".",
+    "disclaimerP2": "Hãy coi dữ liệu này như một bức ảnh, không phải video trực tiếp. Chúng tôi chụp những \"ảnh chụp nhanh\" này của dữ liệu người chơi công khai định kỳ. Điều này có nghĩa thông tin là một cái nhìn bị trễ, không phải nguồn cấp dữ liệu trực tiếp về những gì đang xảy ra trong trò chơi ngay bây giờ.",
+    "disclaimerP3_part1": "Do đó, trang web này không liên kết với ",
+    "disclaimerP3_part2_company": "Hotta Studio",
+    "disclaimerP3_part3": " hoặc ",
+    "disclaimerP3_part4_company": "Perfect World Games",
+    "disclaimerP3_part5": ", và dữ liệu ",
+    "disclaimerP3_part6_important": "có thể không hoàn chỉnh 100%",
+    "disclaimerP3_part7": "."
+  },
+  "Sidebar": {
+    "totalPlayers": "Tổng số Tài khoản",
+    "regions": "Khu vực",
+    "activeCrews": "Đội hoạt động nhiều nhất",
+    "followUs": "Theo dõi chúng tôi",
+    "joinCommunity": "Tham gia Cộng đồng của chúng tôi",
+    "contact": "Liên hệ"
+  },
+  "Filters": {
+    "allRegions": "Tất cả Khu vực",
+    "allStatus": "Tất cả Trạng thái",
+    "online": "Trực tuyến",
+    "recent": "Gần đây",
+    "inactive": "Không hoạt động",
+    "allGenders": "Tất cả Giới tính",
+    "male": "Nam",
+    "female": "Nữ",
+    "allPlayers": "Tất cả Tài khoản",
+    "inACrew": "Trong một đội",
+    "noCrew": "Không có đội",
+    "allTime": "Mọi thời điểm",
+    "newest": "Mới nhất",
+    "lastSeen": "Lần cuối thấy",
+    "searchPlaceholder": "Tìm kiếm Tài khoản hoặc Đội..."
+  },
+  "Table": {
+    "headerName": "Tên",
+    "headerCrew": "Đội",
+    "headerRegion": "Khu vực",
+    "headerRegistered": "Đã đăng ký",
+    "headerLastSeen": "Lần cuối thấy",
+    "crewTableMember": "thành viên",
+    "footerPagination": "Hiển thị Tài khoản"
+  },
+  "Charts": {
+    "serverInformation": "Thông tin Máy chủ",
+    "genderDistribution": "Phân bổ Giới tính",
+    "newPlayersByYear": "Tài khoản Mới theo Năm",
+    "monthlyActivePlayers": "Tài khoản Hoạt động Hàng tháng",
+    "playerRetention": "Duy trì Tài khoản theo Nhóm",
+    "viewReport": "Xem Báo cáo Chi tiết"
+  },
+  "Pagination": {
+    "previous": "Trước",
+    "next": "Tiếp"
+  },
+  "Server": {
+    "ipAddress": "Địa chỉ IP",
+    "hostname": "Tên máy chủ",
+    "asn": "ASN",
+    "isp": "ISP",
+    "services": "Dịch vụ",
+    "country": "Quốc gia",
+    "city": "Thành phố",
+    "latitude": "Vĩ độ",
+    "longitude": "Kinh độ"
+  }
+}
