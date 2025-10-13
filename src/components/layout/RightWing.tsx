@@ -46,7 +46,6 @@ export default function RightWing({
     return (
       <aside className={`${styles.mobileWing} ${styles.right} ${isOpen ? styles.open : ''}`}>
         <div className={styles.wingHeader}>
-          <h3 className={styles.wingTitle}>Visualizations</h3>
           <button onClick={onClose} className={styles.closeButton} aria-label="Close visualizations"><FaTimes size={20} /></button>
         </div>
         <div className={styles.mobileWingScrollContent}>

@@ -22,7 +22,6 @@ export default function LeftWing({ isMobile, isOpen, onClose, ...sidebarProps }:
     return (
       <aside className={`${styles.mobileWing} ${styles.left} ${isOpen ? styles.open : ''}`}>
         <div className={styles.wingHeader}>
-          <h3 className={styles.wingTitle}>Menu</h3>
           <button onClick={onClose} className={styles.closeButton} aria-label="Close menu"><FaTimes size={20} /></button>
         </div>
         <div className={styles.mobileWingScrollContent}> {/* Added a new div for scrollable content */}

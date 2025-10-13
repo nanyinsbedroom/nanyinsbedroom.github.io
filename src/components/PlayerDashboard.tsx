@@ -302,21 +302,16 @@ export default function PlayerDashboard() {
 
       <main className={styles.mainContent}>
         <div className={styles.topBar}>
-          <div>
-            <h1>Player Dashboard</h1>
-            <p>{t('lastUpdated')} {new Date(dashboardData.index.last_update * 1000).toLocaleString()}</p>
-          </div>
           <div className={styles.headerActions}>
             {isMobile && (
               <>
-                <button onClick={() => setIsLeftWingOpen(true)} className={styles.mobileWingButton} aria-label="Open menu"><FaBars /> Menu</button>
-                <button onClick={() => setIsRightWingOpen(true)} className={styles.mobileWingButton} aria-label="Open charts"><FaChartBar /> Charts</button>
+                <button onClick={() => setIsLeftWingOpen(true)} className={styles.mobileWingButton} aria-label="Open menu"><FaBars />{t('menu')}</button>
+                <button onClick={() => setIsRightWingOpen(true)} className={styles.mobileWingButton} aria-label="Open charts"><FaChartBar />{t('charts')}</button>
               </>
             )}
             <button onClick={handleRefresh} className={styles.refreshButton} aria-label="Refresh data"><FaSync /> {t('refresh')}</button>
           </div>
         </div>
-
         {isLoading ? (
           <PlayerTableSkeleton />
         ) : (

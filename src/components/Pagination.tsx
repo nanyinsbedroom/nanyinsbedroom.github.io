@@ -10,7 +10,7 @@ interface PaginationProps {
 
 export default function Pagination({ currentPage, totalPages, onPageChange }: PaginationProps) {
   const isMobile = useMediaQuery(1199);
-  const maxPageButtons = isMobile ? 1 : 5;
+  const maxPageButtons = isMobile ? 1 : 10;
   const pageNumbers = [];
   const t = useTranslations('Pagination');
 

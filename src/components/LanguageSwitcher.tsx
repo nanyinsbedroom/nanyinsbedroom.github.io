@@ -22,8 +22,7 @@ export default function LanguageSwitcher() {
 
   return (
     <div className={styles.languageSwitcher}>
-      <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
-        <span>{t('selectLanguage')}</span>
+      <div style={{ display: 'flex', alignItems: 'left', gap: '1rem' }}>
         <label htmlFor="language-select" style={{ display: 'none' }}>Select Language</label>
         <div className={styles.selectWrapper}>
           <select

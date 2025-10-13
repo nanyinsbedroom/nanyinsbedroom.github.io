@@ -1,6 +1,6 @@
 .wing {
   position: sticky;
-  top: 1.5rem;
+  top: 6.5rem;
   align-self: flex-start;
   display: none;
   flex-shrink: 0;
@@ -12,10 +12,14 @@
 }
 
 .leftWing {
+  margin-left: 2rem;
+  margin-bottom: 2rem;
   width: 300px;
 }
 
 .rightWing {
+  margin-right: 2rem;
+  margin-bottom: 2rem;
   width: 360px;
 }
 
@@ -38,7 +42,6 @@
 
 .mobileWing {
   position: fixed;
-  top: 0;
   height: 100%;
   z-index: 100;
   background-color: rgba(3, 7, 18, 0.8);
@@ -128,40 +131,68 @@
   }
 }
 
+.socialCard {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid var(--border-color);
+}
+
+.socialButton {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem 1rem;
+  border-radius: 6px;
+  background-color: var(--surface-secondary);
+  border: 1px solid var(--border-color);
+  color: var(--text-secondary);
+  transition: all 0.2s ease;
+}
+
+.socialButton:hover {
+  border-color: var(--brand-glow);
+  color: var(--text-primary);
+}
+
 .languageSwitcher {
   display: flex;
   align-items: center;
-  margin-left: 1rem;
 }
 
 .selectWrapper {
   position: relative;
-  display: inline-block;
 }
 
 .languageSelect {
-  background: #23243a;
+  background: var(--surface-secondary);
   color: #fff;
-  border: 1.5px solid #6c63ff;
+  border: 1px solid var(--border-color);
   border-radius: 6px;
-  padding: 6px 28px 6px 12px;
+  padding: 0.75rem 3rem 0.75rem 1rem;
   font-size: 1rem;
+  font-display: block;
   appearance: none;
   outline: none;
   transition: border 0.2s;
   cursor: pointer;
   box-shadow: 0 2px 8px rgba(108, 99, 255, 0.08);
-  width: 100%;
 }
 
-.languageSelect:focus {
+.languageSelect:hover {
+  border-color: var(--brand-glow);
+  color: var(--text-primary);
+}
+
+/* .languageSelect:focus {
   border-color: #a084ff;
-}
+} */
 
-.languageSelect option {
+/* .languageSelect option {
   background: #23243a;
   color: #fff;
-}
+} */
 
 .selectWrapper::after {
   content: '';
