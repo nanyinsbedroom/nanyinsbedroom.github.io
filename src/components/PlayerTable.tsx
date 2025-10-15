@@ -28,7 +28,8 @@ export default function PlayerTable({
   // --- STATE MANAGEMENT FOR THE MODAL ---
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedPlayer, setSelectedPlayer] = useState<Account | null>(null);
-
+  const [internalTitleData, setInternalTitleData] = useState<Record<string, string>>({});
+  
   // Function to open the modal with the clicked player's data
   const handlePlayerClick = (player: Account) => {
     setSelectedPlayer(player);
@@ -129,6 +130,7 @@ export default function PlayerTable({
         onClose={handleCloseModal}
         player={selectedPlayer}
         allAccounts={allAccounts}
+        titleData={internalTitleData}
       />
     </>
   );
