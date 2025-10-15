@@ -4,15 +4,35 @@ import { Account } from '@/lib/types';
 import PlayerProfile from './PlayerProfile';
 import styles from '@/styles/StatisticsModal.module.css';
 import { FaTimes } from 'react-icons/fa';
+import { useEffect, useState } from 'react';
+import { getTitleData } from '@/lib/data-fetching';
 
 interface PlayerProfileModalProps {
   isOpen: boolean;
   onClose: () => void;
   player: Account | null;
   allAccounts: Account[];
+  titleData: Record<string, string>;
 }
 
-export default function PlayerProfileModal({ isOpen, onClose, player, allAccounts }: PlayerProfileModalProps) {
+export default function PlayerProfileModal({ isOpen, onClose, player, allAccounts, titleData }: PlayerProfileModalProps) {
+  const [internalTitleData, setInternalTitleData] = useState<Record<string, string>>({});
+
+  useEffect(() => {
+    const loadTitleData = async () => {
+      if (titleData) {
+        setInternalTitleData(titleData);
+      } else {
+        const data = await getTitleData();
+        setInternalTitleData(data);
+      }
+    };
+
+    if (isOpen && player) {
+      loadTitleData();
+    }
+  }, [isOpen, player, titleData]);
+
   if (!isOpen || !player) {
     return null; // Don't render anything if it's closed or there's no player xdd
   }
@@ -29,7 +49,7 @@ export default function PlayerProfileModal({ isOpen, onClose, player, allAccount
         </header>
         <div className={styles.modalBody}>
           {/* We just render the existing PlayerProfile component inside. xdd! */}
-          <PlayerProfile player={player} allAccounts={allAccounts} />
+          <PlayerProfile player={player} allAccounts={allAccounts} titleData={internalTitleData} />
         </div>
       </div>
     </div>

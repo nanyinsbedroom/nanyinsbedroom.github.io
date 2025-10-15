@@ -1,4 +1,7 @@
 export interface Account {
+  level: number;
+  hp: number;
+  equipping_title: string;
   crew_id: number;
   crew_name: string;
   gender: number;
@@ -7,6 +10,7 @@ export interface Account {
   registered: string;
   role_id: number;
   server_region: string;
+  title_name?: string;
 }
 
 export interface RegionData {
@@ -27,4 +31,5 @@ export interface IndexData {
 export interface DashboardData {
   index: IndexData;
   accounts: Account[];
+  titleData: Record<string, string>;
 }

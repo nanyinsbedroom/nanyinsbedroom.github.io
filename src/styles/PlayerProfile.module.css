@@ -6,6 +6,7 @@
   flex-direction: column;
   gap: 2rem;
 }
+
 .backLink {
   display: inline-flex;
   align-items: center;
@@ -15,9 +16,11 @@
   margin-bottom: 2rem;
   transition: color 0.2s ease;
 }
+
 .backLink:hover {
   color: var(--text-primary);
 }
+
 .header {
   display: flex;
   flex-direction: column;
@@ -25,26 +28,64 @@
   border-bottom: 1px solid var(--border-color);
   padding-bottom: 1.5rem;
 }
+
 .playerName {
   font-size: 2.5rem;
   font-weight: 700;
 }
+
 .roleId {
   font-size: 1rem;
   font-family: monospace;
   color: var(--text-secondary);
 }
+
 .statsGrid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   gap: 1.5rem;
 }
+
 .statCard {
   background-color: var(--surface-primary);
   border: 1px solid var(--border-color);
   border-radius: 8px;
   padding: 1.5rem;
 }
+
+.basicStatsCard {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 140px;
+}
+
+.statCardHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 0.75rem;
+}
+
+.lastUpdatedLabel {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  text-align: right;
+  white-space: nowrap;
+}
+
+.statCardContent {
+  display: flex;
+  align-items: flex-end;
+}
+
+.statValues {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
 .statLabel {
   display: flex;
   align-items: center;
@@ -53,25 +94,39 @@
   color: var(--text-secondary);
   margin-bottom: 0.5rem;
 }
+
 .statValue {
   font-size: 1.5rem;
   font-weight: 600;
   color: var(--text-primary);
 }
+
 .crewValue {
   display: flex;
   flex-direction: column;
 }
+
 .crewName {
   font-size: 1.5rem;
   font-weight: 600;
 }
+
 .crewMembers {
   font-size: 0.9rem;
   color: var(--text-secondary);
 }
+
 @media (max-width: 768px) {
-  .profileContainer { padding: 1rem; }
-  .playerName { font-size: 2rem; }
-  .statValue, .crewName { font-size: 1.25rem; }
+  .profileContainer {
+    padding: 1rem;
+  }
+
+  .playerName {
+    font-size: 2rem;
+  }
+
+  .statValue,
+  .crewName {
+    font-size: 1.25rem;
+  }
 }

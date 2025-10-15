@@ -1,5 +1,30 @@
 import { DashboardData, Account, RegionData, IndexData } from "@/lib/types";
 
+export async function getTitleData() {
+  const titlesUrl = 'https://raw.githubusercontent.com/nanyinsbedroom/titles/refs/heads/main/DT_Title_Balance.json';
+  try {
+    const res = await fetch(titlesUrl);
+    if (!res.ok) throw new Error('Failed to fetch title data');
+    const data = await res.json();
+    
+    // Transform the data into a more usable format
+    const titleMap: Record<string, string> = {};
+    
+    data.forEach((table: any) => {
+      if (table.Name === 'DT_Title_Balance' && table.Rows) {
+        Object.entries(table.Rows).forEach(([titleId, row]: [string, any]) => {
+          titleMap[titleId] = row.Name?.LocalizedString || titleId;
+        });
+      }
+    });
+    
+    return titleMap;
+  } catch (error) {
+    console.error("Error fetching title data:", error);
+    return {};
+  }
+}
+
 export async function getDashboardData(): Promise<DashboardData> {
   const baseRepoUrl = 'https://raw.githubusercontent.com/nanyinsbedroom/tofgm-database/main';
 
@@ -19,6 +44,7 @@ export async function getDashboardData(): Promise<DashboardData> {
   ];
 
   try {
+    // Fetch title data along with other data
     const [indexRes, ...regionResponses] = await Promise.all([
       fetch(`${baseRepoUrl}/index.json`),
       ...regionEndpoints.map(endpoint => fetch(endpoint.url))
@@ -26,13 +52,16 @@ export async function getDashboardData(): Promise<DashboardData> {
 
     if (!indexRes.ok) throw new Error(`Failed to fetch index.json`);
     const indexData: IndexData = await indexRes.json();
-
+    const titleData = await getTitleData();
     const allAccountsArrays = await Promise.all(
       regionResponses.map(async (res, i) => {
         const endpoint = regionEndpoints[i];
         if (res.ok) {
           const data: RegionData = await res.json();
-          return Object.values(data.accounts).map(acc => ({ ...acc, server_region: endpoint.key }));
+          return Object.values(data.accounts).map(acc => ({ 
+            ...acc, 
+            server_region: endpoint.key
+          }));
         }
         console.error(`Warning: Failed to fetch data for region: ${endpoint.key}`);
         return [];
@@ -86,9 +115,17 @@ export async function getDashboardData(): Promise<DashboardData> {
 
     const finalIndexData = { ...indexData, total_accounts: processedAccounts.length };
 
-    return { index: finalIndexData, accounts: processedAccounts };
+    return { 
+      index: finalIndexData, 
+      accounts: processedAccounts,
+      titleData
+    };
   } catch (error) {
     console.error("Error during server-side data fetch:", error);
-    return { index: { total_accounts: 0, last_update: 0, regions: {} }, accounts: [] };
+    return { 
+      index: { total_accounts: 0, last_update: 0, regions: {} }, 
+      accounts: [],
+      titleData: {}
+    };
   }
 }

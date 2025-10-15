@@ -58,3 +58,7 @@ export const formatRegionName = (region: string) => {
   }
   return region.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
 };
+
+export const formatNumber = (num: number) => {
+  return Math.floor(num).toLocaleString();
+}

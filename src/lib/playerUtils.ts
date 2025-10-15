@@ -1,7 +1,7 @@
 import { Account } from "./types";
 
 export interface ActivityStatus {
-  status: 'online' | 'recent' | 'inactive' | 'dormant';
+  status: 'active' | 'recent' | 'inactive' | 'dormant';
   label: string;
   color: string;
 }
@@ -18,7 +18,7 @@ export const getActivityStatus = (lastSeen: number): ActivityStatus => {
   const daysSince = (now - lastSeenMs) / (1000 * 60 * 60 * 24);
 
   if (daysSince <= 1) {
-    return { status: 'online', label: 'Online', color: 'var(--accent-green)' };
+    return { status: 'active', label: 'Active', color: 'var(--accent-green)' };
   } else if (daysSince <= 7) {
     return { status: 'recent', label: 'Recent', color: '#39c5cf' }; // Cyan
   } else if (daysSince <= 30) {
