@@ -10,17 +10,12 @@ import styles from '@/styles/PlayerProfile.module.css';
 interface PlayerProfileProps {
   player: Account;
   allAccounts: Account[];
-  titleData: Record<string, string>;
 }
 
-export default function PlayerProfile({ player, allAccounts, titleData }: PlayerProfileProps) {
+export default function PlayerProfile({ player, allAccounts}: PlayerProfileProps) {
   const crewMemberCount = getCrewMemberCount(allAccounts, player.crew_name);
   const activityStatus = getActivityStatus(player.last_seen);
-  const getLocalizedTitle = (titleId: string) => {
-    return titleData[titleId] || titleId; // Fallback to titleId if not found
-  };
-  const localizedTitle = getLocalizedTitle(player.equipping_title);
-
+  
   return (
     <div className={styles.profileContainer}>
       <Link href="/" className={styles.backLink}>
@@ -41,7 +36,7 @@ export default function PlayerProfile({ player, allAccounts, titleData }: Player
 
         <div className={styles.statCardContent}>
           <div className={styles.statValues}>
-            <span className={styles.statValue}>Title: {localizedTitle}</span>
+            <span className={styles.statValue}>Title: {player.title_name}</span>
             <span className={styles.statValue}>Level: {player.level}</span>
             <span className={styles.statValue}>HP: {formatNumber(player.hp)}</span>
           </div>

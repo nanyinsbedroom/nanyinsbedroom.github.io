@@ -49,7 +49,6 @@ const REGIONS = ['All Regions', 'asia_pacific', 'europe', 'north_america', 'sout
 
 export default function PlayerDashboard() {
   const [dashboardData, setDashboardData] = useState<DashboardData>({
-    titleData: {},
     index: { total_accounts: 0, last_update: 0, regions: {} },
     accounts: []
   });
@@ -182,7 +181,6 @@ export default function PlayerDashboard() {
         });
 
         setDashboardData({
-          titleData: {},
           index: { ...indexData, total_accounts: processedAccounts.length },
           accounts: processedAccounts
         });

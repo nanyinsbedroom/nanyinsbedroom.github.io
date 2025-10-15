@@ -10,7 +10,7 @@ export interface Account {
   registered: string;
   role_id: number;
   server_region: string;
-  title_name?: string;
+  title_name: string;
 }
 
 export interface RegionData {
@@ -31,5 +31,4 @@ export interface IndexData {
 export interface DashboardData {
   index: IndexData;
   accounts: Account[];
-  titleData: Record<string, string>;
 }

@@ -130,7 +130,6 @@ export default function PlayerTable({
         onClose={handleCloseModal}
         player={selectedPlayer}
         allAccounts={allAccounts}
-        titleData={internalTitleData}
       />
     </>
   );
