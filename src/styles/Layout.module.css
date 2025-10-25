@@ -12,14 +12,12 @@
 }
 
 .leftWing {
-  margin-left: 2rem;
-  margin-bottom: 2rem;
+  margin: 2rem 0 2rem 2rem;
   width: 300px;
 }
 
 .rightWing {
-  margin-right: 2rem;
-  margin-bottom: 2rem;
+  margin: 2rem 2rem 2rem 0;
   width: 360px;
 }
 
