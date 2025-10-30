@@ -57,6 +57,7 @@
   margin: 0 0 0 0;
   max-height: 350px;
   overflow-y: auto;
+  overflow-x: hidden;
   scrollbar-width: thin;
   scrollbar-color: #888 #22223b;
   line-height: 200%;
@@ -68,5 +69,5 @@
 }
 
 .serverRegionItem {
-  margin-bottom: 0.5rem;
+  margin-bottom: 1.5rem;
 }

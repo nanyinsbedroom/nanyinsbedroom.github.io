@@ -45,8 +45,7 @@ function parseAllDateFormats(dateInput: string | number): Date | null {
 }
 
 type SortConfig = { key: keyof Account | 'activity_status'; direction: 'asc' | 'desc'; };
-const REGIONS = ['All Regions', 'asia_pacific', 'europe', 'north_america', 'south_america', 'southeast_asia', 'korea', '方舟演算', '重塑未来', '未来人类', '蔚色艾达', '时空回溯', '宇宙折跃'];
-
+const REGIONS = ['All Regions', 'asia_pacific', 'europe', 'north_america', 'south_america', 'southeast_asia', 'korea', 'PS_america', 'PS_east_asia', 'PS_europe', 'PS_southeast_asia', '方舟演算', '重塑未来', '未来人类', '蔚色艾达', '时空回溯', '宇宙折跃'];
 export default function PlayerDashboard() {
   const [dashboardData, setDashboardData] = useState<DashboardData>({
     index: { total_accounts: 0, last_update: 0, regions: {} },
@@ -122,6 +121,10 @@ export default function PlayerDashboard() {
           { key: 'south_america', url: `${baseRepoUrl}/accounts/south_america/accounts.json` },
           { key: 'southeast_asia', url: `${baseRepoUrl}/accounts/southeast_asia/accounts.json` },
           { key: 'korea', url: `${baseRepoUrl}/accounts/korea/accounts.json` },
+          { key: 'PS_america', url: `${baseRepoUrl}/accounts/ps_america/accounts.json` },
+          { key: 'PS_east_asia', url: `${baseRepoUrl}/accounts/ps_east_asia/accounts.json` },
+          { key: 'PS_europe', url: `${baseRepoUrl}/accounts/ps_europe/accounts.json` },
+          { key: 'PS_southeast_asia', url: `${baseRepoUrl}/accounts/ps_southeast_asia/accounts.json` },
           { key: '方舟演算', url: `${baseRepoUrl}/accounts/ark_calculus/accounts.json` },
           { key: '重塑未来', url: `${baseRepoUrl}/accounts/reshaping_the_future/accounts.json` },
           { key: '未来人类', url: `${baseRepoUrl}/accounts/future_humanity/accounts.json` },
@@ -380,6 +383,10 @@ function getServersForRegion(serverData: any, selectedRegion: string) {
     'south_america': ['South America'],
     'southeast_asia': ['Southeast Asia'],
     'korea': ['Korea'],
+    'PS_america': ['PS-America'],
+    'PS_east_asia': ['PS-East Asia'],
+    'PS_europe': ['PS-Europe'],
+    'PS_southeast_asia': ['PS-Southeast Asia'],
     '方舟演算': ['方舟演算'],
     '重塑未来': ['重塑未来'],
     '未来人类': ['未来人类'],
@@ -388,11 +395,8 @@ function getServersForRegion(serverData: any, selectedRegion: string) {
     '宇宙折跃': ['宇宙折跃'],
   };
 
-  const isNotPSServer = (name: string) => !name.startsWith('PS');
-
   if (selectedRegion === 'All Regions') {
     return Object.entries(serverData)
-      .filter(([name]) => isNotPSServer(name))
       .map(([name, info]) => ({
         name,
         ...(typeof info === 'object' && info !== null ? info : {})
@@ -401,7 +405,6 @@ function getServersForRegion(serverData: any, selectedRegion: string) {
 
   const keys = regionMap[selectedRegion] || [];
   return keys
-    .filter(key => serverData[key] && isNotPSServer(key))
     .map(key => ({
       name: key,
       ...(typeof serverData[key] === 'object' && serverData[key] !== null ? serverData[key] : {})
