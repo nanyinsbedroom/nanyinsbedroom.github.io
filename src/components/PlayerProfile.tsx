@@ -12,35 +12,31 @@ interface PlayerProfileProps {
   allAccounts: Account[];
 }
 
-export default function PlayerProfile({ player, allAccounts}: PlayerProfileProps) {
+export default function PlayerProfile({ player, allAccounts }: PlayerProfileProps) {
   const crewMemberCount = getCrewMemberCount(allAccounts, player.crew_name);
   const activityStatus = getActivityStatus(player.last_seen);
-  
+
   return (
     <div className={styles.profileContainer}>
-      <Link href="/" className={styles.backLink}>
-        <FaArrowLeft />
-        Back to Dashboard
-      </Link>
+      <div className={styles.statCardHeader}>
+        <Link href="/" className={styles.backLink}>
+          <FaArrowLeft />
+          Back to Dashboard
+        </Link>
+        <p className={styles.lastUpdatedLabel}>Last Updated Stats: {formatRelativeDate(player.last_seen * 1000)}</p>
+      </div>
 
       <header className={styles.header}>
         <h1 className={styles.playerName}>{player.name}</h1>
+        <p className={styles.level}>Level: {player.level}</p>
+        <p className={styles.title}>Title: {player.equipping_title}</p>
+        <p className={styles.nameHistory}>Formerly known as: {player.name_history}</p>
         <p className={styles.roleId}>ID: #{player.role_id}</p>
       </header>
 
-      <div className={styles.statCard + ' ' + styles.basicStatsCard}>
-        <div className={styles.statCardHeader}>
-          <p className={styles.statLabel}><FaChartBar /> Basic Stats</p>
-          <p className={styles.lastUpdatedLabel}>Last Updated Stats: {formatRelativeDate(player.last_seen * 1000)}</p>
-        </div>
-
-        <div className={styles.statCardContent}>
-          <div className={styles.statValues}>
-            <span className={styles.statValue}>Title: {player.title_name}</span>
-            <span className={styles.statValue}>Level: {player.level}</span>
-            <span className={styles.statValue}>HP: {formatNumber(player.hp)}</span>
-          </div>
-        </div>
+      <div className={styles.statCard}>
+        <p className={styles.statLabel}><FaChartBar /> Basic Stats</p>
+        <span className={styles.statValue}>HP: {formatNumber(player.hp)}</span>
       </div>
 
       <div className={styles.statsGrid}>

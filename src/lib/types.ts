@@ -7,10 +7,10 @@ export interface Account {
   gender: number;
   last_seen: number;
   name: string;
+  name_history: string[];
   registered: string;
   role_id: number;
   server_region: string;
-  title_name: string;
 }
 
 export interface RegionData {

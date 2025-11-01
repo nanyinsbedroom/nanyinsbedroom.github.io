@@ -13,7 +13,6 @@
   gap: 0.5rem;
   color: var(--text-secondary);
   text-decoration: none;
-  margin-bottom: 2rem;
   transition: color 0.2s ease;
 }
 
@@ -34,7 +33,7 @@
   font-weight: 700;
 }
 
-.roleId {
+.roleId, .level, .title, .nameHistory {
   font-size: 1rem;
   font-family: monospace;
   color: var(--text-secondary);
@@ -53,26 +52,18 @@
   padding: 1.5rem;
 }
 
-.basicStatsCard {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  min-height: 140px;
-}
-
 .statCardHeader {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  gap: 1rem;
-  margin-bottom: 0.75rem;
 }
 
 .lastUpdatedLabel {
-  font-size: 0.9rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
   color: var(--text-secondary);
-  text-align: right;
-  white-space: nowrap;
+  text-decoration: none;
 }
 
 .statCardContent {
