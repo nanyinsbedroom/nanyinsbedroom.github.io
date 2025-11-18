@@ -3,8 +3,10 @@ name: Deploy Next.js to GitHub Pages
 on:
   push:
     branches: ["main"]
+
   schedule:
     - cron: '0 0 * * *'
+
   workflow_dispatch:
 
 permissions:
@@ -14,7 +16,7 @@ permissions:
 
 concurrency:
   group: "pages"
-  cancel-in-progress: true
+  cancel-in-progress: false
 
 jobs:
   build:
@@ -22,28 +24,28 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-      
-      - name: Clean workspace
-        run: |
-          rm -rf ./out
-          rm -rf ./.next
-      
+
+
+
+
+
+
+
+
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
           node-version: "20"
           cache: 'npm'
-      
-      - name: Clean install
-        run: |
-          rm -rf node_modules
-          npm ci
-      
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
+        with:
+          static_site_generator: next
+      - name: Install dependencies
+        run: npm ci
       - name: Build with Next.js
         run: npm run build
-      
+
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
@@ -58,4 +60,3 @@ jobs:
     steps:
       - name: Deploy to GitHub Pages
         id: deployment
-        uses: actions/deploy-pages@v4
