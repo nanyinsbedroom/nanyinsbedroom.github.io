@@ -135,7 +135,7 @@ export default function PlayerDashboard() {
 
         const [indexRes, serversRes, ...regionResponses] = await Promise.all([
           fetch(`${baseRepoUrl}/index.json`),
-          fetch(`${baseRepoUrl}/servers/servers.json`),
+          fetch(`${baseRepoUrl}/server.json`),
           ...regionEndpoints.map(endpoint => fetch(endpoint.url))
         ]);
 
@@ -376,6 +376,7 @@ export default function PlayerDashboard() {
 
 function getServersForRegion(serverData: any, selectedRegion: string) {
   if (!serverData) return [];
+  
   const regionMap: Record<string, string[]> = {
     'asia_pacific': ['Asia Pacific'],
     'europe': ['Europe'],
@@ -405,8 +406,14 @@ function getServersForRegion(serverData: any, selectedRegion: string) {
 
   const keys = regionMap[selectedRegion] || [];
   return keys
-    .map(key => ({
-      name: key,
-      ...(typeof serverData[key] === 'object' && serverData[key] !== null ? serverData[key] : {})
-    }));
+    .map(key => {
+      const serverInfo = serverData[key];
+      if (!serverInfo) return null;
+      
+      return {
+        name: key,
+        ...(typeof serverInfo === 'object' && serverInfo !== null ? serverInfo : {})
+      };
+    })
+    .filter(Boolean);
 }

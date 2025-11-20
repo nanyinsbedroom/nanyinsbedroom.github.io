@@ -4,8 +4,20 @@ import ClientOnly from '@/components/ClientOnly';
 import { useTranslations } from '@/context/LanguageContext';
 
 type Server = {
-    region: string;
     name: string;
+    ip: string;
+    country_name: string;
+    region_name: string;
+    district: string;
+    city_name: string;
+    zip_code: string;
+    latitude: number;
+    longitude: number;
+    time_zone: string;
+    isp: string;
+    net_speed: string;
+    address_type: string;
+    ads_category_name: string;
     [key: string]: any;
 };
 
@@ -23,13 +35,20 @@ export default function ServerInformation({ server }: { server: Server[] }) {
                         <ul className={styles.serverInfoList}>
                             {server.map((srv, idx) => (
                                 <li key={idx} className={styles.serverRegionItem}>
-                                    <h2>{srv.region}{srv.name}</h2>
+                                    <h2>{srv.name}</h2>
                                     <ul>
-                                        {Object.entries(srv).map(([k, v]) =>
-                                            (k !== 'region' && k !== 'name') ? (
-                                                <li key={k}><strong>{k}:</strong> {v}</li>
-                                            ) : null
-                                        )}
+                                        <li><strong>IP Address:</strong> {srv.ip || 'N/A'}</li>
+                                        <li><strong>Country:</strong> {srv.country_name || 'N/A'}</li>
+                                        <li><strong>Region:</strong> {srv.region_name || 'N/A'}</li>
+                                        <li><strong>District:</strong> {srv.district || 'N/A'}</li>
+                                        <li><strong>City:</strong> {srv.city_name || 'N/A'}</li>
+                                        <li><strong>Coordinates:</strong> {srv.latitude ? `${srv.latitude}, ${srv.longitude}` : 'N/A'}</li>
+                                        <li><strong>ZIP Code:</strong> {srv.zip_code || 'N/A'}</li>
+                                        <li><strong>Timezone:</strong> {srv.time_zone || 'N/A'}</li>
+                                        <li><strong>ISP:</strong> {srv.isp || 'N/A'}</li>
+                                        <li><strong>Network Speed:</strong> {srv.net_speed || 'N/A'}</li>
+                                        <li><strong>Address Type:</strong> {srv.address_type || 'N/A'}</li>
+                                        <li><strong>Category:</strong> {srv.ads_category_name || 'N/A'}</li>
                                     </ul>
                                 </li>
                             ))}
