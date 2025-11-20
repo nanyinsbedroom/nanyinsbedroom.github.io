@@ -4,22 +4,25 @@ export async function getDashboardData(): Promise<DashboardData> {
   const baseRepoUrl = 'https://raw.githubusercontent.com/nanyinsbedroom/tofgm-database/main';
 
   const regionEndpoints = [
-    { key: 'asia_pacific',   url: `${baseRepoUrl}/accounts/asia_pacific/accounts.json` },
-    { key: 'europe',         url: `${baseRepoUrl}/accounts/europe/accounts.json` },
-    { key: 'north_america',  url: `${baseRepoUrl}/accounts/north_america/accounts.json` },
-    { key: 'south_america',  url: `${baseRepoUrl}/accounts/south_america/accounts.json` },
+    { key: 'asia_pacific', url: `${baseRepoUrl}/accounts/asia_pacific/accounts.json` },
+    { key: 'europe', url: `${baseRepoUrl}/accounts/europe/accounts.json` },
+    { key: 'north_america', url: `${baseRepoUrl}/accounts/north_america/accounts.json` },
+    { key: 'south_america', url: `${baseRepoUrl}/accounts/south_america/accounts.json` },
     { key: 'southeast_asia', url: `${baseRepoUrl}/accounts/southeast_asia/accounts.json` },
-    { key: 'korea',          url: `${baseRepoUrl}/accounts/korea/accounts.json` },
-    { key: '方舟演算',       url: `${baseRepoUrl}/accounts/ark_calculus/accounts.json` },
-    { key: '重塑未来',       url: `${baseRepoUrl}/accounts/reshaping_the_future/accounts.json` },
-    { key: '未来人类',       url: `${baseRepoUrl}/accounts/future_humanity/accounts.json` },
-    { key: '蔚色艾达',       url: `${baseRepoUrl}/accounts/visser_aida/accounts.json` },
-    { key: '时空回溯',       url: `${baseRepoUrl}/accounts/time_travel/accounts.json` },
-    { key: '宇宙折跃',       url: `${baseRepoUrl}/accounts/cosmic_fold/accounts.json` }
+    { key: 'korea', url: `${baseRepoUrl}/accounts/korea/accounts.json` },
+    { key: 'PS_america', url: `${baseRepoUrl}/accounts/ps_america/accounts.json` },
+    { key: 'PS_east_asia', url: `${baseRepoUrl}/accounts/ps_east_asia/accounts.json` },
+    { key: 'PS_europe', url: `${baseRepoUrl}/accounts/ps_europe/accounts.json` },
+    { key: 'PS_southeast_asia', url: `${baseRepoUrl}/accounts/ps_southeast_asia/accounts.json` },
+    { key: '方舟演算', url: `${baseRepoUrl}/accounts/ark_calculus/accounts.json` },
+    { key: '重塑未来', url: `${baseRepoUrl}/accounts/reshaping_the_future/accounts.json` },
+    { key: '未来人类', url: `${baseRepoUrl}/accounts/future_humanity/accounts.json` },
+    { key: '蔚色艾达', url: `${baseRepoUrl}/accounts/visser_aida/accounts.json` },
+    { key: '时空回溯', url: `${baseRepoUrl}/accounts/time_travel/accounts.json` },
+    { key: '宇宙折跃', url: `${baseRepoUrl}/accounts/cosmic_fold/accounts.json` }
   ];
 
   try {
-    // Fetch title data along with other data
     const [indexRes, ...regionResponses] = await Promise.all([
       fetch(`${baseRepoUrl}/index.json`),
       ...regionEndpoints.map(endpoint => fetch(endpoint.url))
@@ -32,8 +35,8 @@ export async function getDashboardData(): Promise<DashboardData> {
         const endpoint = regionEndpoints[i];
         if (res.ok) {
           const data: RegionData = await res.json();
-          return Object.values(data.accounts).map(acc => ({ 
-            ...acc, 
+          return Object.values(data.accounts).map(acc => ({
+            ...acc,
             server_region: endpoint.key
           }));
         }
@@ -45,12 +48,12 @@ export async function getDashboardData(): Promise<DashboardData> {
     const allAccounts: Account[] = allAccountsArrays.flat();
     const uniqueAccountsMap = new Map<number, Account>();
     allAccounts.forEach(account => uniqueAccountsMap.set(account.role_id, account));
-    
+
     let processedAccounts = Array.from(uniqueAccountsMap.values()).map(account => {
-        if (account.crew_name) {
-            return { ...account, crew_name: account.crew_name.trim() };
-        }
-        return account;
+      if (account.crew_name) {
+        return { ...account, crew_name: account.crew_name.trim() };
+      }
+      return account;
     });
 
     const crewRegionCounts = new Map<string, Map<string, number>>();
@@ -89,14 +92,14 @@ export async function getDashboardData(): Promise<DashboardData> {
 
     const finalIndexData = { ...indexData, total_accounts: processedAccounts.length };
 
-    return { 
-      index: finalIndexData, 
+    return {
+      index: finalIndexData,
       accounts: processedAccounts,
     };
   } catch (error) {
     console.error("Error during server-side data fetch:", error);
-    return { 
-      index: { total_accounts: 0, last_update: 0, regions: {} }, 
+    return {
+      index: { total_accounts: 0, last_update: 0, regions: {} },
       accounts: []
     };
   }
