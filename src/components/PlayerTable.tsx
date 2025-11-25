@@ -67,10 +67,10 @@ export default function PlayerTable({
               </tr>
             </thead>
             <tbody>
-              {paginatedAccounts.map((player) => {
+              {paginatedAccounts.map((player, index) => {
                 const crewMemberCount = getCrewMemberCount(allAccounts, player.crew_name);
                 return (
-                  <tr key={player.role_id}>
+                  <tr key={`${player.role_id}-${(currentPage - 1) * PAGE_SIZE + index}`}>
                     <td data-label="Name">
                       <div className={styles.playerName}>
                         <button
@@ -82,8 +82,8 @@ export default function PlayerTable({
                             cursor: 'pointer',
                             padding: 0,
                             textAlign: 'left',
-                            color: 'var(--text-primary)', // link color
-                            fontSize: 'inherit' // font size
+                            color: 'var(--text-primary)',
+                            fontSize: 'inherit'
                           }}
                         >
                           {player.name}
