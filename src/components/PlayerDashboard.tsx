@@ -45,7 +45,7 @@ function parseAllDateFormats(dateInput: string | number): Date | null {
 }
 
 type SortConfig = { key: keyof Account | 'activity_status'; direction: 'asc' | 'desc'; };
-const REGIONS = ['All Regions', 'asia_pacific', 'europe', 'north_america', 'south_america', 'southeast_asia', 'korea', 'PS_america', 'PS_east_asia', 'PS_europe', 'PS_southeast_asia', '方舟演算', '重塑未来', '未来人类', '蔚色艾达', '时空回溯', '宇宙折跃'];
+const REGIONS = ['All Regions', 'asia_pacific', 'europe', 'north_america', 'south_america', 'southeast_asia', 'korea', 'PS_america', 'PS_east_asia', 'PS_europe', 'PS_southeast_asia','WS_asia_01','WS_america_01','WS_europe_01', '方舟演算', '重塑未来', '未来人类', '蔚色艾达', '时空回溯', '宇宙折跃'];
 export default function PlayerDashboard() {
   const [dashboardData, setDashboardData] = useState<DashboardData>({
     index: { total_accounts: 0, last_update: 0, regions: {} },
@@ -125,6 +125,9 @@ export default function PlayerDashboard() {
           { key: 'PS_east_asia', url: `${baseRepoUrl}/accounts/ps_east_asia/accounts.json` },
           { key: 'PS_europe', url: `${baseRepoUrl}/accounts/ps_europe/accounts.json` },
           { key: 'PS_southeast_asia', url: `${baseRepoUrl}/accounts/ps_southeast_asia/accounts.json` },
+          { key: 'WS_asia_01', url: `${baseRepoUrl}/accounts/ws_asia_01/accounts.json` },
+          { key: 'WS_america_01', url: `${baseRepoUrl}/accounts/ws_america_01/accounts.json` },
+          { key: 'WS_europe_01', url: `${baseRepoUrl}/accounts/ws_europe_01/accounts.json` },
           { key: '方舟演算', url: `${baseRepoUrl}/accounts/ark_calculus/accounts.json` },
           { key: '重塑未来', url: `${baseRepoUrl}/accounts/reshaping_the_future/accounts.json` },
           { key: '未来人类', url: `${baseRepoUrl}/accounts/future_humanity/accounts.json` },
