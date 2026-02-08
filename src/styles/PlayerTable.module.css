@@ -1,0 +1,284 @@
+.card {
+  background-color: var(--surface-primary);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.controlsContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.filterToolbar {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.searchInput {
+  flex-grow: 1;
+  background-color: var(--surface-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  padding: 0.75rem 1rem;
+  color: var(--text-primary);
+  font-size: 1rem;
+  transition: border-color 0.2s ease;
+}
+
+.searchInput:focus {
+  outline: none;
+  border-color: var(--brand-glow);
+}
+
+.sortControls {
+  display: flex;
+}
+
+.sortButton {
+  padding: 0.75rem 1rem;
+  border: 1px solid var(--border-color);
+  background-color: transparent;
+  color: var(--text-secondary);
+  border-radius: 0;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-size: 0.9rem;
+  font-weight: 500;
+  white-space: nowrap;
+  margin-left: -1px;
+}
+
+.sortControls .sortButton:first-child {
+  margin-left: 0;
+  border-top-left-radius: 6px;
+  border-bottom-left-radius: 6px;
+}
+
+.sortControls .sortButton:last-child {
+  border-top-right-radius: 6px;
+  border-bottom-right-radius: 6px;
+}
+
+.sortButton:hover {
+  color: var(--text-primary);
+  border-color: var(--brand-muted);
+  z-index: 1;
+  position: relative;
+}
+
+.sortButton.active {
+  background-color: var(--brand-muted);
+  color: var(--text-primary);
+  border-color: var(--brand-muted);
+  font-weight: 600;
+  z-index: 2;
+}
+
+.tableContainer {
+  overflow-x: auto;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.table th,
+.table td {
+  padding: 0.75rem 1rem;
+  text-align: left;
+  border-bottom: 1px solid var(--border-color);
+  white-space: nowrap;
+}
+
+.table th {
+  font-size: 0.8rem;
+  color: var(--text-tertiary);
+  text-transform: uppercase;
+}
+
+.footer {
+  text-align: center;
+  padding-top: 1rem;
+  border-top: 1px solid var(--border-color);
+}
+
+.note {
+  font-size: 0.9rem;
+  color: var(--text-tertiary);
+  margin-bottom: 1rem;
+}
+
+.playerName {
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+}
+
+.playerLink {
+  text-decoration: none;
+  color: var(--text-primary);
+  transition: color 0.2s ease;
+}
+
+.playerLink:hover {
+  color: var(--brand-glow);
+}
+
+.roleId {
+  font-size: 0.8rem;
+  color: var(--text-tertiary);
+  font-family: monospace;
+}
+
+.crewInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+}
+
+.crewLink {
+  text-decoration: none;
+  color: var(--text-primary);
+  transition: color 0.2s ease;
+}
+
+.crewLink:hover {
+  color: var(--brand-glow);
+}
+
+.crewName {
+  font-weight: 600;
+}
+
+.memberCount {
+  font-size: 0.8rem;
+  color: var(--text-tertiary);
+}
+
+.paginationContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.paginationButton {
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  border: 1px solid var(--border-color);
+  background-color: var(--surface-secondary);
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.paginationButton:hover:not(:disabled) {
+  border-color: var(--brand-muted);
+  color: var(--text-primary);
+}
+
+.paginationButton.active {
+  background-color: var(--brand-muted);
+  color: var(--text-primary);
+  border-color: var(--brand-muted);
+  font-weight: 600;
+}
+
+.paginationButton:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.paginationEllipsis {
+  padding: 0.5rem 0.25rem;
+  color: var(--text-tertiary);
+}
+
+@media (min-width: 768px) {
+  .controlsContainer {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+  }
+}
+
+@media (max-width: 768px) {
+  .tableContainer {
+    overflow-x: hidden;
+  }
+
+  .table thead {
+    display: none;
+  }
+
+  .table,
+  .table tbody,
+  .table tr,
+  .table td {
+    display: block;
+    width: 100%;
+  }
+
+  .table tr {
+    border-bottom: none;
+  }
+
+  .table tbody tr {
+    margin-bottom: 1rem;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 1rem;
+    background-color: var(--surface-secondary);
+  }
+
+  .table td {
+    border: none;
+    padding: 0.6rem 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    text-align: right;
+    white-space: normal;
+  }
+
+  .table td::before {
+    content: attr(data-label);
+    font-weight: 600;
+    color: var(--text-secondary);
+    text-align: left;
+    margin-right: 1rem;
+  }
+
+  .table td:first-child {
+    justify-content: flex-start;
+    padding-bottom: 0.75rem;
+    margin-bottom: 0.75rem;
+    border-bottom: 1px solid var(--border-color);
+  }
+
+  .table td:first-child::before {
+    display: none;
+  }
+
+  .playerName {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    flex-direction: row;
+    align-items: baseline;
+    gap: 0.5rem;
+  }
+
+  .crewName,
+  .playerLink,
+  .crewLink {
+    font-size: 0.95rem;
+  }
+}

@@ -1,0 +1,99 @@
+{
+  "GlobalHeader": {
+    "mainButton": "Game Manager Database",
+    "subText": "Click here for more data"
+  },
+  "Dashboard": {
+    "title": "Accounts Dashboard",
+    "lastUpdated": "Last Updated:",
+    "refresh": "Refresh",
+    "menu": "Menu",
+    "charts": "Charts",
+    "selectLanguage": "Language:"
+  },
+  "DashboardInsights": {
+    "newPlayerByWeek": "New accounts in the last week",
+    "oldestAccount": "Oldest account",
+    "newAccount": "Newest account",
+    "mostActiveRegion": "Most active region",
+    "mostActiveCrew": "Most active crew",
+    "days": "days"
+  },
+  "WelcomeNote": {
+    "title": "Welcome to the Account Dashboard",
+    "intro": "This dashboard is a community-driven project designed to provide statistics and insights into the player base of the game.",
+    "howTitle": "How is this data collected?",
+    "howText": "The information is gathered using publicly available, third-party tools. Think of it like a periodic \"in-game census\"—a snapshot of the player data that is visible at a specific moment in time.",
+    "disclaimerTitle": "Important Disclaimer",
+    "disclaimerP1_part1": "To be crystal clear: this website ",
+    "disclaimerP1_part2_important": "does not connect to the live game servers",
+    "disclaimerP1_part3": ". The data you see is ",
+    "disclaimerP1_part4_important": "not real-time",
+    "disclaimerP1_part5": ".",
+    "disclaimerP2": "Think of this data like a photograph, not a live video. We take these \"snapshots\" of public player data periodically. This means the information is a delayed view, not a live feed of what is happening in the game right now.",
+    "disclaimerP3_part1": "Therefore, this site is not affiliated with ",
+    "disclaimerP3_part2_company": "Hotta Studio",
+    "disclaimerP3_part3": " or ",
+    "disclaimerP3_part4_company": "Perfect World Games",
+    "disclaimerP3_part5": ", and the data ",
+    "disclaimerP3_part6_important": "may not be 100% complete",
+    "disclaimerP3_part7": "."
+  },
+  "Sidebar": {
+    "totalPlayers": "Total Accounts",
+    "regions": "Regions",
+    "activeCrews": "Most Active Crews",
+    "followUs": "Follow Us",
+    "joinCommunity": "Join Our Community",
+    "contact": "Contact"
+  },
+  "Filters": {
+    "allRegions": "All Regions",
+    "allStatus": "All Status",
+    "online": "Online",
+    "recent": "Recent",
+    "inactive": "Inactive",
+    "allGenders": "All Genders",
+    "male": "Male",
+    "female": "Female",
+    "allPlayers": "All Accounts",
+    "inACrew": "In a Crew",
+    "noCrew": "No Crew",
+    "allTime": "All Time",
+    "newest": "Newest",
+    "lastSeen": "Last Seen",
+    "searchPlaceholder": "Search Accounts or Crews..."
+  },
+  "Table": {
+    "headerName": "Name",
+    "headerCrew": "Crew",
+    "headerRegion": "Region",
+    "headerRegistered": "Registered",
+    "headerLastSeen": "Last Seen",
+    "crewTableMember": "members",
+    "footerPagination": "Showing Accounts"
+  },
+  "Charts": {
+    "serverInformation": "Server Information",
+    "genderDistribution": "Gender Distribution",
+    "newPlayersByYear": "New Accounts by Year",
+    "monthlyActivePlayers": "Monthly Active Accounts",
+    "playerRetention": "Account Retention by Cohort",
+    "viewReport": "View Detailed Report"
+  },
+  "Pagination": {
+    "previous": "Previous",
+    "next": "Next"
+  },
+  "Server": {
+    "ipAddress": "IP Address",
+    "hostname": "Hostname",
+    "asn": "ASN",
+    "isp": "ISP",
+    "services": "Services",
+    "country": "Country",
+    "city": "City",
+    "latitude": "Latitude",
+    "longitude": "Longitude"
+  }
+}

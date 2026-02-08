@@ -1,0 +1,99 @@
+{
+  "GlobalHeader": {
+    "mainButton": "База данных менеджера игры",
+    "subText": "Нажмите здесь для получения дополнительных данных"
+  },
+  "Dashboard": {
+    "title": "Панель управления аккаунтами",
+    "lastUpdated": "Последнее обновление:",
+    "refresh": "Обновить",
+    "menu": "Меню",
+    "charts": "Графики",
+    "selectLanguage": "Язык:"
+  },
+  "DashboardInsights": {
+    "newPlayerByWeek": "Новые аккаунты за последнюю неделю",
+    "oldestAccount": "Самый старый аккаунт",
+    "newAccount": "Самый новый аккаунт",
+    "mostActiveRegion": "Самый активный регион",
+    "mostActiveCrew": "Самый активный экипаж",
+    "days": "дней"
+  },
+  "WelcomeNote": {
+    "title": "Добро пожаловать на панель управления аккаунтами",
+    "intro": "Эта панель управления - проект, созданный сообществом, предназначенный для предоставления статистики и аналитики по игровой базе.",
+    "howTitle": "Как собираются эти данные?",
+    "howText": "Информация собирается с использованием общедоступных сторонних инструментов. Представьте это как периодическую «перепись в игре» — снимок данных игроков, видимый в конкретный момент времени.",
+    "disclaimerTitle": "Важное предупреждение",
+    "disclaimerP1_part1": "Чтобы было совершенно ясно: этот сайт ",
+    "disclaimerP1_part2_important": "не подключается к живым игровым серверам",
+    "disclaimerP1_part3": ". Данные, которые вы видите, ",
+    "disclaimerP1_part4_important": "не в реальном времени",
+    "disclaimerP1_part5": ".",
+    "disclaimerP2": "Считайте эти данные фотографией, а не живым видео. Мы делаем эти «снимки» публичных данных игроков периодически. Это означает, что информация представляет собой отложенный вид, а не прямую трансляцию того, что происходит в игре прямо сейчас.",
+    "disclaimerP3_part1": "Следовательно, этот сайт не связан с ",
+    "disclaimerP3_part2_company": "Hotta Studio",
+    "disclaimerP3_part3": " или ",
+    "disclaimerP3_part4_company": "Perfect World Games",
+    "disclaimerP3_part5": ", и данные ",
+    "disclaimerP3_part6_important": "могут быть не на 100% полными",
+    "disclaimerP3_part7": "."
+  },
+  "Sidebar": {
+    "totalPlayers": "Всего аккаунтов",
+    "regions": "Регионы",
+    "activeCrews": "Самые активные экипажи",
+    "followUs": "Подпишитесь на нас",
+    "joinCommunity": "Присоединяйтесь к нашему сообществу",
+    "contact": "Контакт"
+  },
+  "Filters": {
+    "allRegions": "Все регионы",
+    "allStatus": "Все статусы",
+    "online": "В сети",
+    "recent": "Недавние",
+    "inactive": "Неактивные",
+    "allGenders": "Все гендеры",
+    "male": "Мужской",
+    "female": "Женский",
+    "allPlayers": "Все аккаунты",
+    "inACrew": "В экипаже",
+    "noCrew": "Без экипажа",
+    "allTime": "За все время",
+    "newest": "Самые новые",
+    "lastSeen": "Последний раз видели",
+    "searchPlaceholder": "Поиск аккаунтов или экипажей..."
+  },
+  "Table": {
+    "headerName": "Имя",
+    "headerCrew": "Экипаж",
+    "headerRegion": "Регион",
+    "headerRegistered": "Зарегистрирован",
+    "headerLastSeen": "Последний раз видели",
+    "crewTableMember": "участников",
+    "footerPagination": "Показано аккаунтов"
+  },
+  "Charts": {
+    "serverInformation": "Информация о сервере",
+    "genderDistribution": "Гендерное распределение",
+    "newPlayersByYear": "Новые аккаунты по годам",
+    "monthlyActivePlayers": "Активные аккаунты в месяц",
+    "playerRetention": "Удержание аккаунтов по когортам",
+    "viewReport": "Посмотреть детальный отчет"
+  },
+  "Pagination": {
+    "previous": "Назад",
+    "next": "Вперед"
+  },
+  "Server": {
+    "ipAddress": "IP-адрес",
+    "hostname": "Имя хоста",
+    "asn": "ASN",
+    "isp": "Провайдер",
+    "services": "Сервисы",
+    "country": "Страна",
+    "city": "Город",
+    "latitude": "Широта",
+    "longitude": "Долгота"
+  }
+}

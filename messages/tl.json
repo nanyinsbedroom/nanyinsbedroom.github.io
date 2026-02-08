@@ -1,0 +1,99 @@
+{
+  "GlobalHeader": {
+    "mainButton": "Database ng Tagapamahala ng Laro",
+    "subText": "Pindutin dito para sa karagdagang datos"
+  },
+  "Dashboard": {
+    "title": "Dashboard ng mga Account",
+    "lastUpdated": "Huling Na-update:",
+    "refresh": "I-refresh",
+    "menu": "Menu",
+    "charts": "Mga Tsart",
+    "selectLanguage": "Wika:"
+  },
+  "DashboardInsights": {
+    "newPlayerByWeek": "Bagong account sa nakaraang linggo",
+    "oldestAccount": "Pinakalumang account",
+    "newAccount": "Pinakabagong account",
+    "mostActiveRegion": "Pinaka-aktibong rehiyon",
+    "mostActiveCrew": "Pinaka-aktibong crew",
+    "days": "araw"
+  },
+  "WelcomeNote": {
+    "title": "Maligayang Pagdating sa Dashboard ng mga Account",
+    "intro": "Ang dashboard na ito ay isang proyektong pinapatakbo ng komunidad na idinisenyo upang magbigay ng mga istatistika at pananaw sa mga manlalaro ng laro.",
+    "howTitle": "Paano kinokolekta ang datos na ito?",
+    "howText": "Ang impormasyon ay kinokolekta gamit ang mga pampublikong magagamit, third-party na tool. Isipin ito na parang isang pana-panahong \"sensus sa loob ng laro\"—isang sulyap ng datos ng manlalaro na nakikita sa isang tiyak na sandali.",
+    "disclaimerTitle": "Mahalagang Paunawa",
+    "disclaimerP1_part1": "Para maging malinaw: ang website na ito ",
+    "disclaimerP1_part2_important": "ay hindi kumokonekta sa mga live na server ng laro",
+    "disclaimerP1_part3": ". Ang datos na nakikita mo ay ",
+    "disclaimerP1_part4_important": "hindi real-time",
+    "disclaimerP1_part5": ".",
+    "disclaimerP2": "Isipin ang datos na ito na parang isang larawan, hindi isang live na video. Kumukuha kami ng mga \"sulyap\" na ito ng pampublikong datos ng manlalaro nang pana-panahon. Ibig sabihin, ang impormasyon ay isang naantala na view, hindi isang live na feed ng mga nangyayari sa laro sa kasalukuyan.",
+    "disclaimerP3_part1": "Kaya, ang site na ito ay hindi kaakibat ng ",
+    "disclaimerP3_part2_company": "Hotta Studio",
+    "disclaimerP3_part3": " o ",
+    "disclaimerP3_part4_company": "Perfect World Games",
+    "disclaimerP3_part5": ", at ang datos ay ",
+    "disclaimerP3_part6_important": "maaaring hindi 100% kumpleto",
+    "disclaimerP3_part7": "."
+  },
+  "Sidebar": {
+    "totalPlayers": "Kabuuang mga Account",
+    "regions": "Mga Rehiyon",
+    "activeCrews": "Pinaka-Aktibong mga Crew",
+    "followUs": "Sundan Kami",
+    "joinCommunity": "Sumali sa Aming Komunidad",
+    "contact": "Makipag-ugnayan"
+  },
+  "Filters": {
+    "allRegions": "Lahat ng Rehiyon",
+    "allStatus": "Lahat ng Katayuan",
+    "online": "Online",
+    "recent": "Kamakailan",
+    "inactive": "Hindi Aktibo",
+    "allGenders": "Lahat ng Kasarian",
+    "male": "Lalaki",
+    "female": "Babae",
+    "allPlayers": "Lahat ng Account",
+    "inACrew": "Nasa isang Crew",
+    "noCrew": "Walang Crew",
+    "allTime": "Lahat ng Oras",
+    "newest": "Pinakabago",
+    "lastSeen": "Huling Nakita",
+    "searchPlaceholder": "Maghanap ng Account o Crew..."
+  },
+  "Table": {
+    "headerName": "Pangalan",
+    "headerCrew": "Crew",
+    "headerRegion": "Rehiyon",
+    "headerRegistered": "Nakarehistro",
+    "headerLastSeen": "Huling Nakita",
+    "crewTableMember": "mga miyembro",
+    "footerPagination": "Ipinapakita ang mga Account"
+  },
+  "Charts": {
+    "serverInformation": "Impormasyon ng Server",
+    "genderDistribution": "Pamamahagi ng Kasarian",
+    "newPlayersByYear": "Bagong Account ayon sa Taon",
+    "monthlyActivePlayers": "Buwanang Aktibong mga Account",
+    "playerRetention": "Retensyon ng Account ayon sa Cohort",
+    "viewReport": "Tingnan ang Detalyadong Ulat"
+  },
+  "Pagination": {
+    "previous": "Nakaraan",
+    "next": "Susunod"
+  },
+  "Server": {
+    "ipAddress": "IP Address",
+    "hostname": "Hostname",
+    "asn": "ASN",
+    "isp": "ISP",
+    "services": "Mga Serbisyo",
+    "country": "Bansa",
+    "city": "Lungsod",
+    "latitude": "Latitude",
+    "longitude": "Longitude"
+  }
+}

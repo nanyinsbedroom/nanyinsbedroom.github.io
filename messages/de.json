@@ -1,0 +1,99 @@
+{
+  "GlobalHeader": {
+    "mainButton": "Spiele-Manager-Datenbank",
+    "subText": "Klicken Sie hier für weitere Daten"
+  },
+  "Dashboard": {
+    "title": "Konten-Dashboard",
+    "lastUpdated": "Zuletzt aktualisiert:",
+    "refresh": "Aktualisieren",
+    "menu": "Menü",
+    "charts": "Diagramme",
+    "selectLanguage": "Sprache:"
+  },
+  "DashboardInsights": {
+    "newPlayerByWeek": "Neue Konten in der letzten Woche",
+    "oldestAccount": "Ältestes Konto",
+    "newAccount": "Neuestes Konto",
+    "mostActiveRegion": "Aktivste Region",
+    "mostActiveCrew": "Aktivste Crew",
+    "days": "Tage"
+  },
+  "WelcomeNote": {
+    "title": "Willkommen im Konten-Dashboard",
+    "intro": "Dieses Dashboard ist ein Community-gesteuertes Projekt, das entwickelt wurde, um Statistiken und Einblicke in die Spielerbasis des Spiels zu liefern.",
+    "howTitle": "Wie werden diese Daten gesammelt?",
+    "howText": "Die Informationen werden mit öffentlich verfügbaren Tools von Drittanbietern gesammelt. Stellen Sie es sich wie eine periodische \"Spiel-internen Volkszählung\" vor – eine Momentaufnahme der Spielerdaten, die zu einem bestimmten Zeitpunkt sichtbar sind.",
+    "disclaimerTitle": "Wichtiger Haftungsausschluss",
+    "disclaimerP1_part1": "Um es ganz klar zu sagen: Diese Website ",
+    "disclaimerP1_part2_important": "verbindet sich nicht mit den Live-Spielservern",
+    "disclaimerP1_part3": ". Die Daten, die Sie sehen, sind ",
+    "disclaimerP1_part4_important": "nicht in Echtzeit",
+    "disclaimerP1_part5": ".",
+    "disclaimerP2": "Betrachten Sie diese Daten wie ein Foto, nicht wie ein Live-Video. Wir machen diese \"Momentaufnahmen\" öffentlicher Spielerdaten regelmäßig. Das bedeutet, die Informationen bieten eine verzögerte Ansicht und keinen Live-Stream dessen, was gerade im Spiel passiert.",
+    "disclaimerP3_part1": "Daher ist diese Seite nicht mit ",
+    "disclaimerP3_part2_company": "Hotta Studio",
+    "disclaimerP3_part3": " oder ",
+    "disclaimerP3_part4_company": "Perfect World Games",
+    "disclaimerP3_part5": " verbunden, und die Daten ",
+    "disclaimerP3_part6_important": "könnten nicht 100 % vollständig sein",
+    "disclaimerP3_part7": "."
+  },
+  "Sidebar": {
+    "totalPlayers": "Konten gesamt",
+    "regions": "Regionen",
+    "activeCrews": "Aktivste Crews",
+    "followUs": "Folgen Sie uns",
+    "joinCommunity": "Treten Sie unserer Community bei",
+    "contact": "Kontakt"
+  },
+  "Filters": {
+    "allRegions": "Alle Regionen",
+    "allStatus": "Alle Status",
+    "online": "Online",
+    "recent": "Kürzlich",
+    "inactive": "Inaktiv",
+    "allGenders": "Alle Geschlechter",
+    "male": "Männlich",
+    "female": "Weiblich",
+    "allPlayers": "Alle Konten",
+    "inACrew": "In einer Crew",
+    "noCrew": "Keine Crew",
+    "allTime": "Alle Zeit",
+    "newest": "Neueste",
+    "lastSeen": "Zuletzt gesehen",
+    "searchPlaceholder": "Konten oder Crews suchen..."
+  },
+  "Table": {
+    "headerName": "Name",
+    "headerCrew": "Crew",
+    "headerRegion": "Region",
+    "headerRegistered": "Registriert",
+    "headerLastSeen": "Zuletzt gesehen",
+    "crewTableMember": "Mitglieder",
+    "footerPagination": "Zeige Konten"
+  },
+  "Charts": {
+    "serverInformation": "Serverinformationen",
+    "genderDistribution": "Geschlechterverteilung",
+    "newPlayersByYear": "Neue Konten nach Jahr",
+    "monthlyActivePlayers": "Monatlich aktive Konten",
+    "playerRetention": "Kontenbindung nach Kohorte",
+    "viewReport": "Detaillierten Bericht anzeigen"
+  },
+  "Pagination": {
+    "previous": "Zurück",
+    "next": "Weiter"
+  },
+  "Server": {
+    "ipAddress": "IP-Adresse",
+    "hostname": "Hostname",
+    "asn": "ASN",
+    "isp": "ISP",
+    "services": "Dienste",
+    "country": "Land",
+    "city": "Stadt",
+    "latitude": "Breitengrad",
+    "longitude": "Längengrad"
+  }
+}

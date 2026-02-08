@@ -1,0 +1,99 @@
+.insightsGrid {
+  display: grid;
+  grid-template-columns: 2fr 1.5fr 1.5fr;
+  gap: 1.25rem;
+  align-items: stretch;
+}
+.primaryCard {
+  background-color: var(--surface-primary);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 0.5rem;
+}
+.primaryValue {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+.primaryIcon {
+  font-size: 1.75rem;
+  color: var(--text-secondary);
+}
+.primaryLabel {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  padding-left: 3.25rem;
+}
+.stackedCard {
+  background-color: var(--surface-primary);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.stackedItem {
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+.stackedItem + .stackedItem {
+  border-top: 1px solid var(--border-color);
+}
+.stackedValue {
+  font-size: 1.75rem;
+  font-weight: 700;
+  line-height: 1.2;
+}
+.stackedValue.oldest { color: var(--accent-green); }
+.stackedValue.newest { color: var(--brand-glow); }
+.stackedLabel {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+}
+.playerNameLink {
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--text-primary);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+.playerNameLink:hover {
+  color: var(--brand-glow);
+}
+.leaderboardItem {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+.leaderboardIcon {
+  font-size: 1.5rem;
+  color: var(--text-secondary);
+}
+.leaderboardContent h3 {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.leaderboardContent p {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+}
+@media (max-width: 1024px) {
+  .insightsGrid { grid-template-columns: 1fr 1fr; }
+  .primaryCard { grid-column: 1 / -1; }
+}
+@media (max-width: 768px) {
+  .insightsGrid { grid-template-columns: 1fr; }
+}

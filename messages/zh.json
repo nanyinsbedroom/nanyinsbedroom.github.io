@@ -1,0 +1,99 @@
+{
+  "GlobalHeader": {
+    "mainButton": "游戏管理器数据库",
+    "subText": "点击此处获取更多数据"
+  },
+  "Dashboard": {
+    "title": "账户仪表板",
+    "lastUpdated": "最后更新：",
+    "refresh": "刷新",
+    "menu": "菜单",
+    "charts": "图表",
+    "selectLanguage": "语言："
+  },
+  "DashboardInsights": {
+    "newPlayerByWeek": "过去一周的新账户",
+    "oldestAccount": "最旧账户",
+    "newAccount": "最新账户",
+    "mostActiveRegion": "最活跃区域",
+    "mostActiveCrew": "最活跃团队",
+    "days": "天"
+  },
+  "WelcomeNote": {
+    "title": "欢迎来到账户仪表板",
+    "intro": "此仪表板是一个社区驱动的项目，旨在提供游戏玩家群体的统计数据和洞察。",
+    "howTitle": "这些数据是如何收集的？",
+    "howText": "信息是使用公开可用的第三方工具收集的。可以将其视为定期的\"游戏内人口普查\"——在特定时刻可见的玩家数据快照。",
+    "disclaimerTitle": "重要免责声明",
+    "disclaimerP1_part1": "明确说明：本网站",
+    "disclaimerP1_part2_important": "不连接实时游戏服务器",
+    "disclaimerP1_part3": "。您看到的数据",
+    "disclaimerP1_part4_important": "不是实时的",
+    "disclaimerP1_part5": "。",
+    "disclaimerP2": "将这些数据视为照片，而不是实时视频。我们定期拍摄这些公共玩家数据的\"快照\"。这意味着信息是延迟视图，而不是游戏中正在发生的实时动态。",
+    "disclaimerP3_part1": "因此，本网站与",
+    "disclaimerP3_part2_company": "Hotta Studio",
+    "disclaimerP3_part3": "或",
+    "disclaimerP3_part4_company": "完美世界游戏",
+    "disclaimerP3_part5": "无关，且数据",
+    "disclaimerP3_part6_important": "可能不是100%完整",
+    "disclaimerP3_part7": "。"
+  },
+  "Sidebar": {
+    "totalPlayers": "总账户数",
+    "regions": "区域",
+    "activeCrews": "最活跃团队",
+    "followUs": "关注我们",
+    "joinCommunity": "加入我们的社区",
+    "contact": "联系"
+  },
+  "Filters": {
+    "allRegions": "所有区域",
+    "allStatus": "所有状态",
+    "online": "在线",
+    "recent": "最近",
+    "inactive": "非活跃",
+    "allGenders": "所有性别",
+    "male": "男性",
+    "female": "女性",
+    "allPlayers": "所有账户",
+    "inACrew": "在团队中",
+    "noCrew": "无团队",
+    "allTime": "所有时间",
+    "newest": "最新",
+    "lastSeen": "最后出现",
+    "searchPlaceholder": "搜索账户或团队..."
+  },
+  "Table": {
+    "headerName": "名称",
+    "headerCrew": "团队",
+    "headerRegion": "区域",
+    "headerRegistered": "注册时间",
+    "headerLastSeen": "最后出现",
+    "crewTableMember": "成员",
+    "footerPagination": "显示账户"
+  },
+  "Charts": {
+    "serverInformation": "服务器信息",
+    "genderDistribution": "性别分布",
+    "newPlayersByYear": "按年份新账户",
+    "monthlyActivePlayers": "月活跃账户",
+    "playerRetention": "按群组账户留存率",
+    "viewReport": "查看详细报告"
+  },
+  "Pagination": {
+    "previous": "上一页",
+    "next": "下一页"
+  },
+  "Server": {
+    "ipAddress": "IP地址",
+    "hostname": "主机名",
+    "asn": "ASN",
+    "isp": "ISP",
+    "services": "服务",
+    "country": "国家",
+    "city": "城市",
+    "latitude": "纬度",
+    "longitude": "经度"
+  }
+}

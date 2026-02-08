@@ -1,0 +1,125 @@
+name: Deploy Next.js to GitHub Pages
+
+on:
+  push:
+    branches: ["main"]
+
+  schedule:
+    - cron: '0 0 * * *'
+
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
+jobs:
+  cleanup:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check disk space
+        run: |
+          df -h
+          sudo du -sh /* 2>/dev/null | sort -hr | head -10
+          
+      - name: Clean up system space
+        run: |
+          sudo apt-get clean
+          sudo apt-get autoremove -y
+          
+          sudo rm -rf /tmp/*
+          sudo rm -rf /var/tmp/*
+          
+          npm cache clean --force || true
+          
+          sudo find /home/runner -name "node_modules" -type d -exec rm -rf {} + 2>/dev/null || true
+          
+      - name: Check disk space after cleanup
+        run: |
+          df -h
+
+  build:
+    runs-on: ubuntu-latest
+    needs: cleanup
+    steps:
+      - name: Check disk space at start
+        run: df -h
+        
+      - name: Checkout
+        uses: actions/checkout@v4
+        
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: 'npm'
+          
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
+        with:
+          static_site_generator: next
+          
+      - name: Install dependencies
+        run: |
+          # Check disk space before install
+          df -h
+          npm ci --legacy-peer-deps
+          # Clean npm cache after install
+          npm cache clean --force
+          
+      - name: Build with Next.js
+        run: |
+          # Check disk space before build
+          df -h
+          npm run build
+          
+      - name: Clean up build artifacts
+        run: |
+          # Remove unnecessary files after build to save space
+          rm -rf .next/cache/*
+          rm -rf node_modules/.cache/*
+          
+      - name: Check disk space before upload
+        run: df -h
+        
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: ./out
+
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Check disk space
+        run: df -h
+        
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
+
+  post-cleanup:
+    runs-on: ubuntu-latest
+    needs: [build, deploy]
+    if: always()
+    steps:
+      - name: Final disk space cleanup
+        run: |
+          echo "=== Final Disk Space Check ==="
+          df -h
+          
+          # Final cleanup
+          sudo apt-get clean
+          npm cache clean --force
+          sudo rm -rf /tmp/*
+          
+          echo "=== Disk Space After Final Cleanup ==="
+          df -h

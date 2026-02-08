@@ -1,0 +1,89 @@
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  background-color: var(--surface-primary);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  padding: 1.5rem;
+  height: 100%;
+  box-sizing: border-box;
+}
+
+.isMobile {
+  background-color: transparent;
+  border: none;
+  padding: 0;
+  height: auto;
+}
+
+.scrollableContent {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  flex-grow: 1;
+}
+
+.card {
+  background-color: var(--surface-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  padding: 0.75rem 1rem;
+}
+
+.card h3 {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  margin-bottom: 0.5rem;
+}
+
+.metric {
+  font-size: 2.25rem;
+  font-weight: 700;
+  color: var(--brand-glow);
+}
+
+.regionNav ul {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.regionNav button {
+  width: 100%;
+  padding: 0.6rem 0.75rem;
+  font-size: 0.95rem;
+  border-radius: 6px;
+  border: none;
+  background-color: transparent;
+  color: var(--text-secondary);
+  text-align: left;
+  cursor: pointer;
+  font-weight: 500;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: all 0.2s ease;
+}
+
+.regionNav button:hover {
+  background-color: rgba(255, 255, 255, 0.05);
+  color: var(--text-primary);
+}
+
+.regionNav button.active {
+  background-color: var(--brand-muted);
+  color: var(--text-primary);
+  font-weight: 600;
+}
+
+.regionCount {
+  font-size: 0.8rem;
+  color: var(--text-tertiary);
+}
+
+.regionNav button.active .regionCount {
+  color: var(--text-primary);
+}

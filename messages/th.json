@@ -1,0 +1,99 @@
+{
+  "GlobalHeader": {
+    "mainButton": "ฐานข้อมูลผู้จัดการเกม",
+    "subText": "คลิกที่นี่เพื่อดูข้อมูลเพิ่มเติม"
+  },
+  "Dashboard": {
+    "title": "แดชบอร์ดบัญชี",
+    "lastUpdated": "อัปเดตล่าสุด:",
+    "refresh": "รีเฟรช",
+    "menu": "เมนู",
+    "charts": "แผนภูมิ",
+    "selectLanguage": "ภาษา:"
+  },
+  "DashboardInsights": {
+    "newPlayerByWeek": "บัญชีใหม่ในสัปดาห์ที่ผ่านมา",
+    "oldestAccount": "บัญชีที่เก่าที่สุด",
+    "newAccount": "บัญชีที่ใหม่ที่สุด",
+    "mostActiveRegion": "ภูมิภาคที่ใช้งานมากที่สุด",
+    "mostActiveCrew": "คริวที่ใช้งานมากที่สุด",
+    "days": "วัน"
+  },
+  "WelcomeNote": {
+    "title": "ยินดีต้อนรับสู่แดชบอร์ดบัญชี",
+    "intro": "แดชบอร์ดนี้เป็นโครงการที่ขับเคลื่อนโดยชุมชน ออกแบบมาเพื่อให้สถิติและข้อมูลเชิงลึกเกี่ยวกับฐานผู้เล่นของเกม",
+    "howTitle": "ข้อมูลนี้ถูกรวบรวมอย่างไร?",
+    "howText": "ข้อมูลถูกรวบรวมโดยใช้เครื่องมือของบุคคลที่สามที่เปิดให้ใช้งานสาธารณะ คิดว่ามันเหมือน \"การสำรวจสำมะโนในเกม\" เป็นระยะ—ภาพรวมของข้อมูลผู้เล่นที่มองเห็นได้ในช่วงเวลาเฉพาะ",
+    "disclaimerTitle": "ข้อกำหนดสำคัญ",
+    "disclaimerP1_part1": "เพื่อความชัดเจน: เว็บไซต์นี้ ",
+    "disclaimerP1_part2_important": "ไม่ได้เชื่อมต่อกับเซิร์ฟเวอร์เกมแบบสด",
+    "disclaimerP1_part3": ". ข้อมูลที่คุณเห็นคือ ",
+    "disclaimerP1_part4_important": "ไม่ใช่แบบเรียลไทม์",
+    "disclaimerP1_part5": ".",
+    "disclaimerP2": "คิดว่าข้อมูลนี้เหมือนรูปถ่าย ไม่ใช่วิดีโอสด เรา \"ถ่ายภาพ\" ข้อมูลผู้เล่นสาธารณะเหล่านี้เป็นระยะ ซึ่งหมายความว่าข้อมูลเป็นมุมมองที่ล่าช้า ไม่ใช่ฟีดสดของสิ่งที่เกิดขึ้นในเกมในขณะนี้",
+    "disclaimerP3_part1": "ดังนั้น เว็บไซต์นี้ไม่มีส่วนเกี่ยวข้องกับ ",
+    "disclaimerP3_part2_company": "Hotta Studio",
+    "disclaimerP3_part3": " หรือ ",
+    "disclaimerP3_part4_company": "Perfect World Games",
+    "disclaimerP3_part5": ", และข้อมูล ",
+    "disclaimerP3_part6_important": "อาจไม่สมบูรณ์ 100%",
+    "disclaimerP3_part7": "."
+  },
+  "Sidebar": {
+    "totalPlayers": "บัญชีทั้งหมด",
+    "regions": "ภูมิภาค",
+    "activeCrews": "คริวที่ใช้งานมากที่สุด",
+    "followUs": "ติดตามเรา",
+    "joinCommunity": "เข้าร่วมชุมชนของเรา",
+    "contact": "ติดต่อ"
+  },
+  "Filters": {
+    "allRegions": "ทุกภูมิภาค",
+    "allStatus": "ทุกสถานะ",
+    "online": "ออนไลน์",
+    "recent": "ล่าสุด",
+    "inactive": "ไม่ใช้งาน",
+    "allGenders": "ทุกเพศ",
+    "male": "ชาย",
+    "female": "หญิง",
+    "allPlayers": "ทุกบัญชี",
+    "inACrew": "อยู่ในคริว",
+    "noCrew": "ไม่มีคริว",
+    "allTime": "ตลอดเวลา",
+    "newest": "ใหม่ที่สุด",
+    "lastSeen": "พบเห็นล่าสุด",
+    "searchPlaceholder": "ค้นหาบัญชีหรือคริว..."
+  },
+  "Table": {
+    "headerName": "ชื่อ",
+    "headerCrew": "คริว",
+    "headerRegion": "ภูมิภาค",
+    "headerRegistered": "ลงทะเบียน",
+    "headerLastSeen": "พบเห็นล่าสุด",
+    "crewTableMember": "สมาชิก",
+    "footerPagination": "แสดงบัญชี"
+  },
+  "Charts": {
+    "serverInformation": "ข้อมูลเซิร์ฟเวอร์",
+    "genderDistribution": "การกระจายตัวของเพศ",
+    "newPlayersByYear": "บัญชีใหม่ตามปี",
+    "monthlyActivePlayers": "บัญชีที่ใช้งานรายเดือน",
+    "playerRetention": "การรักษาบัญชีตามกลุ่ม",
+    "viewReport": "ดูรายงานโดยละเอียด"
+  },
+  "Pagination": {
+    "previous": "ก่อนหน้า",
+    "next": "ถัดไป"
+  },
+  "Server": {
+    "ipAddress": "ที่อยู่ IP",
+    "hostname": "ชื่อโฮสต์",
+    "asn": "ASN",
+    "isp": "ISP",
+    "services": "บริการ",
+    "country": "ประเทศ",
+    "city": "เมือง",
+    "latitude": "ละติจูด",
+    "longitude": "ลองจิจูด"
+  }
+}

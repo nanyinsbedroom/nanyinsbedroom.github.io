@@ -1,0 +1,99 @@
+{
+  "GlobalHeader": {
+    "mainButton": "ゲームマネージャーデータベース",
+    "subText": "詳細データはこちらをクリック"
+  },
+  "Dashboard": {
+    "title": "アカウントダッシュボード",
+    "lastUpdated": "最終更新：",
+    "refresh": "更新",
+    "menu": "メニュー",
+    "charts": "グラフ",
+    "selectLanguage": "言語："
+  },
+  "DashboardInsights": {
+    "newPlayerByWeek": "過去1週間の新規アカウント",
+    "oldestAccount": "最古のアカウント",
+    "newAccount": "最新のアカウント",
+    "mostActiveRegion": "最もアクティブな地域",
+    "mostActiveCrew": "最もアクティブなクルー",
+    "days": "日"
+  },
+  "WelcomeNote": {
+    "title": "アカウントダッシュボードへようこそ",
+    "intro": "このダッシュボードは、ゲームのプレイヤーベースに関する統計と洞察を提供するために設計されたコミュニティ主導のプロジェクトです。",
+    "howTitle": "データの収集方法",
+    "howText": "情報は公開されているサードパーティ製ツールを使用して収集されます。定期的な「ゲーム内国勢調査」と考えてください。特定の時点で表示されるプレイヤーデータのスナップショットです。",
+    "disclaimerTitle": "重要な免責事項",
+    "disclaimerP1_part1": "明確にするために：このウェブサイトは",
+    "disclaimerP1_part2_important": "ライブゲームサーバーに接続しません",
+    "disclaimerP1_part3": "。表示されているデータは",
+    "disclaimerP1_part4_important": "リアルタイムではありません",
+    "disclaimerP1_part5": "。",
+    "disclaimerP2": "このデータはライブビデオではなく写真のように考えてください。公開プレイヤーデータの「スナップショット」を定期的に撮影します。これは情報が遅延したビューであり、ゲーム内で現在起こっていることのライブフィードではないことを意味します。",
+    "disclaimerP3_part1": "したがって、このサイトは",
+    "disclaimerP3_part2_company": "Hotta Studio",
+    "disclaimerP3_part3": "または",
+    "disclaimerP3_part4_company": "Perfect World Games",
+    "disclaimerP3_part5": "とは提携しておらず、データは",
+    "disclaimerP3_part6_important": "100%完全ではない可能性があります",
+    "disclaimerP3_part7": "。"
+  },
+  "Sidebar": {
+    "totalPlayers": "総アカウント数",
+    "regions": "地域",
+    "activeCrews": "最もアクティブなクルー",
+    "followUs": "フォローする",
+    "joinCommunity": "コミュニティに参加",
+    "contact": "連絡先"
+  },
+  "Filters": {
+    "allRegions": "すべての地域",
+    "allStatus": "すべてのステータス",
+    "online": "オンライン",
+    "recent": "最近",
+    "inactive": "非アクティブ",
+    "allGenders": "すべての性別",
+    "male": "男性",
+    "female": "女性",
+    "allPlayers": "すべてのアカウント",
+    "inACrew": "クルー所属",
+    "noCrew": "クルー未所属",
+    "allTime": "全期間",
+    "newest": "最新",
+    "lastSeen": "最終確認",
+    "searchPlaceholder": "アカウントまたはクルーを検索..."
+  },
+  "Table": {
+    "headerName": "名前",
+    "headerCrew": "クルー",
+    "headerRegion": "地域",
+    "headerRegistered": "登録日",
+    "headerLastSeen": "最終確認",
+    "crewTableMember": "メンバー",
+    "footerPagination": "アカウントを表示"
+  },
+  "Charts": {
+    "serverInformation": "サーバー情報",
+    "genderDistribution": "性別分布",
+    "newPlayersByYear": "年別新規アカウント",
+    "monthlyActivePlayers": "月間アクティブアカウント",
+    "playerRetention": "コホート別アカウント維持率",
+    "viewReport": "詳細レポートを表示"
+  },
+  "Pagination": {
+    "previous": "前へ",
+    "next": "次へ"
+  },
+  "Server": {
+    "ipAddress": "IPアドレス",
+    "hostname": "ホスト名",
+    "asn": "ASN",
+    "isp": "ISP",
+    "services": "サービス",
+    "country": "国",
+    "city": "都市",
+    "latitude": "緯度",
+    "longitude": "経度"
+  }
+}

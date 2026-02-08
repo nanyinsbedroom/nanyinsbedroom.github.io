@@ -1,0 +1,99 @@
+{
+  "GlobalHeader": {
+    "mainButton": "Base de Datos del Administrador del Juego",
+    "subText": "Haga clic aquí para más datos"
+  },
+  "Dashboard": {
+    "title": "Panel de Cuentas",
+    "lastUpdated": "Última actualización:",
+    "refresh": "Actualizar",
+    "menu": "Menú",
+    "charts": "Gráficos",
+    "selectLanguage": "Idioma:"
+  },
+  "DashboardInsights": {
+    "newPlayerByWeek": "Cuentas nuevas en la última semana",
+    "oldestAccount": "Cuenta más antigua",
+    "newAccount": "Cuenta más nueva",
+    "mostActiveRegion": "Región más activa",
+    "mostActiveCrew": "Equipo más activo",
+    "days": "días"
+  },
+  "WelcomeNote": {
+    "title": "Bienvenido al Panel de Cuentas",
+    "intro": "Este panel es un proyecto impulsado por la comunidad diseñado para proporcionar estadísticas e información sobre la base de jugadores del juego.",
+    "howTitle": "¿Cómo se recopilan estos datos?",
+    "howText": "La información se recopila utilizando herramientas de terceros disponibles públicamente. Piénselo como un \"censo en el juego\" periódico: una instantánea de los datos de los jugadores que son visibles en un momento específico en el tiempo.",
+    "disclaimerTitle": "Aviso Importante",
+    "disclaimerP1_part1": "Para ser claros: este sitio web ",
+    "disclaimerP1_part2_important": "no se conecta a los servidores del juego en vivo",
+    "disclaimerP1_part3": ". Los datos que ve son ",
+    "disclaimerP1_part4_important": "no en tiempo real",
+    "disclaimerP1_part5": ".",
+    "disclaimerP2": "Piense en estos datos como una fotografía, no como un video en vivo. Tomamos estas \"instantáneas\" de datos públicos de jugadores periódicamente. Esto significa que la información es una vista retrasada, no una transmisión en vivo de lo que está sucediendo en el juego en este momento.",
+    "disclaimerP3_part1": "Por lo tanto, este sitio no está afiliado con ",
+    "disclaimerP3_part2_company": "Hotta Studio",
+    "disclaimerP3_part3": " o ",
+    "disclaimerP3_part4_company": "Perfect World Games",
+    "disclaimerP3_part5": ", y los datos ",
+    "disclaimerP3_part6_important": "pueden no ser 100% completos",
+    "disclaimerP3_part7": "."
+  },
+  "Sidebar": {
+    "totalPlayers": "Cuentas Totales",
+    "regions": "Regiones",
+    "activeCrews": "Equipos Más Activos",
+    "followUs": "Síganos",
+    "joinCommunity": "Únase a Nuestra Comunidad",
+    "contact": "Contacto"
+  },
+  "Filters": {
+    "allRegions": "Todas las Regiones",
+    "allStatus": "Todos los Estados",
+    "online": "En Línea",
+    "recent": "Reciente",
+    "inactive": "Inactivo",
+    "allGenders": "Todos los Géneros",
+    "male": "Masculino",
+    "female": "Femenino",
+    "allPlayers": "Todas las Cuentas",
+    "inACrew": "En un Equipo",
+    "noCrew": "Sin Equipo",
+    "allTime": "Todo el Tiempo",
+    "newest": "Más Nuevo",
+    "lastSeen": "Visto por Última Vez",
+    "searchPlaceholder": "Buscar Cuentas o Equipos..."
+  },
+  "Table": {
+    "headerName": "Nombre",
+    "headerCrew": "Equipo",
+    "headerRegion": "Región",
+    "headerRegistered": "Registrado",
+    "headerLastSeen": "Visto por Última Vez",
+    "crewTableMember": "miembros",
+    "footerPagination": "Mostrando Cuentas"
+  },
+  "Charts": {
+    "serverInformation": "Información del Servidor",
+    "genderDistribution": "Distribución de Género",
+    "newPlayersByYear": "Cuentas Nuevas por Año",
+    "monthlyActivePlayers": "Cuentas Activas Mensuales",
+    "playerRetention": "Retención de Cuentas por Cohorte",
+    "viewReport": "Ver Informe Detallado"
+  },
+  "Pagination": {
+    "previous": "Anterior",
+    "next": "Siguiente"
+  },
+  "Server": {
+    "ipAddress": "Dirección IP",
+    "hostname": "Nombre de Host",
+    "asn": "ASN",
+    "isp": "ISP",
+    "services": "Servicios",
+    "country": "País",
+    "city": "Ciudad",
+    "latitude": "Latitud",
+    "longitude": "Longitud"
+  }
+}

@@ -1,0 +1,99 @@
+{
+  "GlobalHeader": {
+    "mainButton": "Pangkalan Data Pengurus Permainan",
+    "subText": "Klik di sini untuk lebih banyak data"
+  },
+  "Dashboard": {
+    "title": "Papan Pemuka Akaun",
+    "lastUpdated": "Kemaskini Terkini:",
+    "refresh": "Segar Semula",
+    "menu": "Menu",
+    "charts": "Carta",
+    "selectLanguage": "Bahasa:"
+  },
+  "DashboardInsights": {
+    "newPlayerByWeek": "Akaun baru dalam minggu lepas",
+    "oldestAccount": "Akaun tertua",
+    "newAccount": "Akaun terbaru",
+    "mostActiveRegion": "Wilayah paling aktif",
+    "mostActiveCrew": "Krew paling aktif",
+    "days": "hari"
+  },
+  "WelcomeNote": {
+    "title": "Selamat Datang ke Papan Pemuka Akaun",
+    "intro": "Papan pemuka ini adalah projek komuniti yang direka untuk memberikan statistik dan pandangan tentang asas pemain permainan.",
+    "howTitle": "Bagaimana data ini dikumpul?",
+    "howText": "Maklumat dikumpul menggunakan alat pihak ketiga yang tersedia secara awam. Fikirkannya seperti \"bancian dalam permainan\" berkala—gambaran data pemain yang kelihatan pada masa tertentu.",
+    "disclaimerTitle": "Penafian Penting",
+    "disclaimerP1_part1": "Untuk menjelaskan: laman web ini ",
+    "disclaimerP1_part2_important": "tidak menyambung ke pelayan permainan langsung",
+    "disclaimerP1_part3": ". Data yang anda lihat adalah ",
+    "disclaimerP1_part4_important": "bukan masa nyata",
+    "disclaimerP1_part5": ".",
+    "disclaimerP2": "Fikirkan data ini seperti gambar foto, bukan video langsung. Kami mengambil \"gambaran\" data pemain awam ini secara berkala. Ini bermakna maklumat adalah pandangan tertunda, bukan suapan langsung apa yang berlaku dalam permainan sekarang.",
+    "disclaimerP3_part1": "Oleh itu, laman ini tidak berafiliasi dengan ",
+    "disclaimerP3_part2_company": "Hotta Studio",
+    "disclaimerP3_part3": " atau ",
+    "disclaimerP3_part4_company": "Perfect World Games",
+    "disclaimerP3_part5": ", dan data ",
+    "disclaimerP3_part6_important": "mungkin tidak 100% lengkap",
+    "disclaimerP3_part7": "."
+  },
+  "Sidebar": {
+    "totalPlayers": "Jumlah Akaun",
+    "regions": "Wilayah",
+    "activeCrews": "Krew Paling Aktif",
+    "followUs": "Ikuti Kami",
+    "joinCommunity": "Sertai Komuniti Kami",
+    "contact": "Hubungi"
+  },
+  "Filters": {
+    "allRegions": "Semua Wilayah",
+    "allStatus": "Semua Status",
+    "online": "Dalam Talian",
+    "recent": "Terkini",
+    "inactive": "Tidak Aktif",
+    "allGenders": "Semua Jantina",
+    "male": "Lelaki",
+    "female": "Perempuan",
+    "allPlayers": "Semua Akaun",
+    "inACrew": "Dalam Krew",
+    "noCrew": "Tiada Krew",
+    "allTime": "Sepanjang Masa",
+    "newest": "Terkini",
+    "lastSeen": "Kali Terakhir Dilihat",
+    "searchPlaceholder": "Cari Akaun atau Krew..."
+  },
+  "Table": {
+    "headerName": "Nama",
+    "headerCrew": "Krew",
+    "headerRegion": "Wilayah",
+    "headerRegistered": "Didaftarkan",
+    "headerLastSeen": "Kali Terakhir Dilihat",
+    "crewTableMember": "ahli",
+    "footerPagination": "Menunjukkan Akaun"
+  },
+  "Charts": {
+    "serverInformation": "Maklumat Pelayan",
+    "genderDistribution": "Taburan Jantina",
+    "newPlayersByYear": "Akaun Baru mengikut Tahun",
+    "monthlyActivePlayers": "Akaun Aktif Bulanan",
+    "playerRetention": "Pengekalan Akaun mengikut Kohort",
+    "viewReport": "Lihat Laporan Terperinci"
+  },
+  "Pagination": {
+    "previous": "Sebelumnya",
+    "next": "Seterusnya"
+  },
+  "Server": {
+    "ipAddress": "Alamat IP",
+    "hostname": "Nama Hos",
+    "asn": "ASN",
+    "isp": "ISP",
+    "services": "Perkhidmatan",
+    "country": "Negara",
+    "city": "Bandar",
+    "latitude": "Garis Lintang",
+    "longitude": "Garis Bujur"
+  }
+}

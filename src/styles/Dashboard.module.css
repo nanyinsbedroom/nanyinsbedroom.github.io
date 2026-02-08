@@ -1,0 +1,103 @@
+.pageContainer {
+  display: flex;
+  width: 100%;
+}
+
+.mainContent {
+  flex-grow: 1;
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  min-width: 0;
+}
+
+.topBar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 1.25rem;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.topBar h1 {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.topBar p {
+  color: var(--text-secondary);
+  font-size: 0.85rem;
+}
+
+.headerActions {
+  display: contents;
+  align-items: center;
+}
+
+.refreshButton {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: var(--surface-primary);
+  border: 1px solid var(--border-color);
+  color: var(--text-secondary);
+  padding: 0.6rem 1.2rem;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+
+.refreshButton:hover {
+  border-color: var(--brand-glow);
+  color: var(--text-primary);
+}
+
+.chartsGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.25rem;
+}
+
+.mobileWingButton {
+  display: none;
+}
+
+@media (min-width: 1200px) {
+  .mainContent {
+    padding: 2rem;
+  }
+
+  .topBar h1 {
+    font-size: 1.75rem;
+  }
+}
+
+@media (min-width: 768px) {
+  .chartsGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 1199px) {
+  .mobileWingButton {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: var(--surface-primary);
+    border: 1px solid var(--border-color);
+    color: var(--text-secondary);
+    padding: 0.6rem 1.2rem;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: all 0.2s ease;
+  }
+
+  .mobileWingButton:hover {
+    border-color: var(--brand-glow);
+    color: var(--text-primary);
+  }
+}
